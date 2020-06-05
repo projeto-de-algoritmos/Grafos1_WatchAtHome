@@ -1,0 +1,292 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+div.interface {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+    background: #000;
+}
+
+div.header {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    background: rgba(24,42,45,.59);
+}
+
+div.header #search-box {
+    position: absolute;
+    justify-self: flex-start;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 60px;
+    visibility: hidden;
+    border: 0;
+    background: #1a1c1b;
+    opacity: 0.5;
+    font-size: 2em;
+    padding: 20px;
+    caret-color: #fff;
+    color: #fff;
+    transition: all .5s;
+}
+
+div.header .logo {
+    background: rgba(24,42,45,.59);
+}
+
+div.header .logo img {
+    margin-top: 10px;
+    max-width: 250px;
+    max-height: 50px;
+    display: inline-block;
+}
+
+div.signup-login-buttons {
+    position: absolute;
+    right: 0;
+    margin-right: 5vw;
+}
+
+div.signup-login-buttons li {
+    list-style-type: none;
+    display: inline-block;
+    background: #b7b7b7;
+}
+
+div.signup-login-buttons button + li {
+    background: transparent;
+}
+
+div.signup-login-buttons button {
+    color: #fff;
+    font-weight: bolder;
+    background: transparent;
+    border: 0;
+    padding: 1vw;
+}
+
+div.signup-login-buttons button:hover {
+    background: #24ABA7;
+}
+
+div.header #lupa-icon {
+    justify-self: flex-start;
+    position: absolute;
+    left: 0;
+    margin-left: 2em;
+    max-width: 50px;
+    max-height: 50px;
+    border-radius: 20px 20px;
+}
+
+div.header #lupa-icon:hover {
+    cursor: pointer;
+    transform: scale(1.2);
+    box-shadow: 2px 2px 2px rgba(0,0,0,0.5);
+}
+
+div.header nav li {
+    text-transform: uppercase;
+    list-style-type: none;
+    display: inline-block;
+    font-size: 1.2em;
+    font-weight: bolder;
+    min-width: 5em;
+    min-height: 2em;
+    text-align: center;
+}
+
+div.header li:hover {
+    background: #211f1f;
+}
+
+div.header nav li a {
+    color: #fff;
+    text-decoration: none;
+    line-height: 2em;
+}
+
+nav ul li + li {
+    margin-left: 10px;
+}
+
+div.modal-form {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    background: #fff;
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    display: none;
+}
+
+div.presentation {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+img#logo-presentation {
+    margin-top: 5vw;
+    margin-bottom: 2vw;
+}
+
+div#container-search {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+div#container-search button {
+    max-width: 250px;
+    max-height: 6vw;
+    position: sticky;
+    top: 0;
+}
+
+div#container-search img {
+    max-width: 220px;
+    max-height: 5.5vw;
+}
+
+div#container-search button {
+    border-radius: 5px 5px 5px 5px;
+}
+
+input#search-box-main {
+    width: 60vw;
+    height: 6vw;
+    font-size: 24px;
+    border: 0;
+    border-radius: 5px 5px 5px 5px;
+    text-indent: 15px;
+    position: sticky;
+    top: 0;
+}
+
+input#search-box-main:focus {
+    outline: none;
+}
+
+div.movies-gallery {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    margin-top: 10vw;
+}
+
+div.movies-gallery header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(255,255,255,.1);
+}
+
+div.movies-categories ul {
+    background: rgba(0,0,0,.1);
+}
+
+div.movies-categories ul li {
+    display: inline-block;
+    padding: 20px;
+}
+
+div.movies-categories a {
+    text-decoration: none;
+}
+
+div.movies-categories a:hover {
+    color: #aaa;
+}
+
+div.movies-categories a, div.movies-categories li {
+    color: #fff;
+    text-transform: uppercase;
+}
+
+div.movies-categories ul li > i {
+    margin-right: 20px;
+}
+
+div.arrow-buttons {
+    margin-right: 5px;
+}
+
+div.arrow-buttons button {
+    padding: 10px 15px;
+    color: #fff;
+    border: 1px solid #fff;
+    background: #000;
+}
+
+div.arrow-buttons button:hover {
+    background: #fff;
+    color: #000;
+}
+
+div.movies-list {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 10px;
+    width: 3500px;
+}
+
+div.movies-list ul li {
+    display: inline-block;
+    position: relative;
+    text-align: center;
+    color: #FFF;
+}
+
+div.movies-list ul li + li {
+    margin-left: 10px;
+}
+
+div.movies-list ul li img {
+    width: 160px;
+    height: 230px;
+}
+
+div.movies-list ul li figcaption {
+    position: absolute;
+    bottom: 0;
+    margin-bottom: 10px;
+    background:rgba(71, 71, 71, 0.267);
+}
+
+div.movies-list img#vote-icon {
+    max-height: 20px;
+    max-width: 30px;
+}
+
+div.footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+div.footer #main-footer {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: rgba(180, 180, 180, 0.6);
+}
+
+div.footer #main-footer a {
+    color: #000;
+}
