@@ -1,3 +1,11 @@
+import './../assets/css/style.css';
+
+import lupaImg from './../assets/images/lupa.png';
+import logoImg from './../assets/images/logo.png';
+
+import renderMovies from './renderMovies';
+import searchMovies from './searchMovies';
+
 let lupa = document.querySelector('img#lupa-icon');
 let searchBox = document.querySelector('input#search-box');
 
