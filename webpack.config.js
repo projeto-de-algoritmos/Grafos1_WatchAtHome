@@ -2,10 +2,13 @@ const path = require('path');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 module.exports = {
-    entry: ['@babel/polyfill','./src/js/elementsHandler.js'],
+    entry: {
+        index: ['@babel/polyfill','./src/js/elementsHandler.js'],
+        results: ['@babel/polyfill','./src/js/searchMovies.js']
+    },
     output: {
         path: path.resolve(__dirname, 'public'),
-        filename: 'bundle.js',
+        filename: '[name].bundle.js',
     },
     devServer: {
         contentBase: path.resolve(__dirname, 'public'),
