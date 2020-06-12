@@ -2,6 +2,7 @@ import './../assets/css/style.css';
 
 import lupaImg from './../assets/images/lupa.png';
 import logoImg from './../assets/images/logo.png';
+import imdbIcon from './../assets/images/imdb_icon.png';
 
 import renderMovies from './renderMovies';
 import searchMovies from './searchMovies';
