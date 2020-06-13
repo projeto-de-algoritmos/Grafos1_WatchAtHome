@@ -17,7 +17,9 @@ async function makeSearch() {
         }
     } catch (error) {
         console.log(error.message);
+        //I should fix the problem of not found results here
     }
 }
+
 
 makeSearch();

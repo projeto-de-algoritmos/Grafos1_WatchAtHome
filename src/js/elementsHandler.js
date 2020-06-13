@@ -10,6 +10,7 @@ let lupa = document.querySelector('img#lupa-icon');
 let searchBox = document.querySelector('input#search-box');
 let searchBoxMain = document.getElementById('search-box-main');
 let targetButton = document.querySelector('button#button-search-main');
+let buttonSearch2nd = document.getElementById('button-search');
 let termSearched;
 
 let signupButton = document.getElementById('signup');
@@ -42,10 +43,12 @@ function init() {
     arrowLeft.addEventListener("click", passToLeft);
     arrowRight.addEventListener("click", passToRight);
     targetButton.addEventListener("click", catchTermRedirPage);
+    buttonSearch2nd.addEventListener("click", catchTermRedirPage);
 }
 
 function openSearchBox() {
     searchBox.style.visibility = "visible";
+    buttonSearch2nd.style.visibility = "visible";
     lupa.style.maxWidth = "40px";
     lupa.style.maxHeight = "40px";
     lupa.style.marginTop = "-1em";
@@ -54,6 +57,7 @@ function openSearchBox() {
 function closeSearchBox(event) {
     if (searchBox !== event.target && lupa !== event.target) {
         searchBox.style.visibility = "hidden";
+        buttonSearch2nd.style.visibility = "hidden";
         lupa.style.maxWidth = "50px";
         lupa.style.maxHeight = "50px";
         lupa.style.marginTop = "";
@@ -87,9 +91,11 @@ function passToRight() {
 }
 
 async function catchTermRedirPage() {
-    termSearched = await searchBoxMain.value;
+    termSearched = await (
+        searchBoxMain.value === '' ? searchBox.value : searchBoxMain.value);
     localStorage.setItem('termSearched', termSearched);
     window.location = './moviesResult.html';
+    console.log(searchBoxMain.value);
 }
 
 init();
