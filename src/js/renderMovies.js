@@ -1,7 +1,5 @@
 const apiKey = 'ef18473cad0b168218935d1d9dfe7c17';
-const moviesList = {
-    list: [],
-};
+
 let page = 1;
 const url = `https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&language=pt-BR&page=${page}`;
 
@@ -25,21 +23,31 @@ const renderMovie = () => {
 }
 
 renderMovie().then(onfulfilled => {
-    onfulfilled.results.map(movie => {
-        let newUrl = "https://image.tmdb.org/t/p/w500" + movie.poster_path;
-        let overMovie = { ...movie, poster_path: newUrl }
-        moviesList.list.push(overMovie);
-        registerMovies();
-    })
+    modifyImgUrl(onfulfilled.results);
 })
 .catch(onrejected => alert(onrejected));
-console.log(moviesList.list);
 
-const registerMovies = () => {
+const registerMovies = (moviesResults) => {
     const source = document.getElementById('source').innerHTML;
     const template = Handlebars.compile(source);
 
-    const compiledHTML = template(moviesList);
+    const compiledHTML = template(moviesResults);
     const target = document.getElementById('list');
     target.innerHTML = compiledHTML;
 }
+
+const modifyImgUrl = (moviesResults) => {
+    const moviesList = {
+        list: [],
+    };
+
+    //moviesResults should be an array of objects
+    moviesResults.map(movie => {
+        let newUrl = "https://image.tmdb.org/t/p/w500" + movie.poster_path;
+        let modifiedMovie = { ...movie, poster_path: newUrl }
+        moviesList.list.push(modifiedMovie);
+    })
+    registerMovies(moviesList);
+}
+
+export { apiKey, modifyImgUrl };

@@ -5,10 +5,12 @@ import logoImg from './../assets/images/logo.png';
 import imdbIcon from './../assets/images/imdb_icon.png';
 
 import renderMovies from './renderMovies';
-import searchMovies from './searchMovies';
 
 let lupa = document.querySelector('img#lupa-icon');
 let searchBox = document.querySelector('input#search-box');
+let searchBoxMain = document.getElementById('search-box-main');
+let targetButton = document.querySelector('button#button-search-main');
+let termSearched;
 
 let signupButton = document.getElementById('signup');
 let loginButton = document.getElementById('login');
@@ -31,6 +33,15 @@ function init() {
     footerInfo.textContent = `© Copyright todos os direitos reservados - ${year}`;
 
     mainFooter.appendChild(footerInfo);
+
+    lupa.addEventListener("click", openSearchBox);
+    document.addEventListener("click", closeSearchBox);
+    signupButton.addEventListener("click", openRegisterForm);
+    loginButton.addEventListener("click", openLoginForm);
+    closeRegisterFormBtn.addEventListener("click", closeRegisterForm);
+    arrowLeft.addEventListener("click", passToLeft);
+    arrowRight.addEventListener("click", passToRight);
+    targetButton.addEventListener("click", catchTermRedirPage);
 }
 
 function openSearchBox() {
@@ -75,12 +86,10 @@ function passToRight() {
     }
 }
 
-init();
+async function catchTermRedirPage() {
+    termSearched = await searchBoxMain.value;
+    localStorage.setItem('termSearched', termSearched);
+    window.location = './moviesResult.html';
+}
 
-lupa.addEventListener("click", openSearchBox);
-document.addEventListener("click", closeSearchBox);
-signupButton.addEventListener("click", openRegisterForm);
-loginButton.addEventListener("click", openLoginForm);
-closeRegisterFormBtn.addEventListener("click", closeRegisterForm);
-arrowLeft.addEventListener("click", passToLeft);
-arrowRight.addEventListener("click", passToRight);
+init();
