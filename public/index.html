@@ -59,15 +59,16 @@
         <div class="modal-form">
             <form method="POST" id="register-form">
                 <button type="button" id="close-register-form">X</button>
-                <fieldset>
-                    <label for="username">Usuário</label><br>
-                    <input 
-                        type="text" 
-                        name="username" 
-                        id="username"
-                        placeholder="Nome de usuário"
-                        required
-                    >
+                <input type="email" name="user-email" id="user-email" placeholder="Email" required>
+                <input type="password" name="user-password" id="user-password" placeholder="Senha" required>
+                <input 
+                    type="text" 
+                    name="username" 
+                    id="username"
+                    placeholder="Nome de usuário"
+                    required
+                >
+                <div>
                     <p>Por favor, selecione seu sexo:</p>
                     <input 
                         type="radio" 
@@ -83,14 +84,6 @@
                         value="feminino"
                         >
                     <label for="feminino">Feminino</label>
-                </fieldset>
-                <div>
-                    <label for="user-email">Email:</label>
-                    <input type="email" name="user-email" id="user-email" required>
-                </div>
-                <div>
-                    <label for="user-password">Senha:</label>
-                    <input type="password" name="user-password" id="user-password" required>
                 </div>
                 <button type="submit">INSCREVER-SE</button>
             </form>
@@ -100,10 +93,10 @@
                 <img id="logo-presentation" src="./../src/assets/images/logo.png">
                 <div id="container-search">
                     <input 
-                        type="search" 
-                        name="search" 
-                        id="search-box-main" 
-                        placeholder="Procure seus filmes e séries aqui">
+                    type="search" 
+                    name="search" 
+                    id="search-box-main" 
+                    placeholder="Procure seus filmes e séries aqui">
                     <button type="submit" id="button-search-main">
                         <img src="./../src/assets/images/lupa.png" id="lupa-icon">
                     </button>
