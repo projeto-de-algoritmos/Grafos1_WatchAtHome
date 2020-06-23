@@ -1,6 +1,6 @@
-const binId = '5ee56a58ccc9877ac37b0172/latest';
+const binId = '5eeeb5e62406353b2e09962b';
 const secretKey = '$2b$10$jxow4GADDMrolpxvMGbFcOqDcqkAYAykopUHA6Obtp9i8z0si6n3u';
-const url = `https://api.jsonbin.io/b/${binId}`;
+const url = `https://api.jsonbin.io/b/${binId}/latest`;
 
 export class ManagerUsers {
     constructor() {
@@ -101,8 +101,23 @@ export class ManagerUsers {
 
     //Capturar dados do form, validá-los e fazer requisição para dar
     //update com novo usuário no JSON
-    createUser() {
-        
+    async createUser() {
+        let users = this.readUsers().then(onfulfilled => onfulfilled)
+            .catch(reject => console.log(reject));
+
+        let newUsers = [{
+            username: this._username,
+            password: this._password,
+            email: this._email,
+            sex: this._sex
+        }];
+
+        for (let item of await users) {
+            newUsers.push(item);
+        }
+
+        console.log(await newUsers);
+
     }
 
     readUsers() {
@@ -125,11 +140,7 @@ export class ManagerUsers {
             }) 
         }
 
-        requestUsers().then(onfulfilled => {
-            console.log(onfulfilled);
-            return onfulfilled;
-        }).catch(reject => console.log(reject));
-
+        return requestUsers();
     }
 
     readUser() {
