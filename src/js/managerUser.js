@@ -118,6 +118,19 @@ export class ManagerUsers {
 
         console.log(await newUsers);
 
+        let data = JSON.stringify(newUsers);
+
+        try {
+            const response = await fetch(`https://api.jsonbin.io/b/${binId}`, {
+                method: 'PUT', headers: { 
+                    'secret-key': secretKey,
+                    'Content-Type': 'application/json'
+                }, body: data
+            });
+        } catch (error) {
+            console.log(error);
+        }
+
     }
 
     readUsers() {
