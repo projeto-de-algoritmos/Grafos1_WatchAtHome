@@ -5,6 +5,7 @@ import logoImg from './../assets/images/logo.png';
 import imdbIcon from './../assets/images/imdb_icon.png';
 
 import renderMovies from './renderMovies';
+import { ManagerUsers } from './managerUser.js';
 
 let lupa = document.querySelector('img#lupa-icon');
 let searchBox = document.querySelector('input#search-box');
@@ -22,6 +23,13 @@ let closeRegisterFormBtn = document.getElementById('close-register-form');
 let arrowLeft = document.querySelector('div.popular-movies').firstElementChild;
 let arrowRight = document.querySelector('div.popular-movies').lastElementChild;
 let movies = document.getElementsByClassName('movies-list')[0];
+
+let email = document.getElementById('user-email');
+let username = document.getElementById('username');
+let password = document.getElementById('user-password');
+let sexMale = document.getElementById('masculino');
+let sexFemale = document.getElementById('feminino');
+let createUserButton = document.getElementById('submit-user');
 
 let marginLeftStatic = 0;
 
@@ -44,6 +52,7 @@ function init() {
     arrowRight.addEventListener("click", passToRight);
     targetButton.addEventListener("click", catchTermRedirPage);
     buttonSearch2nd.addEventListener("click", catchTermRedirPage);
+    createUserButton.addEventListener("click", signup);
 }
 
 function openSearchBox() {
@@ -96,6 +105,19 @@ async function catchTermRedirPage() {
     localStorage.setItem('termSearched', termSearched);
     window.location = './moviesResult.html';
     console.log(searchBoxMain.value);
+}
+
+async function signup(event) {
+    event.preventDefault();
+
+    let user = new ManagerUsers();
+
+    user.username = username.value;
+    user.password = password.value;
+    user.email = email.value;
+    user.sex = (sexFemale.checked ? sexFemale.value : sexMale.value);
+
+    user.createUser();
 }
 
 init();
