@@ -116,7 +116,7 @@ async function signup(event) {
     user.password = password.value;
     user.email = email.value;
     user.sex = (sexFemale.checked ? sexFemale.value : sexMale.value);
-
+    
     user.createUser();
 }
 

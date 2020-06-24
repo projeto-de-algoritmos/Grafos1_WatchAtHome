@@ -23,13 +23,13 @@ export class ManagerUsers {
                     message: 'O nome do usuário não pode ficar em branco.'
                 }
             for (let i = 0; i < username.length; i++)
-                if (username.charCodeAt(i) >= 48 || username.charCodeAt(i) <= 57)
+                if (username.charCodeAt(i) >= 48 && username.charCodeAt(i) <= 57)
                     throw {
                         name: 'Caracters inválidos',
                         message: 'O nome do usuário não pode conter números.'
                     }
         } catch (error) {
-            return error;
+            console.log(error);
         }
     }
 
@@ -43,7 +43,7 @@ export class ManagerUsers {
                     message: 'O campo email não pode ficar em branco.'
                 }
         } catch (error) {
-            return error;
+            console.log(error);
         }
     }
 
@@ -57,7 +57,7 @@ export class ManagerUsers {
                     message: 'O campo password não pode ficar em branco.'
                 }
         } catch (error) {
-            return error;
+            console.log(error);
         }
     }
 
@@ -71,7 +71,7 @@ export class ManagerUsers {
                     message: 'O campo sex não pode ficar em branco.'
                 }
         } catch (error) {
-            return error;
+            console.log(error);
         }
     }
 
@@ -101,35 +101,46 @@ export class ManagerUsers {
 
     //Capturar dados do form, validá-los e fazer requisição para dar
     //update com novo usuário no JSON
-    async createUser() {
-        let users = this.readUsers().then(onfulfilled => onfulfilled)
+    createUser() {
+
+        this.validateUser({
+            username: this._username,
+            email: this._email,
+            password: this._password,
+            sex: this._sex
+        }).then(async onfulfilled => {
+            console.log(onfulfilled);
+
+            let newUsers = [{
+                username: this._username,
+                email: this._email,
+                password: this._password,
+                sex: this._sex
+            }];
+
+            let users = this.readUsers().then(onfulfilled => onfulfilled)
             .catch(reject => console.log(reject));
 
-        let newUsers = [{
-            username: this._username,
-            password: this._password,
-            email: this._email,
-            sex: this._sex
-        }];
+            for (let item of await users) {
+                newUsers.push(item);
+            }
 
-        for (let item of await users) {
-            newUsers.push(item);
-        }
+            console.log(await newUsers);
 
-        console.log(await newUsers);
+            let data = JSON.stringify(newUsers);
 
-        let data = JSON.stringify(newUsers);
+            try {
+                const response = await fetch(`https://api.jsonbin.io/b/${binId}`, {
+                    method: 'PUT', headers: { 
+                        'secret-key': secretKey,
+                        'Content-Type': 'application/json'
+                    }, body: data
+                });
+            } catch (error) {
+                console.log(error);
+            }
 
-        try {
-            const response = await fetch(`https://api.jsonbin.io/b/${binId}`, {
-                method: 'PUT', headers: { 
-                    'secret-key': secretKey,
-                    'Content-Type': 'application/json'
-                }, body: data
-            });
-        } catch (error) {
-            console.log(error);
-        }
+        }).catch(onrejected => console.log(`${onrejected.name}\n${onrejected.message}`));
 
     }
 
@@ -157,7 +168,7 @@ export class ManagerUsers {
     }
 
     readUser() {
-
+        
     }
 
     updateUser() {
@@ -168,7 +179,24 @@ export class ManagerUsers {
 
     }
 
-    validateUser() {
+    async validateUser(user) {
+        let users = this.readUsers().then(onfulfilled => onfulfilled)
+            .catch(reject => console.log(reject));
+        
+        return new Promise(async (resolve, reject) => {
 
+            for (let item of await users) {
+                for (let key in item) {
+                    if (this._username == item[key])
+                        return reject({ name: 'Username', message: 'This username already was choosen!'});
+                    else if (this._email == item[key])
+                        return reject({ name: 'Email', message: 'This email is already in use!' });
+                    else if (this._password == item[key])
+                        return reject({name: 'Password', message: 'This password already exist!' });
+                }
+            }
+
+            return resolve('Wait a moment...');
+            });
     }
 }
