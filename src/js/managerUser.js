@@ -167,12 +167,34 @@ export class ManagerUsers {
         return requestUsers();
     }
 
-    readUser() {
-        
+    async readUser() {
+        let searchedUser = {
+            email: this._email,
+        };
+
+        let users = this.readUsers().then(onfulfilled => onfulfilled)
+            .catch(onrejected => console.error(onrejected));
+
+        try {
+            for (let item of await users)
+                for (let key in item) {
+                    if (item[key] === searchedUser.email) {
+                        return item;
+                    }
+                }
+            
+            throw {
+                name: 'Unknown user',
+                message: 'This user doesn\'t exist!'
+            }
+
+        } catch(error) {
+            console.error(error);
+        }
     }
 
     updateUser() {
-
+        
     }
 
     deleteUser() {
@@ -187,16 +209,37 @@ export class ManagerUsers {
 
             for (let item of await users) {
                 for (let key in item) {
-                    if (this._username == item[key])
+                    if (this.username == item[key])
                         return reject({ name: 'Username', message: 'This username already was choosen!'});
-                    else if (this._email == item[key])
+                    else if (this.email == item[key])
                         return reject({ name: 'Email', message: 'This email is already in use!' });
-                    else if (this._password == item[key])
+                    else if (this.password == item[key])
                         return reject({name: 'Password', message: 'This password already exist!' });
                 }
             }
 
             return resolve('Wait a moment...');
-            });
+        });
+    }
+
+    async signin() {
+        this.readUser().then(user => {
+            try {
+                if (user.password === this.password) {
+                    this.username = user.username;
+                    this.sex = user.sex;
+                    localStorage.setItem('user', JSON.stringify(user));
+                    localStorage.setItem('isLogged', 'true');
+                } else {
+                    throw {
+                        name: 'Invalid password',
+                        message: 'Your password is wrong!'
+                    }
+                }
+            } catch(error) {
+                console.error(error);
+            }
+        }).catch(onrejected => console.log(onrejected));
+            
     }
 }

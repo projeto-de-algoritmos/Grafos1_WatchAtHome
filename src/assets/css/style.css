@@ -78,6 +78,28 @@ div.signup-login-buttons button:hover {
     background: #24ABA7;
 }
 
+div.account-info {
+    position: absolute;
+    display: none;
+    justify-content: space-between;
+    align-items: center;
+    right: 0;
+    margin-right: 5vw;
+}
+
+div.account-info i {
+    font-size: 2.5em;
+    border-radius: 1.25em;
+    background-color: #4287f5;
+    padding: 0.2em;
+}
+
+div.account-info p {
+    font-size: 2em;
+    margin-right: 1vw;
+    color: #ddd;
+}
+
 div.header #lupa-icon {
     justify-self: flex-start;
     position: absolute;
@@ -150,7 +172,7 @@ div.modal-form {
     display: none;
 }
 
-form#register-form {
+form#register-form, form#login-form {
     position: relative;
     background: rgb(24,24,32);
     background: linear-gradient(144deg, rgba(24,24,32,1) 24%, rgba(29,29,36,1) 37%, rgba(51,52,55,0.9150035014005602) 100%, rgba(111,111,125,1) 100%, rgba(203,208,209,1) 100%);
@@ -167,7 +189,7 @@ form#register-form {
     border-radius: 5px;
 }
 
-form#register-form input {
+form#register-form input, form#login-form input {
     background: none;
     border: none;
     border-bottom: 2px solid #048a8c;
@@ -176,7 +198,7 @@ form#register-form input {
     font-size: 1em;
 }
 
-form#register-form input + input {
+form#register-form input + input, form#login-form input + input {
     margin-top: 1em;
     min-width: 10vw;
 }
@@ -186,7 +208,7 @@ form#register-form :nth-last-child(2) {
     margin-top: 1em;
 }
 
-form#register-form button[type=submit] {
+form#register-form button[type=submit], form#login-form button[type=submit] {
     background-color: #211f1f;
     border: 1px solid #048a8c;
     padding: 5px 5px 5px 5px;
@@ -199,7 +221,7 @@ form#register-form button[type=submit] {
     font-size: 16px;
 }
 
-form#register-form button#close-register-form {
+form#register-form button#close-register-form, form#login-form button#close-login-form {
     background: none;
     border: none;
     font-size: 24px;
@@ -209,7 +231,7 @@ form#register-form button#close-register-form {
     margin-right: 0.4em;
 }
 
-button#close-register-form:hover {
+button#close-register-form:hover, button#close-login-form:hover {
     cursor: pointer;
     transform: scale(1.2);
 }

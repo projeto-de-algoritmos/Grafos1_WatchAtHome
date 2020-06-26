@@ -20,6 +20,9 @@ let loginButton = document.getElementById('login');
 let registerForm = document.getElementsByClassName('modal-form')[0];
 let closeRegisterFormBtn = document.getElementById('close-register-form');
 
+let loginForm = document.getElementsByClassName('modal-form')[1];
+let closeloginFormBtn = document.getElementById('close-login-form');
+
 let arrowLeft = document.querySelector('div.popular-movies').firstElementChild;
 let arrowRight = document.querySelector('div.popular-movies').lastElementChild;
 let movies = document.getElementsByClassName('movies-list')[0];
@@ -31,6 +34,13 @@ let sexMale = document.getElementById('masculino');
 let sexFemale = document.getElementById('feminino');
 let createUserButton = document.getElementById('submit-user');
 
+let userLoginEmail = document.getElementById('user-login-email');
+let userLoginPass = document.getElementById('user-login-password');
+let signinUserButton = document.getElementById('signin-user');
+
+let signUpLoginBtns = document.querySelector('div.signup-login-buttons');
+let accountInfo = document.querySelector('div.account-info');
+
 let marginLeftStatic = 0;
 
 function init() {
@@ -39,20 +49,31 @@ function init() {
 
     let today = new Date();
     let year = today.getFullYear();
+    let userFullInfo = JSON.parse(localStorage.getItem('user'));
+    let isLogged = JSON.parse(localStorage.getItem('isLogged'));
+
     footerInfo.textContent = `© Copyright todos os direitos reservados - ${year}`;
 
     mainFooter.appendChild(footerInfo);
 
+    if (isLogged) {
+        accountInfo.firstElementChild.append(`Hello ${userFullInfo.username}`);
+        signUpLoginBtns.style.display = 'none';
+        accountInfo.style.display = 'flex';
+    }
+    
     lupa.addEventListener("click", openSearchBox);
     document.addEventListener("click", closeSearchBox);
-    signupButton.addEventListener("click", openRegisterForm);
-    loginButton.addEventListener("click", openLoginForm);
-    closeRegisterFormBtn.addEventListener("click", closeRegisterForm);
     arrowLeft.addEventListener("click", passToLeft);
     arrowRight.addEventListener("click", passToRight);
+    loginButton.addEventListener("click", openLoginForm);
+    signupButton.addEventListener("click", openRegisterForm);
     targetButton.addEventListener("click", catchTermRedirPage);
     buttonSearch2nd.addEventListener("click", catchTermRedirPage);
     createUserButton.addEventListener("click", signup);
+    signinUserButton.addEventListener("click", signin);
+    closeloginFormBtn.addEventListener("click", closeLoginForm);
+    closeRegisterFormBtn.addEventListener("click", closeRegisterForm);
 }
 
 function openSearchBox() {
@@ -82,7 +103,11 @@ function closeRegisterForm() {
 }
 
 function openLoginForm() {
+    loginForm.style.display = "block";
+}
 
+function closeLoginForm() {
+    loginForm.style.display = "none";
 }
 
 function passToLeft() {
@@ -107,7 +132,7 @@ async function catchTermRedirPage() {
     console.log(searchBoxMain.value);
 }
 
-async function signup(event) {
+function signup(event) {
     event.preventDefault();
 
     let user = new ManagerUsers();
@@ -118,6 +143,22 @@ async function signup(event) {
     user.sex = (sexFemale.checked ? sexFemale.value : sexMale.value);
     
     user.createUser();
+
+}
+
+async function signin(event) {
+    event.preventDefault();
+
+    let user = new ManagerUsers();
+
+    user.email = userLoginEmail.value;
+    user.password = userLoginPass.value;
+
+    user.signin();
+    closeLoginForm();
+    signUpLoginBtns.style.display = 'none';
+    accountInfo.style.display = 'flex';
+
 }
 
 init();
