@@ -40,6 +40,10 @@ let signinUserButton = document.getElementById('signin-user');
 
 let signUpLoginBtns = document.querySelector('div.signup-login-buttons');
 let accountInfo = document.querySelector('div.account-info');
+let userPhoto = document.getElementById('user-photo');
+let userProfileOptions = document.querySelector('div.user-profile');
+
+let logoutButton = document.getElementById('user-btn-logout');
 
 let marginLeftStatic = 0;
 
@@ -65,10 +69,12 @@ function init() {
     lupa.addEventListener("click", openSearchBox);
     document.addEventListener("click", closeSearchBox);
     arrowLeft.addEventListener("click", passToLeft);
+    userPhoto.addEventListener("click", manageProfileOptions);
     arrowRight.addEventListener("click", passToRight);
     loginButton.addEventListener("click", openLoginForm);
     signupButton.addEventListener("click", openRegisterForm);
     targetButton.addEventListener("click", catchTermRedirPage);
+    logoutButton.addEventListener("click", logout);
     buttonSearch2nd.addEventListener("click", catchTermRedirPage);
     createUserButton.addEventListener("click", signup);
     signinUserButton.addEventListener("click", signin);
@@ -154,11 +160,26 @@ async function signin(event) {
     user.email = userLoginEmail.value;
     user.password = userLoginPass.value;
 
-    user.signin();
-    closeLoginForm();
-    signUpLoginBtns.style.display = 'none';
-    accountInfo.style.display = 'flex';
+    user.signin().then(onfulfilled => {
+        closeLoginForm();
+        signUpLoginBtns.style.display = 'none';
+        accountInfo.style.display = 'flex';
+        location.reload();
+    }).catch(onrejected => console.log(onrejected));
 
+}
+
+function logout() {
+    localStorage.setItem('isLogged', 'false');
+    location.reload();
+}
+
+function manageProfileOptions() {
+    if (userProfileOptions.style.display == 'block') {
+        userProfileOptions.style.display = 'none';
+    } else {
+        userProfileOptions.style.display = 'block';
+    }
 }
 
 init();

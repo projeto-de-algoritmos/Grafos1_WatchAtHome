@@ -78,6 +78,21 @@ div.signup-login-buttons button:hover {
     background: #24ABA7;
 }
 
+div.user-profile {
+    display: none;
+}
+
+div.triangle-shape {
+    width: 0;
+    height: 0;
+    border-left: 0.5vw solid transparent;
+    border-right: 0.5vw solid transparent;
+    border-bottom: 1vw solid #fff;
+    position: relative;
+    top: -0.7vw;
+    right: -5vw;
+}
+
 div.account-info {
     position: absolute;
     display: none;
@@ -94,10 +109,41 @@ div.account-info i {
     padding: 0.2em;
 }
 
+div.account-info i:hover {
+    cursor: pointer;
+}
+
 div.account-info p {
     font-size: 2em;
     margin-right: 1vw;
     color: #ddd;
+}
+
+div.user-profile {
+    position: absolute;
+    top: 5vw;
+    right: 0;
+    background-color: #fff;
+    border-radius: 2px;
+}
+
+div.user-profile a {
+    text-decoration: none;
+    color: #515151;
+}
+
+div.user-profile ul :last-child a {
+    color: #ff0000;
+}
+
+div.user-profile li {
+    list-style-type: none;
+    padding: 0.5em;
+    text-align: center;
+}
+
+div.user-profile li:hover {
+    background-color:  #b5aeae !important;
 }
 
 div.header #lupa-icon {

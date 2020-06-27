@@ -223,23 +223,23 @@ export class ManagerUsers {
     }
 
     async signin() {
-        this.readUser().then(user => {
-            try {
+        return new Promise((resolve, reject) => {
+            
+            this.readUser().then(user => {
                 if (user.password === this.password) {
                     this.username = user.username;
                     this.sex = user.sex;
+    
                     localStorage.setItem('user', JSON.stringify(user));
                     localStorage.setItem('isLogged', 'true');
+                    resolve('You are logged now!');
                 } else {
-                    throw {
+                    reject({
                         name: 'Invalid password',
                         message: 'Your password is wrong!'
-                    }
+                    });
                 }
-            } catch(error) {
-                console.error(error);
-            }
-        }).catch(onrejected => console.log(onrejected));
-            
+            }).catch(onrejected => console.log(onrejected));
+        });
     }
 }
