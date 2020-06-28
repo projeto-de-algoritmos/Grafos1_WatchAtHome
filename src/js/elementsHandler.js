@@ -44,6 +44,10 @@ let userPhoto = document.getElementById('user-photo');
 let userProfileOptions = document.querySelector('div.user-profile');
 
 let logoutButton = document.getElementById('user-btn-logout');
+let myAccountButton = document.getElementById('user-btn-profile');
+let profileInfo = document.querySelector('div.myaccount-info');
+let profileModal = document.querySelector('div.myaccount-modal')
+let closeProfileBtn = document.getElementById('close-account-info');
 
 let marginLeftStatic = 0;
 
@@ -72,10 +76,12 @@ function init() {
     userPhoto.addEventListener("click", manageProfileOptions);
     arrowRight.addEventListener("click", passToRight);
     loginButton.addEventListener("click", openLoginForm);
+    logoutButton.addEventListener("click", logout);
     signupButton.addEventListener("click", openRegisterForm);
     targetButton.addEventListener("click", catchTermRedirPage);
-    logoutButton.addEventListener("click", logout);
     buttonSearch2nd.addEventListener("click", catchTermRedirPage);
+    myAccountButton.addEventListener("click", openProfileInfo);
+    closeProfileBtn.addEventListener("click", closeProfileInfo);
     createUserButton.addEventListener("click", signup);
     signinUserButton.addEventListener("click", signin);
     closeloginFormBtn.addEventListener("click", closeLoginForm);
@@ -180,6 +186,28 @@ function manageProfileOptions() {
     } else {
         userProfileOptions.style.display = 'block';
     }
+}
+
+async function openProfileInfo() {
+    let user = await JSON.parse(localStorage.getItem('user'));
+
+    console.log(user);
+
+    let username = document.createElement('h4');
+    let email = document.createElement('span');
+
+    username.textContent = `Nome de usuário: ${user.username}`;
+    email.textContent = `Email: ${user.email}`;
+    profileInfo.appendChild(username);
+    profileInfo.appendChild(email);
+
+    profileModal.style.display = 'block';
+}
+
+function closeProfileInfo() {
+    profileInfo.removeChild(profileInfo.lastElementChild);
+    profileInfo.removeChild(profileInfo.lastElementChild);
+    profileModal.style.display = 'none';
 }
 
 init();

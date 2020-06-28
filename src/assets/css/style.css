@@ -102,11 +102,12 @@ div.account-info {
     margin-right: 5vw;
 }
 
-div.account-info i {
+div.account-info i, div.myaccount-info i {
     font-size: 2.5em;
     border-radius: 1.25em;
     background-color: #4287f5;
     padding: 0.2em;
+    color: #000;
 }
 
 div.account-info i:hover {
@@ -218,6 +219,35 @@ div.modal-form {
     display: none;
 }
 
+div.myaccount-modal {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0,0.4);
+    display: none;
+}
+
+div.myaccount-info {
+    position: relative;
+    background: rgb(24,24,32);
+    background: linear-gradient(144deg, rgba(24,24,32,1) 24%, rgba(29,29,36,1) 37%, rgba(51,52,55,0.9150035014005602) 100%, rgba(111,111,125,1) 100%, rgba(203,208,209,1) 100%);
+    max-width: 40vw;
+    max-height: 30vw;
+    margin-left: auto; 
+    margin-right: auto;
+    margin-top: 20vw;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+}
+
 form#register-form, form#login-form {
     position: relative;
     background: rgb(24,24,32);
@@ -267,7 +297,8 @@ form#register-form button[type=submit], form#login-form button[type=submit] {
     font-size: 16px;
 }
 
-form#register-form button#close-register-form, form#login-form button#close-login-form {
+form#register-form button#close-register-form, form#login-form button#close-login-form,
+div.myaccount-info button#close-account-info {
     background: none;
     border: none;
     font-size: 24px;
@@ -277,7 +308,8 @@ form#register-form button#close-register-form, form#login-form button#close-logi
     margin-right: 0.4em;
 }
 
-button#close-register-form:hover, button#close-login-form:hover {
+button#close-register-form:hover, button#close-login-form:hover, 
+button#close-account-info:hover {
     cursor: pointer;
     transform: scale(1.2);
 }
