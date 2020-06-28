@@ -109,7 +109,6 @@ export class ManagerUsers {
             password: this._password,
             sex: this._sex
         }).then(async onfulfilled => {
-            console.log(onfulfilled);
 
             let newUsers = [{
                 username: this._username,
@@ -124,8 +123,6 @@ export class ManagerUsers {
             for (let item of await users) {
                 newUsers.push(item);
             }
-
-            console.log(await newUsers);
 
             let data = JSON.stringify(newUsers);
 

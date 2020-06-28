@@ -134,8 +134,8 @@ async function catchTermRedirPage() {
     termSearched = await (
         searchBoxMain.value === '' ? searchBox.value : searchBoxMain.value);
     localStorage.setItem('termSearched', termSearched);
-    window.location = './moviesResult.html';
     console.log(searchBoxMain.value);
+    window.location = './moviesResult.html';
 }
 
 function signup(event) {
