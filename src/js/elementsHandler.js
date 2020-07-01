@@ -32,7 +32,7 @@ let username = document.getElementById('username');
 let password = document.getElementById('user-password');
 let sexMale = document.getElementById('masculino');
 let sexFemale = document.getElementById('feminino');
-let createUserButton = document.getElementById('submit-user');
+let submitUserButton = document.getElementById('submit-user');
 
 let userLoginEmail = document.getElementById('user-login-email');
 let userLoginPass = document.getElementById('user-login-password');
@@ -49,6 +49,14 @@ let profileInfo = document.querySelector('div.myaccount-info');
 let profileModal = document.querySelector('div.myaccount-modal')
 let closeProfileBtn = document.getElementById('close-account-info');
 
+let editForm = document.getElementsByClassName('editaccount-modal')[0];
+let editEmailField = document.getElementById('user-email-edit');
+let editUserNameField = document.getElementById('username-edit');
+let editPasswordField = document.getElementById('user-password-edit');
+let closeEditFormBtn = document.getElementById('close-edit-form');
+let openEditForm = document.getElementById('user-btn-edit');
+let submitEditedUserBtn = document.getElementById('submit-edited-user');
+
 let marginLeftStatic = 0;
 
 function init() {
@@ -59,7 +67,7 @@ function init() {
     let year = today.getFullYear();
     let userFullInfo = JSON.parse(localStorage.getItem('user'));
     let isLogged = JSON.parse(localStorage.getItem('isLogged'));
-
+    
     footerInfo.textContent = `© Copyright todos os direitos reservados - ${year}`;
 
     mainFooter.appendChild(footerInfo);
@@ -79,10 +87,13 @@ function init() {
     logoutButton.addEventListener("click", logout);
     signupButton.addEventListener("click", openRegisterForm);
     targetButton.addEventListener("click", catchTermRedirPage);
+    openEditForm.addEventListener("click", openEditUser);
+    closeEditFormBtn.addEventListener("click", closeEditUser);
     buttonSearch2nd.addEventListener("click", catchTermRedirPage);
     myAccountButton.addEventListener("click", openProfileInfo);
     closeProfileBtn.addEventListener("click", closeProfileInfo);
-    createUserButton.addEventListener("click", signup);
+    submitUserButton.addEventListener("click", signup);
+    submitEditedUserBtn.addEventListener("click", handleEditedUser);
     signinUserButton.addEventListener("click", signin);
     closeloginFormBtn.addEventListener("click", closeLoginForm);
     closeRegisterFormBtn.addEventListener("click", closeRegisterForm);
@@ -208,6 +219,46 @@ function closeProfileInfo() {
     profileInfo.removeChild(profileInfo.lastElementChild);
     profileInfo.removeChild(profileInfo.lastElementChild);
     profileModal.style.display = 'none';
+}
+
+function openEditUser() {
+    let currentUser = JSON.parse(localStorage.getItem('user'));
+    
+    editEmailField.value = currentUser.email;
+    editUserNameField.value = currentUser.username;
+    editPasswordField.value = currentUser.password;
+    
+    editForm.style.display = 'block';
+}
+
+function closeEditUser() {
+    editForm.style.display = 'none';
+}
+
+async function handleEditedUser(event) {
+    event.preventDefault();
+
+    let user = new ManagerUsers();
+    let currentUser = JSON.parse(localStorage.getItem('user'));
+
+    let data = {
+        username: editUserNameField.value,
+        email: editEmailField.value,
+        password: editPasswordField.value,
+    }
+
+    if (data.username === currentUser.username) {
+        delete data['username'];
+    } if (data.email === currentUser.email) {
+        delete data['email'];
+    } if (data.password === currentUser.password) {
+        delete data['password'];
+    }
+
+    user.validateUser(data).then(onfulfilled => {
+        user.updateUser(data);
+    }).catch(onrejected => console.log(`${onrejected.name}\n${onrejected.message}`));;
+
 }
 
 init();

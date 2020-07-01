@@ -190,15 +190,48 @@ export class ManagerUsers {
         }
     }
 
-    updateUser() {
-        
+    async updateUser(user) {
+        let usersUpdated = [];
+        let userUpdated;
+        let userEmailRecognized = JSON.parse(localStorage.getItem('user')).email;
+
+        this.readUsers().then(async users => {
+            for (let item of users)
+                for (let key in item)
+                    if (item[key] === userEmailRecognized) {
+                        for (let copyKey in user) {
+                            item[copyKey] = user[copyKey];
+                        }
+                        userUpdated = JSON.stringify(item);
+                    }
+            usersUpdated = JSON.stringify(users);
+            
+            try {
+                const response = await fetch(`https://api.jsonbin.io/b/${binId}`, {
+                    method: 'PUT', headers: { 
+                        'Content-Type': 'application/json', 
+                        'secret-key': secretKey 
+                    },  
+                    body: usersUpdated
+                });
+                if (response.ok) {
+                    localStorage.setItem('user', userUpdated);
+                    console.log(response);
+                    location.reload();
+                }
+            } catch(error) {
+                console.log(error);
+            }
+        }).catch(onrejected => console.log(onrejected));
+
+
     }
 
     deleteUser() {
 
     }
 
-    async validateUser(user) {
+    async validateUser() {
         let users = this.readUsers().then(onfulfilled => onfulfilled)
             .catch(reject => console.log(reject));
         
