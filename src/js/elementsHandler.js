@@ -56,6 +56,12 @@ let editPasswordField = document.getElementById('user-password-edit');
 let closeEditFormBtn = document.getElementById('close-edit-form');
 let openEditForm = document.getElementById('user-btn-edit');
 let submitEditedUserBtn = document.getElementById('submit-edited-user');
+let deleteAccountBtn = document.getElementById('user-btn-delete');
+
+let deleteModal = document.querySelector('div.confirmation-modal');
+let confirmButton = document.getElementById('btn-confirm');
+let cancelButton = document.getElementById('btn-cancel');
+let closeDeleteModalBtn = document.getElementById('close-delete-form');
 
 let marginLeftStatic = 0;
 
@@ -93,6 +99,10 @@ function init() {
     myAccountButton.addEventListener("click", openProfileInfo);
     closeProfileBtn.addEventListener("click", closeProfileInfo);
     submitUserButton.addEventListener("click", signup);
+    deleteAccountBtn.addEventListener("click", openDeleteModal);
+    confirmButton.addEventListener("click", handleDeleteUser);
+    cancelButton.addEventListener("click", closeDeleteModal);
+    closeDeleteModalBtn.addEventListener("click", closeDeleteModal);
     submitEditedUserBtn.addEventListener("click", handleEditedUser);
     signinUserButton.addEventListener("click", signin);
     closeloginFormBtn.addEventListener("click", closeLoginForm);
@@ -259,6 +269,25 @@ async function handleEditedUser(event) {
         user.updateUser(data);
     }).catch(onrejected => console.log(`${onrejected.name}\n${onrejected.message}`));;
 
+}
+
+function openDeleteModal() {
+    deleteModal.style.display = 'block';
+}
+
+function closeDeleteModal(event) {
+    event.preventDefault();
+    
+    deleteModal.style.display = 'none';
+}
+
+function handleDeleteUser(event) {
+    event.preventDefault();
+
+    let user = new ManagerUsers();
+
+    user.deleteUser();
+    
 }
 
 init();

@@ -228,6 +228,37 @@ export class ManagerUsers {
     }
 
     deleteUser() {
+        let user = localStorage.getItem('user');
+
+        this.readUsers().then(async users => {
+            let index = users.filter((element, index) => {
+                if (element.email === user.email) {
+                    return index;
+                }
+            });
+
+            users.splice(await index, 1);
+
+            let usersUpdated = JSON.stringify(users);
+
+            try {
+                const response = await fetch(`https://api.jsonbin.io/b/${binId}`, {
+                    method: 'PUT', headers: {
+                        'Content-Type': 'application/json',
+                        'secret-key': secretKey
+                    }, body: usersUpdated
+                });
+
+                if (response.ok) {
+                    console.log(response);
+                    localStorage.setItem('isLogged', 'false');
+                    localStorage.removeItem('user');
+                    location.reload();
+                }
+            } catch (error) {
+                console.log(error);
+            }
+        }).catch(onrejected => console.log(onrejected));
 
     }
 

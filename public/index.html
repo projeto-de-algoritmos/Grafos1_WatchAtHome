@@ -63,6 +63,7 @@
                     <ul>
                         <li><a href="#" id="user-btn-profile">Minha conta</a></li>
                         <li><a href="#" id="user-btn-edit">Editar perfil</a></li>
+                        <li><a href="#" id="user-btn-delete">Excluir minha conta</a></li>
                         <li><a href="#" id="user-btn-logout">Sair</a></li>
                     </ul>
                 </div>
@@ -130,6 +131,16 @@
                 >
                 <button type="submit" id="submit-edited-user">ENVIAR</button>
             </form>
+        </div>
+        <div class="confirmation-modal">
+            <div id="confirm-message">
+                <button type="button" id="close-delete-form">X</button>
+                <p>Tem certeza que deseja realizar esta ação?</p>
+                <form method="POST">
+                    <button type="submit" id="btn-confirm">SIM</button>
+                    <button type="submit" id="btn-cancel">NÃO</button>
+                </form>
+            </div>
         </div>
         <div class="body">
             <div class="presentation">

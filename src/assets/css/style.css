@@ -219,7 +219,8 @@ div.modal-form {
     display: none;
 }
 
-div.myaccount-modal, div.editaccount-modal {
+div.myaccount-modal, div.editaccount-modal, 
+div.confirmation-modal {
     position: fixed;
     left: 0;
     top: 0;
@@ -231,7 +232,7 @@ div.myaccount-modal, div.editaccount-modal {
     display: none;
 }
 
-div.myaccount-info {
+div.myaccount-info, div#confirm-message {
     position: relative;
     background: rgb(24,24,32);
     background: linear-gradient(144deg, rgba(24,24,32,1) 24%, rgba(29,29,36,1) 37%, rgba(51,52,55,0.9150035014005602) 100%, rgba(111,111,125,1) 100%, rgba(203,208,209,1) 100%);
@@ -286,7 +287,7 @@ form#register-form :nth-last-child(2) {
 }
 
 form#register-form button[type=submit], form#login-form button[type=submit],
-form#edit-form button[type=submit] {
+form#edit-form button[type=submit], div#confirm-message button[type=submit] {
     background-color: #211f1f;
     border: 1px solid #048a8c;
     padding: 5px 5px 5px 5px;
@@ -300,7 +301,8 @@ form#edit-form button[type=submit] {
 }
 
 form#register-form button#close-register-form, form#login-form button#close-login-form,
-div.myaccount-info button#close-account-info, form#edit-form button#close-edit-form {
+div.myaccount-info button#close-account-info, form#edit-form button#close-edit-form, 
+div#confirm-message button#close-delete-form {
     background: none;
     border: none;
     font-size: 24px;
@@ -311,12 +313,14 @@ div.myaccount-info button#close-account-info, form#edit-form button#close-edit-f
 }
 
 button#close-register-form:hover, button#close-login-form:hover, 
-button#close-account-info:hover, button#close-edit-form:hover {
+button#close-account-info:hover, button#close-edit-form:hover,
+button#close-delete-form:hover {
     cursor: pointer;
     transform: scale(1.2);
 }
 
-form#register-form button[type=submit]:hover, form#edit-form button[type=submit] {
+form#register-form button[type=submit]:hover, form#edit-form button[type=submit], 
+div#confirm-message button[type=submit] {
     cursor: pointer;
 }
 
