@@ -191,8 +191,8 @@ async function signin(event) {
         closeLoginForm();
         signUpLoginBtns.style.display = 'none';
         accountInfo.style.display = 'flex';
-        location.reload();
-    }).catch(onrejected => console.log(onrejected));
+        setTimeout(() => {location.reload()}, 1000);
+    }).catch(onrejected => {});
 
 }
 
@@ -267,7 +267,7 @@ async function handleEditedUser(event) {
 
     user.validateUser(data).then(onfulfilled => {
         user.updateUser(data);
-    }).catch(onrejected => console.log(`${onrejected.name}\n${onrejected.message}`));;
+    }).catch(onrejected => {});
 
 }
 

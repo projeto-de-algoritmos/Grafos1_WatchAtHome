@@ -28,8 +28,8 @@ export class ManagerUsers {
                         name: 'Caracters inválidos',
                         message: 'O nome do usuário não pode conter números.'
                     }
-        } catch (error) {
-            console.log(error);
+        } catch (errorObj) {
+            console.log(toastr.warning(`${errorObj.name}\n${errorObj.message}`));
         }
     }
 
@@ -42,8 +42,8 @@ export class ManagerUsers {
                     name: 'Campo em branco',
                     message: 'O campo email não pode ficar em branco.'
                 }
-        } catch (error) {
-            console.log(error);
+        } catch (errorObj) {
+            console.log(toastr.warning(`${errorObj.name}\n${errorObj.message}`));
         }
     }
 
@@ -56,8 +56,8 @@ export class ManagerUsers {
                     name: 'Campo em branco',
                     message: 'O campo password não pode ficar em branco.'
                 }
-        } catch (error) {
-            console.log(error);
+        } catch (errorObj) {
+            console.log(toastr.warning(`${errorObj.name}\n${errorObj.message}`));
         }
     }
 
@@ -70,8 +70,8 @@ export class ManagerUsers {
                     name: 'Campo em branco',
                     message: 'O campo sex não pode ficar em branco.'
                 }
-        } catch (error) {
-            console.log(error);
+        } catch (errorObj) {
+            console.log(toastr.warning(`${errorObj.name}\n${errorObj.message}`));
         }
     }
 
@@ -133,11 +133,16 @@ export class ManagerUsers {
                         'Content-Type': 'application/json'
                     }, body: data
                 });
+                if (response.ok) {
+                    toastr.success('User registered successfully!');
+                    setTimeout(() => {location.reload()}, 1200);
+                }
             } catch (error) {
                 console.log(error);
+                toastr.error('Intern error, try again later!');
             }
 
-        }).catch(onrejected => console.log(`${onrejected.name}\n${onrejected.message}`));
+        }).catch(onrejected => {});
 
     }
 
@@ -152,7 +157,7 @@ export class ManagerUsers {
                     if (xhr.status === 200)
                         resolve(xhr.response);
                     else 
-                        reject('Something went wrong!');
+                        reject(toastr.error('Intern error, try again later!'));
                 }
 
                 xhr.open('GET', url);
@@ -185,8 +190,8 @@ export class ManagerUsers {
                 message: 'This user doesn\'t exist!'
             }
 
-        } catch(error) {
-            console.error(error);
+        } catch(errorObj) {
+            console.log(toastr.error(`${errorObj.name}\n${errorObj.message}`));
         }
     }
 
@@ -216,11 +221,11 @@ export class ManagerUsers {
                 });
                 if (response.ok) {
                     localStorage.setItem('user', userUpdated);
-                    console.log(response);
-                    location.reload();
+                    toastr.success('User updated successfully!');
+                    setTimeout(() => {location.reload()}, 1000);
                 }
-            } catch(error) {
-                console.log(error);
+            } catch(errorObj) {
+                toastr.error(errorObj);
             }
         }).catch(onrejected => console.log(onrejected));
 
@@ -253,10 +258,11 @@ export class ManagerUsers {
                     console.log(response);
                     localStorage.setItem('isLogged', 'false');
                     localStorage.removeItem('user');
-                    location.reload();
+                    toastr.error('User deleted successfully!');
+                    setTimeout(() => { location.reload() }, 1000);
                 }
-            } catch (error) {
-                console.log(error);
+            } catch (errorObj) {
+                console.log(toastr.error(`${errorObj.message}`));
             }
         }).catch(onrejected => console.log(onrejected));
 
@@ -271,20 +277,24 @@ export class ManagerUsers {
             for (let item of await users) {
                 for (let key in item) {
                     if (this.username == item[key])
-                        return reject({ name: 'Username', message: 'This username already was choosen!'});
+                        return reject(toastr.warning('This username already was choosen!'));
                     else if (this.email == item[key])
-                        return reject({ name: 'Email', message: 'This email is already in use!' });
+                        return reject(toastr.warning('This email is already in use!'));
                     else if (this.password == item[key])
-                        return reject({name: 'Password', message: 'This password already exist!' });
+                        return reject(toastr.warning('This password already exist!'));
                 }
             }
 
-            return resolve('Wait a moment...');
+            return resolve(toastr.info('Wait a moment we are checking your data...'));
         });
     }
 
     async signin() {
         return new Promise((resolve, reject) => {
+            toastr.options = {
+                "progressBar": true,
+                "closeButton": true,
+            }
             
             this.readUser().then(user => {
                 if (user.password === this.password) {
@@ -293,12 +303,9 @@ export class ManagerUsers {
     
                     localStorage.setItem('user', JSON.stringify(user));
                     localStorage.setItem('isLogged', 'true');
-                    resolve('You are logged now!');
+                    resolve(toastr.success('You are logged now!'));
                 } else {
-                    reject({
-                        name: 'Invalid password',
-                        message: 'Your password is wrong!'
-                    });
+                    reject(toastr.error('Your password is invalid!'));
                 }
             }).catch(onrejected => console.log(onrejected));
         });
