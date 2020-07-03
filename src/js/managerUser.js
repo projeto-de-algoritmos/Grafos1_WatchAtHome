@@ -2,6 +2,11 @@ const binId = '5eeeb5e62406353b2e09962b';
 const secretKey = '$2b$10$jxow4GADDMrolpxvMGbFcOqDcqkAYAykopUHA6Obtp9i8z0si6n3u';
 const url = `https://api.jsonbin.io/b/${binId}/latest`;
 
+toastr.options = {
+    "progressBar": true,
+    "closeButton": true,
+}
+
 export class ManagerUsers {
     constructor() {
         this._username;
@@ -14,65 +19,57 @@ export class ManagerUsers {
      * @param {string} username
      */
     set username(username) {
-        try {
-            if (username !== '' && username !== null)
-                this._username = username;
-            else 
+        if (username !== '' && username !== null)
+            this._username = username;
+        else 
+            throw {
+                name: 'Campo em branco',
+                message: 'o nome do usuário não pode ficar em branco.'
+            }
+        for (let i = 0; i < username.length; i++)
+            if (username.charCodeAt(i) >= 48 && username.charCodeAt(i) <= 57)
                 throw {
-                    name: 'Campo em branco',
-                    message: 'O nome do usuário não pode ficar em branco.'
+                    name: 'Caracters inválidos',
+                    message: 'o nome do usuário não pode conter números.'
                 }
-            for (let i = 0; i < username.length; i++)
-                if (username.charCodeAt(i) >= 48 && username.charCodeAt(i) <= 57)
-                    throw {
-                        name: 'Caracters inválidos',
-                        message: 'O nome do usuário não pode conter números.'
-                    }
-        } catch (errorObj) {
-            console.log(toastr.warning(`${errorObj.name}\n${errorObj.message}`));
-        }
     }
 
     set email(email) {
-        try {
-            if (email !== '' && email !== null)
-                this._email = email;
-            else 
-                throw {
-                    name: 'Campo em branco',
-                    message: 'O campo email não pode ficar em branco.'
-                }
-        } catch (errorObj) {
-            console.log(toastr.warning(`${errorObj.name}\n${errorObj.message}`));
-        }
+        const emailFormat = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
+        if (email === '' || email === null)
+            throw {
+                name: 'Campo em branco',
+                message: 'o campo email não pode ficar em branco.'
+            }
+        else if (!emailFormat.test(email))
+            throw {
+                name: 'Invalid email format',
+                message: 'enter with a valid email format'
+            }
+        else 
+            this._email = email;
+            
     }
 
     set password(password) {
-        try {
-            if (password !== '' && password !== null)
-                this._password = password;
-            else 
-                throw {
-                    name: 'Campo em branco',
-                    message: 'O campo password não pode ficar em branco.'
-                }
-        } catch (errorObj) {
-            console.log(toastr.warning(`${errorObj.name}\n${errorObj.message}`));
-        }
+        if (password !== '' && password !== null)
+            this._password = password;
+        else 
+            throw {
+                name: 'Campo em branco',
+                message: 'o campo password não pode ficar em branco.'
+            }
     }
 
     set sex(sex) {
-        try {
-            if (sex !== '' && sex !== null)
-                this._sex = sex;
-            else 
-                throw {
-                    name: 'Campo em branco',
-                    message: 'O campo sex não pode ficar em branco.'
-                }
-        } catch (errorObj) {
-            console.log(toastr.warning(`${errorObj.name}\n${errorObj.message}`));
-        }
+        if (sex !== '' && sex !== null)
+            this._sex = sex;
+        else 
+            throw {
+                name: 'Campo em branco',
+                message: 'o campo sexo não pode ficar em branco.'
+            }
     }
 
     get username() {
@@ -99,16 +96,34 @@ export class ManagerUsers {
 
     }
 
+    async getUserData() {
+        let email = document.getElementById('user-email');
+        let username = document.getElementById('username');
+        let password = document.getElementById('user-password');
+        let confirmPassword = document.getElementById('user-password-confirmation');
+        let sexMale = document.getElementById('masculino');
+        let sexFemale = document.getElementById('feminino');
+
+        let newUser = {};
+        newUser.username = username.value;
+        newUser.password = password.value;
+        newUser.email = email.value;
+        newUser.sex = (sexFemale.checked ? sexFemale.value : 
+            (sexMale.checked ? sexMale.value : null));
+        if (confirmPassword.value !== password.value)
+            throw {
+                name: 'Senhas distintas',
+                message: 'As senhas não correspondem'
+            }
+
+        return newUser;
+    }
+
     //Capturar dados do form, validá-los e fazer requisição para dar
     //update com novo usuário no JSON
-    createUser() {
+    async createUser() {
 
-        this.validateUser({
-            username: this._username,
-            email: this._email,
-            password: this._password,
-            sex: this._sex
-        }).then(async onfulfilled => {
+        this.validateUser().then(async onfulfilled => {
 
             let newUsers = [{
                 username: this._username,
@@ -269,20 +284,33 @@ export class ManagerUsers {
     }
 
     async validateUser() {
-        let users = this.readUsers().then(onfulfilled => onfulfilled)
-            .catch(reject => console.log(reject));
+        let newUser;
+        let users = this.readUsers().then(async onfulfilled => {
+
+            return onfulfilled;
+        }).catch(reject => console.log(reject));
+
         
         return new Promise(async (resolve, reject) => {
 
+            try {
+                newUser = await this.getUserData();
+
+                this.username = await newUser.username;
+                this.password = await newUser.password;
+                this.email = await newUser.email;
+                this.sex = await newUser.sex;
+            } catch(errorObj) {
+                return reject(toastr.warning(`${errorObj.name}! ${errorObj.message}`));
+            }
+
             for (let item of await users) {
-                for (let key in item) {
-                    if (this.username == item[key])
-                        return reject(toastr.warning('This username already was choosen!'));
-                    else if (this.email == item[key])
-                        return reject(toastr.warning('This email is already in use!'));
-                    else if (this.password == item[key])
-                        return reject(toastr.warning('This password already exist!'));
-                }
+                if (this.username == item['username'])
+                    return reject(toastr.warning('This username already was choosen!'));
+                else if (this.email == item['email'])
+                    return reject(toastr.warning('This email is already in use!'));
+                else if (this.password == item['password'])
+                    return reject(toastr.warning('This password already exist!'));
             }
 
             return resolve(toastr.info('Wait a moment we are checking your data...'));
@@ -291,10 +319,6 @@ export class ManagerUsers {
 
     async signin() {
         return new Promise((resolve, reject) => {
-            toastr.options = {
-                "progressBar": true,
-                "closeButton": true,
-            }
             
             this.readUser().then(user => {
                 if (user.password === this.password) {

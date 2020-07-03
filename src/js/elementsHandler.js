@@ -169,11 +169,6 @@ function signup(event) {
     event.preventDefault();
 
     let user = new ManagerUsers();
-
-    user.username = username.value;
-    user.password = password.value;
-    user.email = email.value;
-    user.sex = (sexFemale.checked ? sexFemale.value : sexMale.value);
     
     user.createUser();
 
