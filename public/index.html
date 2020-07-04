@@ -78,7 +78,13 @@
         <div class="modal-form">
             <form method="POST" id="register-form">
                 <button type="button" id="close-register-form">X</button>
-                <input type="email" name="user-email" id="user-email" placeholder="Email" required>
+                <input 
+                    type="email" 
+                    name="user-email" 
+                    id="user-email" 
+                    placeholder="Email" 
+                    disabled
+                    required>
                 <input type="password" name="user-password" id="user-password" placeholder="Senha" required>
                 <input 
                     type="password" 
@@ -132,16 +138,87 @@
             <form method="POST" id="edit-form">
                 <button type="button" id="close-edit-form">X</button>
                 <i class="fa fa-user"></i>
-                <input type="email" name="user-email-edit" id="user-email-edit" placeholder="Email" required>
-                <input type="text" name="user-password-edit" id="user-password-edit" placeholder="Senha" required>
-                <input 
-                    type="text" 
-                    name="username-edit" 
-                    id="username-edit"
-                    placeholder="Nome de usuário"
-                    required
-                >
+                <fieldset>
+                    <label for="user-email-edit">Email:</label>
+                    <input 
+                        type="email" 
+                        name="user-email-edit" 
+                        id="user-email-edit" 
+                        disabled
+                        required
+                    >
+                    <a 
+                        href="#" 
+                        class="btn-edit-field" 
+                        id="btn-edit-email"
+                    >
+                    Editar email
+                    </a>
+                </fieldset>
+                <fieldset>
+                    <label for="user-password-edit">Senha:</label>
+                    <input 
+                        type="password" 
+                        id="user-password-edit" 
+                        name="user-password-edit" 
+                        value="xxxxxx"
+                        disabled
+                    >
+                    <a 
+                        href="#" 
+                        class="btn-edit-field" 
+                        id="btn-edit-password"
+                    >
+                    Editar senha
+                    </a>
+                </fieldset>
+                <fieldset>
+                    <label for="username-edit">Nome de usuário:</label>
+                    <input 
+                        type="text" 
+                        name="username-edit" 
+                        id="username-edit"
+                        disabled
+                        required
+                    >
+                    <a 
+                        href="#" 
+                        class="btn-edit-field"
+                        id="btn-edit-username"
+                    >
+                    Editar nome de usuário
+                    </a>
+                </fieldset>
                 <button type="submit" id="submit-edited-user">ENVIAR</button>
+            </form>
+        </div>
+        <div class="edit-specific-fields-modal" id="edit-email-modal">
+            <form method="POST" class="edit-specific-field">
+                <label for="new-email">Novo email:</label>
+                <input type="text" id="new-email" required>
+                <button type="submit" id="submit-email-user">ENVIAR</button>
+            </form>
+        </div>
+        <div class="edit-specific-fields-modal" id="edit-username-modal">
+            <form method="POST" class="edit-specific-field">
+                <label for="new-username">Novo nome de usuário:</label>
+                <input type="text" id="new-username">
+                <button type="submit" id="submit-username-user">ENVIAR</button>
+            </form>
+        </div>
+        <div class="edit-specific-fields-modal" id="edit-password-modal">
+            <form method="POST" class="edit-specific-field">
+                <label for="old-password">Senha antiga:</label>
+                <input type="password" name="old-password" id="old-password">
+                <label for="new-password">Nova senha:</label>
+                <input type="text" name="new-password" id="new-password">
+                <label for="confirmation-new-password">Confirmar nova senha:</label>
+                <input 
+                    type="password" 
+                    name="confirmation-new-password" 
+                    id="confirmation-new-password"
+                >
+                <button type="submit" id="submit-password-user">ENVIAR</button>
             </form>
         </div>
         <div class="confirmation-modal">

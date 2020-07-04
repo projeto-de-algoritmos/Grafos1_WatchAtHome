@@ -3,6 +3,10 @@
     padding: 0;
 }
 
+a {
+    text-decoration: none;
+}
+
 div.interface {
     display: flex;
     flex-direction: column;
@@ -220,7 +224,7 @@ div.modal-form {
 }
 
 div.myaccount-modal, div.editaccount-modal, 
-div.confirmation-modal {
+div.confirmation-modal, div.edit-specific-fields-modal {
     position: fixed;
     left: 0;
     top: 0;
@@ -249,7 +253,8 @@ div.myaccount-info, div#confirm-message {
     border-radius: 5px;
 }
 
-form#register-form, form#login-form, form#edit-form {
+form#register-form, form#login-form, form#edit-form, 
+form.edit-specific-field {
     position: relative;
     background: rgb(24,24,32);
     background: linear-gradient(144deg, rgba(24,24,32,1) 24%, rgba(29,29,36,1) 37%, rgba(51,52,55,0.9150035014005602) 100%, rgba(111,111,125,1) 100%, rgba(203,208,209,1) 100%);
@@ -264,6 +269,23 @@ form#register-form, form#login-form, form#edit-form {
     justify-content: center;
     align-items: center;
     border-radius: 5px;
+}
+
+form#edit-form fieldset {
+    display: flex;
+    justify-content: space-around;
+    border: none;
+}
+
+form#edit-form fieldset a {
+    color: #ccc;
+    font-weight: bold;
+    justify-self: flex-end;
+    text-decoration-line: underline;
+}
+
+form#edit-form fieldset + fieldset {
+    margin-top: 1em;
 }
 
 form#register-form input, form#login-form input, form#edit-form input {

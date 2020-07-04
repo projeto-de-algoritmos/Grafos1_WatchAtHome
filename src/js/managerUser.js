@@ -44,8 +44,8 @@ export class ManagerUsers {
             }
         else if (!emailFormat.test(email))
             throw {
-                name: 'Invalid email format',
-                message: 'enter with a valid email format'
+                name: 'Formato de email inválido',
+                message: 'digite um formato válido'
             }
         else 
             this._email = email;
@@ -53,13 +53,23 @@ export class ManagerUsers {
     }
 
     set password(password) {
-        if (password !== '' && password !== null)
-            this._password = password;
-        else 
+        let passwordFormat = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/;
+        toastr.options.timeOut = 7000;
+        
+        if (password === '' || password === null)
             throw {
                 name: 'Campo em branco',
                 message: 'o campo password não pode ficar em branco.'
             }
+        else if (!password.match(passwordFormat))
+            throw {
+                name: 'Formato inválido',
+                message: 
+                'a senha deve ter de 6 a 20 caracteres, ter no mínimo uma letra maiúscula, uma minúscula e um número.'
+            }
+        else
+            this._password = password;
+            
     }
 
     set sex(sex) {
@@ -113,7 +123,7 @@ export class ManagerUsers {
         if (confirmPassword.value !== password.value)
             throw {
                 name: 'Senhas distintas',
-                message: 'As senhas não correspondem'
+                message: 'as senhas não correspondem'
             }
 
         return newUser;
@@ -149,12 +159,12 @@ export class ManagerUsers {
                     }, body: data
                 });
                 if (response.ok) {
-                    toastr.success('User registered successfully!');
+                    toastr.success('Usuário registrado com sucesso!');
                     setTimeout(() => {location.reload()}, 1200);
                 }
             } catch (error) {
                 console.log(error);
-                toastr.error('Intern error, try again later!');
+                toastr.error('Erro interno, tente novamente mais tarde!');
             }
 
         }).catch(onrejected => {});
@@ -172,7 +182,7 @@ export class ManagerUsers {
                     if (xhr.status === 200)
                         resolve(xhr.response);
                     else 
-                        reject(toastr.error('Intern error, try again later!'));
+                        reject(toastr.error('Erro interno, tente novamente mais tarde!'));
                 }
 
                 xhr.open('GET', url);
@@ -201,12 +211,12 @@ export class ManagerUsers {
                 }
             
             throw {
-                name: 'Unknown user',
-                message: 'This user doesn\'t exist!'
+                name: 'Usuário desconhecido',
+                message: 'esse usuário não existe'
             }
 
         } catch(errorObj) {
-            console.log(toastr.error(`${errorObj.name}\n${errorObj.message}`));
+            console.log(toastr.error(`${errorObj.name}! ${errorObj.message}`));
         }
     }
 
@@ -236,7 +246,7 @@ export class ManagerUsers {
                 });
                 if (response.ok) {
                     localStorage.setItem('user', userUpdated);
-                    toastr.success('User updated successfully!');
+                    toastr.success('Usuário atualizado com sucesso!');
                     setTimeout(() => {location.reload()}, 1000);
                 }
             } catch(errorObj) {
@@ -273,11 +283,11 @@ export class ManagerUsers {
                     console.log(response);
                     localStorage.setItem('isLogged', 'false');
                     localStorage.removeItem('user');
-                    toastr.error('User deleted successfully!');
+                    toastr.error('Usuário deletado com sucesso!');
                     setTimeout(() => { location.reload() }, 1000);
                 }
             } catch (errorObj) {
-                console.log(toastr.error(`${errorObj.message}`));
+                console.log(toastr.error(`${errorObj.name}! ${errorObj.message}`));
             }
         }).catch(onrejected => console.log(onrejected));
 
@@ -306,14 +316,14 @@ export class ManagerUsers {
 
             for (let item of await users) {
                 if (this.username == item['username'])
-                    return reject(toastr.warning('This username already was choosen!'));
+                    return reject(toastr.warning('Esse nome de usuário já foi escolhido!'));
                 else if (this.email == item['email'])
-                    return reject(toastr.warning('This email is already in use!'));
+                    return reject(toastr.warning('Esse email já está em uso!'));
                 else if (this.password == item['password'])
-                    return reject(toastr.warning('This password already exist!'));
+                    return reject(toastr.warning('Essa senha já existe!'));
             }
 
-            return resolve(toastr.info('Wait a moment we are checking your data...'));
+            return resolve(toastr.info('Espere um momento, estamos checando seus dados...'));
         });
     }
 
@@ -327,9 +337,9 @@ export class ManagerUsers {
     
                     localStorage.setItem('user', JSON.stringify(user));
                     localStorage.setItem('isLogged', 'true');
-                    resolve(toastr.success('You are logged now!'));
+                    resolve(toastr.success('Você está logado agora!'));
                 } else {
-                    reject(toastr.error('Your password is invalid!'));
+                    reject(toastr.error('Sua senha está errada!'));
                 }
             }).catch(onrejected => console.log(onrejected));
         });

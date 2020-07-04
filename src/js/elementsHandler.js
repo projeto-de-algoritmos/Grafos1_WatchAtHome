@@ -27,11 +27,6 @@ let arrowLeft = document.querySelector('div.popular-movies').firstElementChild;
 let arrowRight = document.querySelector('div.popular-movies').lastElementChild;
 let movies = document.getElementsByClassName('movies-list')[0];
 
-let email = document.getElementById('user-email');
-let username = document.getElementById('username');
-let password = document.getElementById('user-password');
-let sexMale = document.getElementById('masculino');
-let sexFemale = document.getElementById('feminino');
 let submitUserButton = document.getElementById('submit-user');
 
 let userLoginEmail = document.getElementById('user-login-email');
@@ -231,7 +226,7 @@ function openEditUser() {
     
     editEmailField.value = currentUser.email;
     editUserNameField.value = currentUser.username;
-    editPasswordField.value = currentUser.password;
+    //editPasswordField.value = currentUser.password;
     
     editForm.style.display = 'block';
 }
