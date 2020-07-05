@@ -266,7 +266,7 @@ async function handleEditPassword(event) {
     };
 
     let confirmPassword = document.getElementById('confirmation-new-password').value;
-    let oldPassword = document.getElementById('old-password');
+    let oldPassword = document.getElementById('old-password').value;
 
     let users = user.readUsers().then(onfulfilled => onfulfilled)
         .catch(reject => console.log(reject));
