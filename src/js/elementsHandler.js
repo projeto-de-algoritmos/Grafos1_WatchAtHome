@@ -45,9 +45,9 @@ let profileModal = document.querySelector('div.myaccount-modal')
 let closeProfileBtn = document.getElementById('close-account-info');
 
 let editForm = document.getElementsByClassName('editaccount-modal')[0];
-let editEmailField = document.getElementById('user-email-edit');
-let editUserNameField = document.getElementById('username-edit');
-let editPasswordField = document.getElementById('user-password-edit');
+let editEmailField = document.getElementById('new-email');
+let editUsernameField = document.getElementById('new-username');
+let editPasswordField = document.getElementById('new-password');
 let closeEditFormBtn = document.getElementById('close-edit-form');
 let openEditForm = document.getElementById('user-btn-edit');
 let submitEditedUserBtn = document.getElementById('submit-edited-user');
@@ -57,6 +57,19 @@ let deleteModal = document.querySelector('div.confirmation-modal');
 let confirmButton = document.getElementById('btn-confirm');
 let cancelButton = document.getElementById('btn-cancel');
 let closeDeleteModalBtn = document.getElementById('close-delete-form');
+
+let btnEditEmail = document.getElementById('btn-edit-email');
+let btnEditPassword = document.getElementById('btn-edit-password');
+let btnEditUsername = document.getElementById('btn-edit-username');
+let editEmailModal = document.getElementById('edit-email-modal');
+let editPasswordModal = document.getElementById('edit-password-modal');
+let editUsernameModal = document.getElementById('edit-username-modal');
+let btnCloseEditEmail = document.getElementById('close-edit-email');
+let btnCloseEditPassword = document.getElementById('close-edit-password');
+let btnCloseEditUsername = document.getElementById('close-edit-username');
+let submitEditedEmail = document.getElementById('submit-email-user');
+let submitEditedUsername = document.getElementById('submit-username-user');
+let submitEditedPassword = document.getElementById('submit-password-user');
 
 let marginLeftStatic = 0;
 
@@ -88,20 +101,28 @@ function init() {
     logoutButton.addEventListener("click", logout);
     signupButton.addEventListener("click", openRegisterForm);
     targetButton.addEventListener("click", catchTermRedirPage);
+    cancelButton.addEventListener("click", closeDeleteModal);
+    btnEditEmail.addEventListener("click", openEditEmail);
     openEditForm.addEventListener("click", openEditUser);
-    closeEditFormBtn.addEventListener("click", closeEditUser);
+    confirmButton.addEventListener("click", handleDeleteUser);
     buttonSearch2nd.addEventListener("click", catchTermRedirPage);
     myAccountButton.addEventListener("click", openProfileInfo);
     closeProfileBtn.addEventListener("click", closeProfileInfo);
-    submitUserButton.addEventListener("click", signup);
-    deleteAccountBtn.addEventListener("click", openDeleteModal);
-    confirmButton.addEventListener("click", handleDeleteUser);
-    cancelButton.addEventListener("click", closeDeleteModal);
-    closeDeleteModalBtn.addEventListener("click", closeDeleteModal);
-    submitEditedUserBtn.addEventListener("click", handleEditedUser);
+    btnEditPassword.addEventListener("click", openEditPassword);
+    btnEditUsername.addEventListener("click", openEditUsername);
     signinUserButton.addEventListener("click", signin);
+    submitUserButton.addEventListener("click", signup);
+    closeEditFormBtn.addEventListener("click", closeEditUser);
+    deleteAccountBtn.addEventListener("click", openDeleteModal);
     closeloginFormBtn.addEventListener("click", closeLoginForm);
+    btnCloseEditEmail.addEventListener("click", closeEditEmail);
+    submitEditedEmail.addEventListener("click", handleEditemail);
+    closeDeleteModalBtn.addEventListener("click", closeDeleteModal);
     closeRegisterFormBtn.addEventListener("click", closeRegisterForm);
+    btnCloseEditPassword.addEventListener("click", closeEditPassword);
+    btnCloseEditUsername.addEventListener("click", closeEditUsername);
+    submitEditedPassword.addEventListener("click", handleEditPassword);
+    submitEditedUsername.addEventListener("click", handleEditUsername);
 }
 
 function openSearchBox() {
@@ -224,9 +245,8 @@ function closeProfileInfo() {
 function openEditUser() {
     let currentUser = JSON.parse(localStorage.getItem('user'));
     
-    editEmailField.value = currentUser.email;
-    editUserNameField.value = currentUser.username;
-    //editPasswordField.value = currentUser.password;
+    document.getElementById('user-email-edit').value = currentUser.email;
+    document.getElementById('username-edit').value = currentUser.username;
     
     editForm.style.display = 'block';
 }
@@ -235,30 +255,107 @@ function closeEditUser() {
     editForm.style.display = 'none';
 }
 
-async function handleEditedUser(event) {
+async function handleEditPassword(event) {
     event.preventDefault();
 
     let user = new ManagerUsers();
     let currentUser = JSON.parse(localStorage.getItem('user'));
+    
+    let data = {
+        password: editPasswordField.value,
+    };
+
+    let confirmPassword = document.getElementById('confirmation-new-password').value;
+    let oldPassword = document.getElementById('old-password');
+
+    let users = user.readUsers().then(onfulfilled => onfulfilled)
+        .catch(reject => console.log(reject));
+
+    try {
+        for (let item of await users)
+            if (data['password'] === item['password'])
+                throw {
+                    name: 'Senha existente',
+                    message: 'escolha outra combinação'
+                }
+        if (confirmPassword !== data.password)
+            throw {
+                name: 'Senhas distintas',
+                message: 'as senhas não correspondem'
+            }
+        if (oldPassword !== currentUser.password)
+            throw {
+                name: 'Senha incorreta',
+                message: 'a sua antiga senha está incorreta'
+            }
+
+        user.password = data.password;
+        user.updateUser(data);
+
+    } catch(errorObj) {
+        console.log(toastr.warning(`${errorObj.name}! ${errorObj.message}`));
+    }
+    
+}
+
+async function handleEditUsername(event) {
+    event.preventDefault();
+    let user = new ManagerUsers();
 
     let data = {
-        username: editUserNameField.value,
-        email: editEmailField.value,
-        password: editPasswordField.value,
-    }
+        username: editUsernameField.value,
+    };
 
-    if (data.username === currentUser.username) {
-        delete data['username'];
-    } if (data.email === currentUser.email) {
-        delete data['email'];
-    } if (data.password === currentUser.password) {
-        delete data['password'];
-    }
+    let users = user.readUsers().then(async onfulfilled => {
 
-    user.validateUser(data).then(onfulfilled => {
+        return onfulfilled;
+    }).catch(reject => console.log(reject));
+
+    try {
+        for (let item of await users)
+            if (data['username'] === item['username'])
+                throw {
+                    name: 'Nome de usuário existente',
+                    message: 'escolha outro nome de usuário'
+                }
+
+        user.username = data.username;
         user.updateUser(data);
-    }).catch(onrejected => {});
 
+    } catch(errorObj) {
+        console.log(toastr.warning(`${errorObj.name}! ${errorObj.message}`));
+    }
+    
+}
+
+async function handleEditemail(event) {
+    event.preventDefault();
+    let user = new ManagerUsers();
+    
+    let data = {
+        email: editEmailField.value,
+    };
+
+    let users = user.readUsers().then(async onfulfilled => {
+
+        return onfulfilled;
+    }).catch(reject => console.log(reject));
+
+    try {
+        for (let item of await users)
+            if (data['email'] === item['email'])
+                throw {
+                    name: 'Esse email já está em uso',
+                    message: 'escolha outro email'
+                }
+
+        user.email = data.email;
+        user.updateUser(data);
+    
+    } catch(errorObj) {
+        console.log(toastr.warning(`${errorObj.name}! ${errorObj.message}`));
+    }
+    
 }
 
 function openDeleteModal() {
@@ -278,6 +375,30 @@ function handleDeleteUser(event) {
 
     user.deleteUser();
     
+}
+
+function openEditEmail() {
+    editEmailModal.style.display = 'block';
+}
+
+function openEditPassword() {
+    editPasswordModal.style.display = 'block';
+}
+
+function openEditUsername() {
+    editUsernameModal.style.display = 'block';
+}
+
+function closeEditEmail() {
+    editEmailModal.style.display = 'none';
+}
+
+function closeEditPassword() {
+    editPasswordModal.style.display = 'none';
+}
+
+function closeEditUsername() {
+    editUsernameModal.style.display = 'none';
 }
 
 init();

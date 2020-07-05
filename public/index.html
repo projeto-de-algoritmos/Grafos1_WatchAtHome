@@ -194,30 +194,43 @@
         </div>
         <div class="edit-specific-fields-modal" id="edit-email-modal">
             <form method="POST" class="edit-specific-field">
-                <label for="new-email">Novo email:</label>
-                <input type="text" id="new-email" required>
+                <button type="button" id="close-edit-email">X</button>
+                <fieldset>
+                    <label for="new-email">Novo email:</label>
+                    <input type="text" id="new-email" required>
+                </fieldset>
                 <button type="submit" id="submit-email-user">ENVIAR</button>
             </form>
         </div>
         <div class="edit-specific-fields-modal" id="edit-username-modal">
             <form method="POST" class="edit-specific-field">
-                <label for="new-username">Novo nome de usuário:</label>
-                <input type="text" id="new-username">
+                <button type="button" id="close-edit-username">X</button>
+                <fieldset>
+                    <label for="new-username">Novo nome de usuário:</label>
+                    <input type="text" id="new-username">
+                </fieldset>
                 <button type="submit" id="submit-username-user">ENVIAR</button>
             </form>
         </div>
         <div class="edit-specific-fields-modal" id="edit-password-modal">
             <form method="POST" class="edit-specific-field">
-                <label for="old-password">Senha antiga:</label>
-                <input type="password" name="old-password" id="old-password">
-                <label for="new-password">Nova senha:</label>
-                <input type="text" name="new-password" id="new-password">
-                <label for="confirmation-new-password">Confirmar nova senha:</label>
-                <input 
-                    type="password" 
-                    name="confirmation-new-password" 
-                    id="confirmation-new-password"
-                >
+                <button type="button" id="close-edit-password">X</button>
+                <fieldset>
+                    <label for="old-password">Senha antiga:</label>
+                    <input type="password" name="old-password" id="old-password">
+                </fieldset>
+                <fieldset>
+                    <label for="new-password">Nova senha:</label>
+                    <input type="text" name="new-password" id="new-password">
+                </fieldset>
+                <fieldset>
+                    <label for="confirmation-new-password">Confirmar nova senha:</label>
+                    <input 
+                        type="password" 
+                        name="confirmation-new-password" 
+                        id="confirmation-new-password"
+                    >
+                </fieldset>
                 <button type="submit" id="submit-password-user">ENVIAR</button>
             </form>
         </div>

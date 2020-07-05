@@ -227,8 +227,7 @@ export class ManagerUsers {
 
         this.readUsers().then(async users => {
             for (let item of users)
-                for (let key in item)
-                    if (item[key] === userEmailRecognized) {
+                    if (item['email'] === userEmailRecognized) {
                         for (let copyKey in user) {
                             item[copyKey] = user[copyKey];
                         }

@@ -271,7 +271,11 @@ form.edit-specific-field {
     border-radius: 5px;
 }
 
-form#edit-form fieldset {
+form.edit-specific-field label {
+    align-items: flex-start !important;
+}
+
+form#edit-form fieldset, form.edit-specific-field fieldset {
     display: flex;
     justify-content: space-around;
     border: none;
@@ -284,11 +288,13 @@ form#edit-form fieldset a {
     text-decoration-line: underline;
 }
 
-form#edit-form fieldset + fieldset {
+form#edit-form fieldset + fieldset, 
+form.edit-specific-field fieldset + fieldset {
     margin-top: 1em;
 }
 
-form#register-form input, form#login-form input, form#edit-form input {
+form#register-form input, form#login-form input, form#edit-form input,
+form.edit-specific-field input {
     background: none;
     border: none;
     border-bottom: 2px solid #048a8c;
@@ -309,7 +315,8 @@ form#register-form :nth-last-child(2) {
 }
 
 form#register-form button[type=submit], form#login-form button[type=submit],
-form#edit-form button[type=submit], div#confirm-message button[type=submit] {
+form#edit-form button[type=submit], div#confirm-message button[type=submit],
+form.edit-specific-field button[type=submit] {
     background-color: #211f1f;
     border: 1px solid #048a8c;
     padding: 5px 5px 5px 5px;
@@ -324,7 +331,8 @@ form#edit-form button[type=submit], div#confirm-message button[type=submit] {
 
 form#register-form button#close-register-form, form#login-form button#close-login-form,
 div.myaccount-info button#close-account-info, form#edit-form button#close-edit-form, 
-div#confirm-message button#close-delete-form {
+div#confirm-message button#close-delete-form, form.edit-specific-field button[type=button] 
+{
     background: none;
     border: none;
     font-size: 24px;
@@ -336,13 +344,13 @@ div#confirm-message button#close-delete-form {
 
 button#close-register-form:hover, button#close-login-form:hover, 
 button#close-account-info:hover, button#close-edit-form:hover,
-button#close-delete-form:hover {
+button#close-delete-form:hover, form.edit-specific-field button[type=button]:hover {
     cursor: pointer;
     transform: scale(1.2);
 }
 
 form#register-form button[type=submit]:hover, form#edit-form button[type=submit], 
-div#confirm-message button[type=submit] {
+div#confirm-message button[type=submit], form.edit-specific-field button[type=submit] {
     cursor: pointer;
 }
 
