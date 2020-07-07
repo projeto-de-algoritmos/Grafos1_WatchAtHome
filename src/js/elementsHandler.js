@@ -7,6 +7,8 @@ import imdbIcon from './../assets/images/imdb_icon.png';
 import renderMovies from './renderMovies';
 import { ManagerUsers } from './managerUser.js';
 
+let containerInterface = document.querySelector('div.interface');
+
 let lupa = document.querySelector('img#lupa-icon');
 let searchBox = document.querySelector('input#search-box');
 let searchBoxMain = document.getElementById('search-box-main');
@@ -71,6 +73,10 @@ let submitEditedEmail = document.getElementById('submit-email-user');
 let submitEditedUsername = document.getElementById('submit-username-user');
 let submitEditedPassword = document.getElementById('submit-password-user');
 
+let sidenav = document.getElementById('my-sidenav');
+let btnOpenNav = document.getElementById('btn-open-sidenav');
+let btnCloseNav = document.getElementById('btn-close-sidenav');
+
 let marginLeftStatic = 0;
 
 function init() {
@@ -97,6 +103,8 @@ function init() {
     arrowLeft.addEventListener("click", passToLeft);
     userPhoto.addEventListener("click", manageProfileOptions);
     arrowRight.addEventListener("click", passToRight);
+    btnOpenNav.addEventListener("click", openNav);
+    btnCloseNav.addEventListener("click", closeNav);
     loginButton.addEventListener("click", openLoginForm);
     logoutButton.addEventListener("click", logout);
     signupButton.addEventListener("click", openRegisterForm);
@@ -399,6 +407,18 @@ function closeEditPassword() {
 
 function closeEditUsername() {
     editUsernameModal.style.display = 'none';
+}
+
+function openNav() {
+    sidenav.style.width = "250px";
+    document.body.style.backgroundColor = "rgba(0,0,0,0.4)";
+    containerInterface.style.marginRight = "250px";
+}
+
+function closeNav() {
+    sidenav.style.width = "0";
+    containerInterface.style.marginRight = "0";
+    document.body.style.backgroundColor = "#000";
 }
 
 init();

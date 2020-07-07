@@ -7,6 +7,65 @@ a {
     text-decoration: none;
 }
 
+div.sidenav {
+    height: 100%;
+    width: 0;
+    z-index: 1;
+    position: fixed;
+    top: 0;
+    right: 0;
+    padding-top: 1vw;
+    overflow-x: hidden;
+    transition: 0.5s;
+    background: rgb(24,24,32);
+    background: linear-gradient(144deg, rgba(24,24,32,1) 24%, rgba(29,29,36,1) 37%, rgba(51,52,55,0.9150035014005602) 100%, rgba(111,111,125,1) 100%, rgba(203,208,209,1) 100%);
+}
+
+div.sidenav a {
+    color: #ccc;
+    font-size: 1rem;
+    transition: 0.3s;
+    display: block;
+}
+
+div.sidenav a#btn-close-sidenav {
+    position: absolute;
+    top: 0;
+    left: 0;
+    font-size: 2rem;
+    margin-left: 1vw;
+    z-index: 1;
+}
+
+div.sidenav-options {
+    display: flex !important;
+    justify-content: center;
+}
+
+div.sidenav-options ul li {
+    display: block;
+}
+
+i#btn-open-sidenav {
+    position: absolute;
+    top: 2.5vw;
+    right: 2vw;
+    font-size: 2rem;
+    color: #fff;
+    display: none;
+}
+
+i#open-sidenav:hover {
+    cursor: pointer;
+}
+
+a#btn-close-sidenav {
+    position: absolute;
+    top: 0;
+    left: 1vw;
+    font-size: 5rem;
+}
+
 div.interface {
     display: flex;
     flex-direction: column;
@@ -44,7 +103,9 @@ div.header #search-box {
 }
 
 div.header .logo {
-    background: rgba(24,42,45,.59);
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 div.header .logo img {
@@ -512,4 +573,68 @@ div.footer #main-footer {
 
 div.footer #main-footer a {
     color: #000;
+}
+
+@media only screen and (max-width: 800px) {
+    img#logo-presentation {
+        max-width: 400px;
+    }
+    
+    i#btn-open-sidenav {
+        display: block;
+    }
+
+    div.signup-login-buttons {
+        display: none;
+        position: relative;
+        margin-right: 0;
+        text-align: center;
+    }
+
+    div.signup-login-buttons li + li {
+        margin-top: 1vw;
+    }
+
+    input#search-box-main {
+        font-size: 12px;
+    }
+
+    div.movies-list ul li {
+        font-size: 0.8rem;
+    }
+
+    div.header #search-box {
+        font-size: 1.2em;
+    }
+
+    div.header button#button-search {
+        top: 3.5vw;
+        right: 9vw;
+    }
+
+    div.header #lupa-icon {
+        margin-left: 0.5em;
+        max-width: 30px;
+        max-height: 30px;
+    }
+
+    div.movies-list ul li img {
+        width: 150px;
+        height: 200px;
+    }
+
+    div.header nav li {
+        font-size: 1em;
+    }
+}
+
+@media only screen and (max-width: 400px) {
+    img#logo-presentation {
+        max-width: 350px;
+    }
+
+    div.header nav li {
+        font-size: 0.8em;
+    }
+
 }

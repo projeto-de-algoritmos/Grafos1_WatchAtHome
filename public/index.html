@@ -36,6 +36,15 @@
     <title>Watch Home - Início</title>
 </head>
 <body>
+    <div id="my-sidenav" class="sidenav">
+        <a href="#" id="btn-close-sidenav">&times;</a>
+        <div class="signup-login-buttons sidenav-options">
+            <ul>
+                <li><button type="button" id="login">ENTRAR</button></li>
+                <li><button type="button" id="signup">CRIAR CONTA</button></li>
+            </ul>
+        </div>            
+    </div>
     <div class="interface">
         <div class="header">
             <img src="./../src/assets/images/lupa.png" id="lupa-icon">
@@ -55,6 +64,7 @@
                     </ul>
                 </nav>
             </header>
+            <i class="fa fa-bars" area-hidden="true" id="btn-open-sidenav"></i>
             <div class="signup-login-buttons">
                 <ul>
                     <li><button type="button" id="login">ENTRAR</button></li>
@@ -262,10 +272,7 @@
                 <header>
                     <div class="movies-categories">
                         <ul>
-                            <li><i class="fas fa-film"></i>filmes mais vistos</li>
-                            <li><a href="#">lançamentos</a></li>
-                            <li><a href="#">recentes</a></li>
-                            <li><a href="#">recomendados</a></li>
+                            <li><i class="fas fa-film"></i>Recomendados para você</li>
                         </ul>
                     </div>
                     <div class="arrow-buttons popular-movies">
