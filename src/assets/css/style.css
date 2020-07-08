@@ -573,6 +573,7 @@ div.footer #main-footer {
 
 div.footer #main-footer a {
     color: #000;
+    text-decoration: underline;
 }
 
 @media only screen and (max-width: 800px) {
@@ -614,8 +615,8 @@ div.footer #main-footer a {
 
     div.header #lupa-icon {
         margin-left: 0.5em;
-        max-width: 30px;
-        max-height: 30px;
+        max-width: 30px !important;
+        max-height: 30px !important;
     }
 
     div.movies-list ul li img {
@@ -630,11 +631,29 @@ div.footer #main-footer a {
 
 @media only screen and (max-width: 400px) {
     img#logo-presentation {
-        max-width: 350px;
+        max-width: 300px;
     }
 
     div.header nav li {
         font-size: 0.8em;
     }
 
+    div.movies-categories ul li {
+        display: flex;
+        padding: 10px;
+    }
+    
+    div.arrow-buttons {
+        display: flex;
+        margin-right: 10px;
+        justify-content: flex-end;
+    }
+
+}
+
+@media only screen and (max-width: 320px) {
+    img#logo-presentation {
+        max-width: 250px;
+    }
+    
 }
