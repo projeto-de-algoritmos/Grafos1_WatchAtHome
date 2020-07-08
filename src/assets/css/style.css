@@ -629,6 +629,14 @@ div.footer #main-footer a {
     }
 }
 
+@media only screen and (max-width: 600px) {
+    form#register-form, form#login-form, 
+    form#edit-form, form.edit-specific-field {
+        max-width: 50vw;
+        max-height: 60vw;
+    }
+}
+
 @media only screen and (max-width: 400px) {
     img#logo-presentation {
         max-width: 300px;
@@ -647,6 +655,12 @@ div.footer #main-footer a {
         display: flex;
         margin-right: 10px;
         justify-content: flex-end;
+    }
+
+    form#register-form, form#login-form, 
+    form#edit-form, form.edit-specific-field {
+        max-width: 100%;
+        max-height: 100%;
     }
 
 }
