@@ -16,8 +16,10 @@ let targetButton = document.querySelector('button#button-search-main');
 let buttonSearch2nd = document.getElementById('button-search');
 let termSearched;
 
-let signupButton = document.getElementById('signup');
-let loginButton = document.getElementById('login');
+let loginButtonNav = document.querySelectorAll('button.btn-login')[0];
+let signupButtonNav = document.querySelectorAll('button.btn-signup')[0];
+let signupButton = document.querySelectorAll('button.btn-signup')[1];
+let loginButton = document.querySelectorAll('button.btn-login')[1];
 
 let registerForm = document.getElementsByClassName('modal-form')[0];
 let closeRegisterFormBtn = document.getElementById('close-register-form');
@@ -106,8 +108,10 @@ function init() {
     btnOpenNav.addEventListener("click", openNav);
     btnCloseNav.addEventListener("click", closeNav);
     loginButton.addEventListener("click", openLoginForm);
+    loginButtonNav.addEventListener("click", openLoginForm);
     logoutButton.addEventListener("click", logout);
     signupButton.addEventListener("click", openRegisterForm);
+    signupButtonNav.addEventListener("click", openRegisterForm);
     targetButton.addEventListener("click", catchTermRedirPage);
     cancelButton.addEventListener("click", closeDeleteModal);
     btnEditEmail.addEventListener("click", openEditEmail);
