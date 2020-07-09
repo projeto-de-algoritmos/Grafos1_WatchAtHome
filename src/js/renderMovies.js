@@ -1,9 +1,9 @@
 const apiKey = 'ef18473cad0b168218935d1d9dfe7c17';
 
-let page = 1;
-const url = `https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&language=pt-BR&page=${page}`;
+const url = `https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&language=pt-BR&page=`;
+const seriesUrl = `https://api.themoviedb.org/3/tv/popular?api_key=${apiKey}&language=pt-BR&page=`;
 
-const renderMovie = () => {
+const renderRecommend = () => {
     return new Promise((resolve, reject) => {
         const xhr = new XMLHttpRequest();
 
@@ -17,22 +17,67 @@ const renderMovie = () => {
                 reject('Something went wrong!');
             }
         }
-        xhr.open('GET', url);
+        xhr.open('GET', `${url}${1}`);
         xhr.send();
     })
 }
 
-renderMovie().then(onfulfilled => {
-    modifyImgUrl(onfulfilled.results);
-})
-.catch(onrejected => alert(onrejected));
+const renderPopular = () => {
+    return new Promise((resolve, reject) => {
+        const xhr = new XMLHttpRequest();
 
-const registerMovies = (moviesResults) => {
+        xhr.responseType = 'json';
+        xhr.onload = () => {
+            if (xhr.status === 200) 
+                resolve(xhr.response);
+            else
+                reject('Something went wrong!');
+        }
+        xhr.open('GET', `${url}${2}`);
+        xhr.send();
+    })
+}
+
+const renderSeries = () => {
+    return new Promise((resolve, reject) => {
+        const xhr = new XMLHttpRequest();
+
+        xhr.responseType = 'json';
+        xhr.onload = () => {
+            if (xhr.status === 200)
+                resolve(xhr.response);
+            else
+                reject('Something went wrong!');
+        }
+        xhr.open('GET', `${seriesUrl}${1}`);
+        xhr.send();
+    })
+}
+
+renderRecommend().then(onfulfilled => {
+    let moviesList;
+    moviesList = modifyImgUrl(onfulfilled.results);
+    registerMovies(moviesList, 'list');
+}).catch(onrejected => console.log(toastr.error(onrejected)));
+
+renderPopular().then(onfulfilled => {
+    let moviesList;
+    moviesList = modifyImgUrl(onfulfilled.results);
+    registerMovies(moviesList, 'list-popular');
+}).catch(onrejected => console.log(toastr.error(onrejected)));
+
+renderSeries().then(onfulfilled => {
+    let moviesList;
+    moviesList = modifyImgUrl(onfulfilled.results);
+    registerMovies(moviesList, 'list-series');
+}).catch(onrejected => console.log(onrejected));
+
+const registerMovies = (moviesResults, idTarget='list') => {
     const source = document.getElementById('source').innerHTML;
     const template = Handlebars.compile(source);
 
     const compiledHTML = template(moviesResults);
-    const target = document.getElementById('list');
+    const target = document.getElementById(idTarget);
     target.innerHTML = compiledHTML;
 }
 
@@ -47,7 +92,7 @@ const modifyImgUrl = (moviesResults) => {
         let modifiedMovie = { ...movie, poster_path: newUrl }
         moviesList.list.push(modifiedMovie);
     })
-    registerMovies(moviesList);
+    return moviesList;
 }
 
 export { apiKey, modifyImgUrl };
