@@ -95,4 +95,4 @@ const modifyImgUrl = (moviesResults) => {
     return moviesList;
 }
 
-export { apiKey, modifyImgUrl };
+export { apiKey, modifyImgUrl, registerMovies };

@@ -1,4 +1,4 @@
-import { apiKey, modifyImgUrl } from './renderMovies.js';
+import { apiKey, modifyImgUrl, registerMovies } from './renderMovies.js';
 import * as elementHandler from './elementsHandler.js';
 
 let resultRequest = {};
@@ -6,6 +6,8 @@ let resultRequest = {};
 async function makeSearch() {
     let movieName = localStorage.getItem('termSearched');
     let searchUrl = `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&language=pt-BR&page=1&include_adult=false&query=${movieName}`;
+
+    let moviesList;
         
     try {
         const response = await fetch(searchUrl);
@@ -13,7 +15,8 @@ async function makeSearch() {
             const responseJson = await response.json();
             resultRequest = responseJson;
 
-            modifyImgUrl(resultRequest.results);
+            moviesList = modifyImgUrl(resultRequest.results);
+            registerMovies(moviesList, 'list');
         }
     } catch (error) {
         console.log(error.message);
