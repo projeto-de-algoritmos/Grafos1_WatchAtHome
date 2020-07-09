@@ -24,8 +24,13 @@
                 <figure>
                     <img src={{this.poster_path}}>
                     <figcaption>
-                        <h4>{{this.title}}</h4>
-                        <p>Lançamento: {{this.release_date}}</p>
+                        {{#if this.title}}
+                            <h4>{{this.title}}</h4>
+                            <p>Lançamento: {{this.release_date}}</p>
+                        {{else}}
+                            <h4>{{this.original_name}}</h4>
+                            <p>Lançamento: {{this.first_air_date}}</p>
+                        {{/if}}
                             <img src="./../src/assets/images/imdb_icon.png" id="vote-icon">
                             <span>{{this.vote_average}}</span>
                     </figcaption>
