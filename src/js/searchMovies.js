@@ -16,7 +16,7 @@ async function makeSearch() {
             resultRequest = responseJson;
 
             moviesList = modifyImgUrl(resultRequest.results);
-            registerMovies(moviesList, 'list');
+            registerMovies(moviesList, 'list-results');
         }
     } catch (error) {
         console.log(error.message);

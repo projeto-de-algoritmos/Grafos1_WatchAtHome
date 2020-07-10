@@ -27,9 +27,32 @@ let closeRegisterFormBtn = document.getElementById('close-register-form');
 let loginForm = document.getElementsByClassName('modal-form')[1];
 let closeloginFormBtn = document.getElementById('close-login-form');
 
-let arrowLeft = document.querySelector('div.popular-movies').firstElementChild;
-let arrowRight = document.querySelector('div.popular-movies').lastElementChild;
-let movies = document.getElementsByClassName('movies-list')[0];
+let arrowLeftResults;
+let arrowRightResults;
+let moviesResults;
+
+(()=>{
+    if (document.location.pathname == '/moviesResult.html') {
+        arrowLeftResults = document.querySelector('div.buttons-results')
+        .firstElementChild;
+        arrowRightResults = document.querySelector('div.buttons-results')
+        .lastElementChild;
+        moviesResults = document.getElementsByClassName('results')[0];
+    }
+
+})();
+
+let arrowLeftPopulars = document.querySelector('div.buttons-populars').firstElementChild;
+let arrowRightPopulars = document.querySelector('div.buttons-populars').lastElementChild;
+let moviesPopulars = document.getElementsByClassName('populars')[0];
+
+let arrowLeftRecommended = document.querySelector('div.buttons-recommended').firstElementChild;
+let arrowRightRecommended = document.querySelector('div.buttons-recommended').lastElementChild;
+let moviesRecommended = document.getElementsByClassName('recommended')[0];
+
+let arrowLeftSeries = document.querySelector('div.buttons-series').firstElementChild;
+let arrowRightSeries = document.querySelector('div.buttons-series').lastElementChild;
+let moviesSeries = document.getElementsByClassName('series')[0];
 
 let submitUserButton = document.getElementById('submit-user');
 
@@ -79,7 +102,10 @@ let sidenav = document.getElementById('my-sidenav');
 let btnOpenNav = document.getElementById('btn-open-sidenav');
 let btnCloseNav = document.getElementById('btn-close-sidenav');
 
-let marginLeftStatic = 0;
+let marginLeftRecommended = 0;
+let marginLeftPopulars = 0;
+let marginLeftResults = 0;
+let marginLeftSeries = 0;
 
 function init() {
     let mainFooter = document.getElementById('main-footer');
@@ -102,26 +128,26 @@ function init() {
     
     lupa.addEventListener("click", openSearchBox);
     document.addEventListener("click", closeSearchBox);
-    arrowLeft.addEventListener("click", passToLeft);
     userPhoto.addEventListener("click", manageProfileOptions);
-    arrowRight.addEventListener("click", passToRight);
     btnOpenNav.addEventListener("click", openNav);
     btnCloseNav.addEventListener("click", closeNav);
     loginButton.addEventListener("click", openLoginForm);
-    loginButtonNav.addEventListener("click", openLoginForm);
     logoutButton.addEventListener("click", logout);
     signupButton.addEventListener("click", openRegisterForm);
-    signupButtonNav.addEventListener("click", openRegisterForm);
     targetButton.addEventListener("click", catchTermRedirPage);
     cancelButton.addEventListener("click", closeDeleteModal);
     btnEditEmail.addEventListener("click", openEditEmail);
     openEditForm.addEventListener("click", openEditUser);
     confirmButton.addEventListener("click", handleDeleteUser);
+    loginButtonNav.addEventListener("click", openLoginForm);
+    signupButtonNav.addEventListener("click", openRegisterForm);
     buttonSearch2nd.addEventListener("click", catchTermRedirPage);
     myAccountButton.addEventListener("click", openProfileInfo);
     closeProfileBtn.addEventListener("click", closeProfileInfo);
     btnEditPassword.addEventListener("click", openEditPassword);
     btnEditUsername.addEventListener("click", openEditUsername);
+    arrowLeftSeries.addEventListener("click", passToLeft);
+    arrowRightSeries.addEventListener("click", passToRight);
     signinUserButton.addEventListener("click", signin);
     submitUserButton.addEventListener("click", signup);
     closeEditFormBtn.addEventListener("click", closeEditUser);
@@ -129,12 +155,24 @@ function init() {
     closeloginFormBtn.addEventListener("click", closeLoginForm);
     btnCloseEditEmail.addEventListener("click", closeEditEmail);
     submitEditedEmail.addEventListener("click", handleEditemail);
+    arrowLeftPopulars.addEventListener("click", passToLeft);
+    arrowRightPopulars.addEventListener("click", passToRight);
     closeDeleteModalBtn.addEventListener("click", closeDeleteModal);
     closeRegisterFormBtn.addEventListener("click", closeRegisterForm);
     btnCloseEditPassword.addEventListener("click", closeEditPassword);
     btnCloseEditUsername.addEventListener("click", closeEditUsername);
     submitEditedPassword.addEventListener("click", handleEditPassword);
     submitEditedUsername.addEventListener("click", handleEditUsername);
+    arrowLeftRecommended.addEventListener("click", passToLeft);
+    arrowRightRecommended.addEventListener("click", passToRight);
+
+    //Only moviesResult page has the div results, so it's an exception
+    if (arrowLeftResults !== undefined ) {
+        arrowLeftResults.addEventListener("click", passToLeft);
+    }
+    if (arrowRightResults !== undefined) {
+        arrowRightResults.addEventListener("click", passToRight);
+    }
 }
 
 function openSearchBox() {
@@ -171,17 +209,59 @@ function closeLoginForm() {
     loginForm.style.display = "none";
 }
 
-function passToLeft() {
-    if (marginLeftStatic < 0) {
-        marginLeftStatic += 170;
-        movies.style.marginLeft = marginLeftStatic + "px";
+function passToLeft(event) {
+    switch (event.target) {
+        case arrowLeftSeries:
+            if (marginLeftSeries < 0) {
+                marginLeftSeries += 170;
+                moviesSeries.style.marginLeft = marginLeftSeries + "px";
+            }
+            break;
+        case arrowLeftPopulars:
+            if (marginLeftPopulars < 0) {
+                marginLeftPopulars += 170;
+                moviesPopulars.style.marginLeft = marginLeftPopulars + "px";
+            }
+            break;
+        case arrowLeftResults:
+            if (marginLeftResults < 0) {
+                marginLeftResults += 170;
+                moviesResults.style.marginLeft = marginLeftResults + "px";
+            }
+            break;
+        case arrowLeftRecommended:
+            if (marginLeftRecommended < 0) {
+                marginLeftRecommended += 170;
+                moviesRecommended.style.marginLeft = marginLeftRecommended + "px";
+            }
     }
 }
 
-function passToRight() {
-    if (marginLeftStatic > -2210) {
-        marginLeftStatic -= 170;
-        movies.style.marginLeft = marginLeftStatic + "px";
+function passToRight(event) {
+    switch (event.target) {
+        case arrowRightSeries:
+            if (marginLeftSeries > -2210) {
+                marginLeftSeries -= 170;
+                moviesSeries.style.marginLeft = marginLeftSeries + "px";
+            }
+            break;
+        case arrowRightPopulars:
+            if (marginLeftPopulars > -2210) {
+                marginLeftPopulars -= 170;
+                moviesPopulars.style.marginLeft = marginLeftPopulars + "px";
+            }
+            break;
+        case arrowRightResults:
+            if (marginLeftResults > -2210) {
+                marginLeftResults -= 170;
+                moviesResults.style.marginLeft = marginLeftResults + "px";
+            }
+            break;
+        case arrowRightRecommended:
+            if (marginLeftRecommended > -2210) {
+                marginLeftRecommended -= 170;
+                moviesRecommended.style.marginLeft = marginLeftRecommended + "px";
+            }
     }
 }
 
