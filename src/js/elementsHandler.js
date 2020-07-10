@@ -60,7 +60,7 @@ let userLoginEmail = document.getElementById('user-login-email');
 let userLoginPass = document.getElementById('user-login-password');
 let signinUserButton = document.getElementById('signin-user');
 
-let signUpLoginBtns = document.querySelector('div.signup-login-buttons');
+let signUpLoginBtns = document.getElementsByClassName('signup-login-buttons')[1];
 let accountInfo = document.querySelector('div.account-info');
 let userPhoto = document.getElementById('user-photo');
 let userProfileOptions = document.querySelector('div.user-profile');
@@ -292,8 +292,6 @@ async function signin(event) {
 
     user.signin().then(onfulfilled => {
         closeLoginForm();
-        signUpLoginBtns.style.display = 'none';
-        accountInfo.style.display = 'flex';
         setTimeout(() => {location.reload()}, 1000);
     }).catch(onrejected => {});
 
