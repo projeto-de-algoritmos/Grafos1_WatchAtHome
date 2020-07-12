@@ -147,20 +147,9 @@ div.user-profile {
     display: none;
 }
 
-div.triangle-shape {
-    width: 0;
-    height: 0;
-    border-left: 0.5vw solid transparent;
-    border-right: 0.5vw solid transparent;
-    border-bottom: 1vw solid #fff;
-    position: relative;
-    top: -0.7vw;
-    right: -5vw;
-}
-
 div.account-info {
     position: absolute;
-    display: none;
+    display: flex;
     justify-content: space-between;
     align-items: center;
     right: 0;
@@ -576,6 +565,10 @@ div.footer #main-footer a {
     text-decoration: underline;
 }
 
+div.disable-container {
+    display: none !important;
+}
+
 @media only screen and (max-width: 800px) {
     img#logo-presentation {
         max-width: 400px;
@@ -586,7 +579,6 @@ div.footer #main-footer a {
     }
 
     div.signup-login-buttons {
-        display: none;
         position: relative;
         margin-right: 0;
         text-align: center;
@@ -626,6 +618,21 @@ div.footer #main-footer a {
 
     div.header nav li {
         font-size: 1em;
+    }
+
+    div.account-info {
+        display: none !important;
+    }
+
+    div.account-info-mobile {
+        display: flex !important;
+        justify-content: center;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    div.user-profile {
+        position: relative;
     }
 }
 
