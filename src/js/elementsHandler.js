@@ -75,6 +75,11 @@ let profileInfo = document.querySelector('div.myaccount-info');
 let profileModal = document.querySelector('div.myaccount-modal')
 let closeProfileBtn = document.getElementById('close-account-info');
 
+let logoutButtonMob = document.getElementById('user-btn-logout-mobile');
+let myAccountButtonMob = document.getElementById('user-btn-profile-mobile');
+let openEditFormMob = document.getElementById('user-btn-edit-mobile');
+let deleteAccountBtnMob = document.getElementById('user-btn-delete-mobile');
+
 let editForm = document.getElementsByClassName('editaccount-modal')[0];
 let editEmailField = document.getElementById('new-email');
 let editUsernameField = document.getElementById('new-username');
@@ -153,11 +158,13 @@ function init() {
     confirmButton.addEventListener("click", handleDeleteUser);
     loginButtonNav.addEventListener("click", openLoginForm);
     signupButtonNav.addEventListener("click", openRegisterForm);
+    logoutButtonMob.addEventListener("click", logout);
     buttonSearch2nd.addEventListener("click", catchTermRedirPage);
     myAccountButton.addEventListener("click", openProfileInfo);
     closeProfileBtn.addEventListener("click", closeProfileInfo);
     btnEditPassword.addEventListener("click", openEditPassword);
     btnEditUsername.addEventListener("click", openEditUsername);
+    openEditFormMob.addEventListener("click", openEditUser);
     arrowLeftSeries.addEventListener("click", passToLeft);
     arrowRightSeries.addEventListener("click", passToRight);
     signinUserButton.addEventListener("click", signin);
@@ -169,7 +176,9 @@ function init() {
     submitEditedEmail.addEventListener("click", handleEditemail);
     arrowLeftPopulars.addEventListener("click", passToLeft);
     arrowRightPopulars.addEventListener("click", passToRight);
+    myAccountButtonMob.addEventListener("click", openProfileInfo);
     closeDeleteModalBtn.addEventListener("click", closeDeleteModal);
+    deleteAccountBtnMob.addEventListener("click", openDeleteModal);
     closeRegisterFormBtn.addEventListener("click", closeRegisterForm);
     btnCloseEditPassword.addEventListener("click", closeEditPassword);
     btnCloseEditUsername.addEventListener("click", closeEditUsername);
