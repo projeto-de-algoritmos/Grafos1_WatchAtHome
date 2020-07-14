@@ -65,9 +65,7 @@ let signUpLoginBtns = document.getElementsByClassName('signup-login-buttons')[1]
 let accountInfo = document.getElementsByClassName('account-info')[1];
 let accountInfoMobile = document.getElementsByClassName('account-info-mobile')[0];
 let userPhoto = document.getElementById('user-photo');
-let userPhotoNav = document.getElementById('user-photo-nav');
 let userProfileOptions = document.getElementsByClassName('user-profile')[1]
-let userProfileOptionsNav = document.getElementsByClassName('user-profile')[0];
 
 let logoutButton = document.getElementById('user-btn-logout');
 let myAccountButton = document.getElementById('user-btn-profile');
@@ -130,8 +128,8 @@ function init() {
     mainFooter.appendChild(footerInfo);
 
     if (isLogged) {
-        accountInfo.firstElementChild.append(`Hello ${userFullInfo.username}`);
-        accountInfoMobile.firstElementChild.append(`Hello ${userFullInfo.username}`);
+        accountInfo.getElementsByTagName('p')[0].append(`Hello ${userFullInfo.username}`);
+        accountInfoMobile.getElementsByTagName('p')[0].append(`Hello ${userFullInfo.username}`);
         signUpLoginBtns.setAttribute('class', 'disable-container');
         sidenavOptions.setAttribute('class', 'disable-container');
         accountInfo.style.display = 'flex !important';
@@ -149,7 +147,6 @@ function init() {
     btnCloseNav.addEventListener("click", closeNav);
     loginButton.addEventListener("click", openLoginForm);
     logoutButton.addEventListener("click", logout);
-    userPhotoNav.addEventListener("click", manageProfileOptions);
     signupButton.addEventListener("click", openRegisterForm);
     targetButton.addEventListener("click", catchTermRedirPage);
     cancelButton.addEventListener("click", closeDeleteModal);
@@ -328,10 +325,6 @@ function manageProfileOptions() {
         userProfileOptions.style.display = 'none';
     } else {
         userProfileOptions.style.display = 'block';
-    } if (userProfileOptionsNav.style.display == 'block') {
-        userProfileOptionsNav.style.display = 'none';
-    } else {
-        userProfileOptionsNav.style.display = 'block';
     }
 }
 

@@ -143,17 +143,19 @@ div.signup-login-buttons button:hover {
     background: #24ABA7;
 }
 
-div.user-profile {
-    display: none;
+div.user-profile-mobile {
+    display: flex;
+    top: 0;
+    right: 0;
 }
 
 div.account-info {
     position: absolute;
     display: flex;
-    justify-content: space-between;
     align-items: center;
     right: 0;
-    margin-right: 5vw;
+    flex-direction: column;
+    margin-top: 0.5vw;
 }
 
 div.account-info i, div.myaccount-info i, div.editaccount-modal i {
@@ -176,8 +178,8 @@ div.account-info p {
 
 div.user-profile {
     position: absolute;
-    top: 5vw;
-    right: 0;
+    top: 10vw;
+    right: 3vw;
     background-color: #fff;
     border-radius: 2px;
 }
@@ -569,6 +571,13 @@ div.disable-container {
     display: none !important;
 }
 
+@media only screen and (max-width: 950px) {
+    div.user-profile {
+        top: 11.6vw;
+        right: 4vw;
+    }
+}
+
 @media only screen and (max-width: 800px) {
     img#logo-presentation {
         max-width: 400px;
@@ -629,11 +638,35 @@ div.disable-container {
         justify-content: center;
         flex-direction: column;
         align-items: center;
+        margin: 0;
+        width: 100%;
     }
 
     div.user-profile {
         position: relative;
+        background-color: transparent;
     }
+
+    div.user-profile a {
+        color: #fff;
+        font-weight: bold;
+    }
+
+    div.account-info i {
+        margin-top: 2vw;
+        margin-bottom: 2vw;
+    }
+
+    div.account-info p {
+        text-align: center;
+    }
+
+    div.user-profile-mobile {
+        display: flex;
+        top: 0;
+        right: 0;
+    }
+
 }
 
 @media only screen and (max-width: 600px) {
@@ -641,6 +674,11 @@ div.disable-container {
     form#edit-form, form.edit-specific-field {
         max-width: 50vw;
         max-height: 60vw;
+    }
+
+    div.myaccount-info, div#confirm-message {
+        max-width: 50vw;
+        max-height: 40vw;
     }
 }
 
@@ -666,6 +704,11 @@ div.disable-container {
 
     form#register-form, form#login-form, 
     form#edit-form, form.edit-specific-field {
+        max-width: 100%;
+        max-height: 100%;
+    }
+
+    div.myaccount-info, div#confirm-message {
         max-width: 100%;
         max-height: 100%;
     }
