@@ -667,18 +667,31 @@ div.disable-container {
         right: 0;
     }
 
+    div.myaccount-info, div#confirm-message {
+        max-width: 55vw;
+        max-height: 60vw;
+        padding: 10px;
+    }
+
+    form#register-form, form#login-form, 
+    form#edit-form, form.edit-specific-field {
+        max-width: 55vw;
+        max-height: 60vw;
+    }
+
 }
 
 @media only screen and (max-width: 600px) {
     form#register-form, form#login-form, 
     form#edit-form, form.edit-specific-field {
-        max-width: 50vw;
-        max-height: 60vw;
+        max-width: 60vw;
+        max-height: 85vw;
     }
 
     div.myaccount-info, div#confirm-message {
         max-width: 50vw;
         max-height: 40vw;
+        padding: 10px;
     }
 }
 
