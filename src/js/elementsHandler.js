@@ -4,7 +4,7 @@ import lupaImg from './../assets/images/lupa.png';
 import logoImg from './../assets/images/logo.png';
 import imdbIcon from './../assets/images/imdb_icon.png';
 
-import renderMovies from './renderMovies';
+import renderMovies, { requestMovieTrailer } from './renderMovies';
 import { ManagerUsers } from './managerUser.js';
 
 let containerInterface = document.querySelector('div.interface');
@@ -520,5 +520,21 @@ function closeNav() {
     containerInterface.style.marginRight = "0";
     document.body.style.backgroundColor = "#000";
 }
+
+function showMovieInfo(movieInfo) {
+    console.log(movieInfo);
+
+    requestMovieTrailer(movieInfo.id).then(onfulfilled => {
+        console.log(onfulfilled);
+    }).catch(onrejected => console.log(onrejected));
+}
+
+//Define a helper to help us to pass a specific object as element argument
+Handlebars.registerHelper('json', function (context) {
+    return JSON.stringify(context);
+})
+
+//This adds function to the global scope
+window.showMovieInfo = showMovieInfo;
 
 init();

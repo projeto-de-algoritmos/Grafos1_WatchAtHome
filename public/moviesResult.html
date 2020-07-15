@@ -20,7 +20,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
     <script type="text/x-handlebars-template" id="source">
         {{#each list}}
-            <li>
+            <li onclick="showMovieInfo({{json this}})">
                 <figure>
                     <img src={{this.poster_path}}>
                     <figcaption>

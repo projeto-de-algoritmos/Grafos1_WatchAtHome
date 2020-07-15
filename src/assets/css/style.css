@@ -526,6 +526,10 @@ div.movies-list ul li {
     color: #FFF;
 }
 
+div.movies-list ul li:hover {
+    cursor: pointer;
+}
+
 div.movies-list ul li + li {
     margin-left: 10px;
 }

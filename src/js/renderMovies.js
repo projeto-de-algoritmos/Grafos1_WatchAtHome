@@ -2,6 +2,7 @@ const apiKey = 'ef18473cad0b168218935d1d9dfe7c17';
 
 const url = `https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&language=pt-BR&page=`;
 const seriesUrl = `https://api.themoviedb.org/3/tv/popular?api_key=${apiKey}&language=pt-BR&page=`;
+let movieTrailerUrl = `https://api.themoviedb.org/3/movie/`;
 
 const renderRecommend = () => {
     return new Promise((resolve, reject) => {
@@ -95,4 +96,19 @@ const modifyImgUrl = (moviesResults) => {
     return moviesList;
 }
 
-export { apiKey, modifyImgUrl, registerMovies };
+const requestMovieTrailer = (movieId) => {
+    movieTrailerUrl += `${movieId}/videos?api_key=${apiKey}&language=en-US`;
+    return new Promise(async (resolve, reject) => {
+        try {
+            const response = await fetch(movieTrailerUrl, {method: 'GET'});
+            if (response.ok) {
+                resolve(response.json());
+            }
+        } catch (error) {
+            reject(error);
+        }
+    })
+
+}
+
+export { apiKey, modifyImgUrl, registerMovies, requestMovieTrailer };
