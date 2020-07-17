@@ -4,7 +4,7 @@ import lupaImg from './../assets/images/lupa.png';
 import logoImg from './../assets/images/logo.png';
 import imdbIcon from './../assets/images/imdb_icon.png';
 
-import renderMovies, { requestMovieTrailer } from './renderMovies';
+import renderMovies, { requestMovieInfo } from './renderMovies';
 import { ManagerUsers } from './managerUser.js';
 
 let containerInterface = document.querySelector('div.interface');
@@ -521,9 +521,9 @@ function closeNav() {
     document.body.style.backgroundColor = "#000";
 }
 
-function showMovieInfo(movieInfo) {
+function getMovieInfo(movieInfo) {
 
-    requestMovieTrailer(movieInfo.id).then(onfulfilled => {
+    requestMovieInfo(movieInfo).then(onfulfilled => {
         console.log(onfulfilled);
         localStorage.setItem('movieInfo', JSON.stringify(onfulfilled));
         window.location = './movieInfo.html';
@@ -536,6 +536,6 @@ Handlebars.registerHelper('json', function (context) {
 })
 
 //This adds function to the global scope
-window.showMovieInfo = showMovieInfo;
+window.getMovieInfo = getMovieInfo;
 
 init();

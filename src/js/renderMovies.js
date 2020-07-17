@@ -96,13 +96,15 @@ const modifyImgUrl = (moviesResults) => {
     return moviesList;
 }
 
-const requestMovieTrailer = (movieId) => {
-    movieTrailerUrl += `${movieId}/videos?api_key=${apiKey}&language=en-US`;
+const requestMovieInfo = (movieInfo) => {
+    movieTrailerUrl += `${movieInfo.id}/videos?api_key=${apiKey}&language=en-US`;
     return new Promise(async (resolve, reject) => {
         try {
             const response = await fetch(movieTrailerUrl, {method: 'GET'});
             if (response.ok) {
-                resolve(response.json());
+                let trailers = await response.json();
+                movieInfo.trailer_url = await trailers.results[0].key;
+                resolve(movieInfo);
             }
         } catch (error) {
             reject(error);
@@ -111,4 +113,4 @@ const requestMovieTrailer = (movieId) => {
 
 }
 
-export { apiKey, modifyImgUrl, registerMovies, requestMovieTrailer };
+export { apiKey, modifyImgUrl, registerMovies, requestMovieInfo };
