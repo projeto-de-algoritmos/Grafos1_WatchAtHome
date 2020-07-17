@@ -524,7 +524,6 @@ function closeNav() {
 function getMovieInfo(movieInfo) {
 
     requestMovieInfo(movieInfo).then(onfulfilled => {
-        console.log(onfulfilled);
         localStorage.setItem('movieInfo', JSON.stringify(onfulfilled));
         window.location = './movieInfo.html';
     }).catch(onrejected => console.log(onrejected));

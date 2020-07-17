@@ -2,8 +2,6 @@
 async function renderMovieInfo() {
     let movie = await JSON.parse(localStorage.getItem('movieInfo'));
 
-    console.log(movie);
-
     let newUrl = `https://www.youtube.com/embed/${await movie.trailer_url}`;
     movie = {...movie, trailer_url: newUrl};
 

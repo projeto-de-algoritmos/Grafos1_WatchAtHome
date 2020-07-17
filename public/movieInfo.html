@@ -21,17 +21,23 @@
     <script type="text/x-handlebars-template" id="source">
         {{#each movie}}
             <div>
-                <img src={{this.poster_path}}>
-                {{#if this.title}}
-                    <h3 id="title">{{this.title}}</h3>
-                    <p id="release-date">Lançamento: {{this.release_date}}</p>
-                {{else}}
-                    <h3>{{this.original_name}}</h3>
-                    <p id="release-date">Lançamento: {{this.first_air_date}}</p>
-                {{/if}}
-                <img src="./../src/assets/images/imdb_icon.png" id="imdb-icon">
-                <span>{{this.vote_average}}</span>
-                <p id="description">{{this.overview}}</p>
+                <div>
+                    <img id="poster" src={{this.poster_path}}>
+                    <div id="detailed-info">
+                        {{#if this.title}}
+                            <h3 id="title">{{this.title}}</h3>
+                            <p id="release-date">Lançamento: {{this.release_date}}</p>
+                        {{else}}
+                            <h3 id="title">{{this.original_name}}</h3>
+                            <p id="release-date">Lançamento: {{this.first_air_date}}</p>
+                        {{/if}}
+                        <div>
+                            <img src="./../src/assets/images/imdb_icon.png" id="imdb-icon">
+                            <span>{{this.vote_average}}</span>
+                        </div>
+                        <p id="description">{{this.overview}}</p>
+                    </div>
+                </div>
             </div>
             <iframe 
                 src={{this.trailer_url}}
