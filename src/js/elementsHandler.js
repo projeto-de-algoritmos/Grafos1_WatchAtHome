@@ -522,10 +522,11 @@ function closeNav() {
 }
 
 function showMovieInfo(movieInfo) {
-    console.log(movieInfo);
 
     requestMovieTrailer(movieInfo.id).then(onfulfilled => {
         console.log(onfulfilled);
+        localStorage.setItem('movieInfo', JSON.stringify(onfulfilled));
+        window.location = './movieInfo.html';
     }).catch(onrejected => console.log(onrejected));
 }
 

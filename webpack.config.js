@@ -4,7 +4,8 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 module.exports = {
     entry: {
         index: ['@babel/polyfill','./src/js/elementsHandler.js'],
-        results: ['@babel/polyfill','./src/js/searchMovies.js']
+        results: ['@babel/polyfill','./src/js/searchMovies.js'],
+        movieInfo: ['@babel/polyfill', './src/js/movieInfo.js']
     },
     output: {
         path: path.resolve(__dirname, 'public'),
