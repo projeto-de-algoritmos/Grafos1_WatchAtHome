@@ -17,37 +17,28 @@
     <script src='https://kit.fontawesome.com/a076d05399.js' defer></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.6/handlebars.min.js" integrity="sha256-usTqAE1ywvdMtksWzdeWzD75MsfJN0h0U7y2NtZL3N0=" crossorigin="anonymous" defer></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
-    <script src="./movieInfo.bundle.js" defer></script>
+    <script src="./recommendMovies.bundle.js" defer></script>
     <script type="text/x-handlebars-template" id="source">
-        {{#each movie}}
-            <div>
-                <div>
-                    <img id="poster" src={{this.poster_path}}>
-                    <div id="detailed-info">
+    {{#each list}}
+            <li onclick="getMovieInfo({{json this}})">
+                <figure>
+                    <img src={{this.poster_path}}>
+                    <figcaption>
                         {{#if this.title}}
-                            <h3 id="title">{{this.title}}</h3>
-                            <p id="release-date">Lançamento: {{this.release_date}}</p>
+                            <h4>{{this.title}}</h4>
+                            <p>Lançamento: {{this.release_date}}</p>
                         {{else}}
-                            <h3 id="title">{{this.original_name}}</h3>
-                            <p id="release-date">Lançamento: {{this.first_air_date}}</p>
+                            <h4>{{this.original_name}}</h4>
+                            <p>Lançamento: {{this.first_air_date}}</p>
                         {{/if}}
-                        <div>
-                            <img src="./../src/assets/images/imdb_icon.png" id="imdb-icon">
+                            <img src="./../src/assets/images/imdb_icon.png" id="vote-icon">
                             <span>{{this.vote_average}}</span>
-                        </div>
-                        <p id="description">{{this.overview}}</p>
-                    </div>
-                </div>
-            </div>
-            <iframe 
-                src={{this.trailer_url}}
-                allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" 
-                allowfullscreen
-            >
-            </iframe>
+                    </figcaption>
+                </figure>
+            </li>
         {{/each}}
     </script>
-    <title>Watch Home - Movie Info</title>
+    <title>Watch Home - Recommend Movies</title>
 </head>
 <body>
     <div class="interface">
@@ -69,7 +60,37 @@
                 </nav>
             </header>
         </div>
-        <div class="movie-info">
+        <div class="body">
+            <div class="presentation">
+                <img id="logo-presentation" src="./../src/assets/images/logo.png">
+                <div id="container-search">
+                    <input 
+                        type="search" 
+                        name="search" 
+                        id="search-box-main" 
+                        placeholder="Procure seus filmes e séries aqui">
+                    <button type="submit" id="button-search-main">
+                        <img src="./../src/assets/images/lupa.png" id="lupa-icon">
+                    </button>
+                </div>
+            </div>
+            <div class="movies-gallery">
+                <header>
+                    <div class="movies-categories">
+                        <ul>
+                            <li><i class="fas fa-film"></i>Filmes/Séries semelhantes</li>
+                        </ul>
+                    </div>
+                    <div class="arrow-buttons buttons-results">
+                        <button class="fas fa-angle-left" class="arrow-left"></button>
+                        <button class="fas fa-angle-right" class="arrow-right"></button>
+                    </div>
+                </header>
+                <div class="movies-list results">
+                    <ul id="first-page"></ul>
+                    <ul id="second-page"></ul>
+                </div>
+            </div>
         </div>
         <div class="footer">
             <footer id="main-footer">

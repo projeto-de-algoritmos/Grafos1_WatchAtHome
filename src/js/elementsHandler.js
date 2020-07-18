@@ -532,7 +532,7 @@ function getMovieInfo(movieInfo) {
 //Define a helper to help us to pass a specific object as element argument
 Handlebars.registerHelper('json', function (context) {
     return JSON.stringify(context);
-})
+});
 
 //This adds function to the global scope
 window.getMovieInfo = getMovieInfo;

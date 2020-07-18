@@ -5,7 +5,8 @@ module.exports = {
     entry: {
         index: ['@babel/polyfill','./src/js/elementsHandler.js'],
         results: ['@babel/polyfill','./src/js/searchMovies.js'],
-        movieInfo: ['@babel/polyfill', './src/js/movieInfo.js']
+        movieInfo: ['@babel/polyfill', './src/js/movieInfo.js'],
+        recommendMovies: ['@babel/polyfill', './src/js/recommender.js']
     },
     output: {
         path: path.resolve(__dirname, 'public'),
