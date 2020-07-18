@@ -6,16 +6,59 @@ let searchBox = document.querySelector('input#search-box');
 let searchBoxMain = document.getElementById('search-box-main');
 let termSearched;
 
+let arrowLeftResults = document.querySelector('div.buttons-results').firstElementChild;
+let arrowRightResults = document.querySelector('div.buttons-results').lastElementChild;
+let moviesResults = document.getElementsByClassName('results')[0];
+let marginLeftResults = 0;
+
+let lupa = document.querySelector('img#lupa-icon');
+
 let gallery = document.querySelector('div.movies-gallery');
 
 let movieTrailerUrl = `https://api.themoviedb.org/3/movie/`;
 
 function init() {
+    lupa.addEventListener("click", openSearchBox);
+    document.addEventListener("click", closeSearchBox);
     targetButton.addEventListener("click", recommendSimilar);
     buttonSearch2nd.addEventListener("click", recommendSimilar);
+    arrowLeftResults.addEventListener("click", passToLeft);
+    arrowRightResults.addEventListener("click", passToRight);
 
     gallery.style.display = 'none';
     searchBoxMain.placeholder = 'Digite o nome de um filme/série e recomendaremos semelhantes';
+}
+
+function passToLeft() {
+    if (marginLeftResults < 0) {
+        marginLeftResults += 170;
+        moviesResults.style.marginLeft = marginLeftResults + "px";
+    }
+}
+
+function passToRight() {
+    if (marginLeftResults > -2210) {
+        marginLeftResults -= 170;
+        moviesResults.style.marginLeft = marginLeftResults + "px";
+    }
+}
+
+function openSearchBox() {
+    searchBox.style.visibility = "visible";
+    buttonSearch2nd.style.visibility = "visible";
+    lupa.style.maxWidth = "40px";
+    lupa.style.maxHeight = "40px";
+    lupa.style.marginTop = "-1em";
+}
+
+function closeSearchBox(event) {
+    if (searchBox !== event.target && lupa !== event.target) {
+        searchBox.style.visibility = "hidden";
+        buttonSearch2nd.style.visibility = "hidden";
+        lupa.style.maxWidth = "50px";
+        lupa.style.maxHeight = "50px";
+        lupa.style.marginTop = "";
+    }
 }
 
 async function recommendSimilar() {
