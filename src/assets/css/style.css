@@ -551,6 +551,11 @@ div.movies-list img#vote-icon {
     max-width: 30px;
 }
 
+div.movies-list p#feedback {
+    color: #fff;
+    font-size: 3.5vw;
+}
+
 div.footer {
     display: flex;
     justify-content: center;
@@ -663,7 +668,7 @@ div.movie-info iframe {
     }
 
     div.header #search-box {
-        font-size: 1.2em;
+        font-size: 2.5vw;
     }
 
     div.header button#button-search {

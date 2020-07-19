@@ -1,7 +1,8 @@
 import { apiKey, modifyImgUrl, registerMovies } from './renderMovies.js';
 import * as elementHandler from './elementsHandler.js';
 
-let resultRequest = {};
+let gallery = document.querySelector('div.movies-gallery');
+let resultsList = document.querySelector('div.movies-list');
 
 async function makeSearch() {
     let movieName = localStorage.getItem('termSearched');
@@ -13,10 +14,16 @@ async function makeSearch() {
         const response = await fetch(searchUrl);
         if (response.ok) {
             const responseJson = await response.json();
-            resultRequest = responseJson;
 
-            moviesList = modifyImgUrl(resultRequest.results);
-            registerMovies(moviesList, 'list-results');
+            if (responseJson.results.length === 0) {
+                console.log('ok');
+                gallery.style.display = 'flex';
+                resultsList.innerHTML = 
+                    '<p id="feedback">Desculpe, não encontramos resultados para a sua busca!</p>';
+            } else {
+                let moviesList = modifyImgUrl(responseJson.results);
+                registerMovies(moviesList, 'list-results');
+            }
         }
     } catch (error) {
         console.log(error.message);

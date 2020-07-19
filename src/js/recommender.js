@@ -14,6 +14,7 @@ let marginLeftResults = 0;
 let lupa = document.querySelector('img#lupa-icon');
 
 let gallery = document.querySelector('div.movies-gallery');
+let resultsList = document.querySelector('div.movies-list');
 
 let movieTrailerUrl = `https://api.themoviedb.org/3/movie/`;
 
@@ -27,6 +28,7 @@ function init() {
 
     gallery.style.display = 'none';
     searchBoxMain.placeholder = 'Digite o nome de um filme/série e recomendaremos semelhantes';
+    searchBox.placeholder = 'Digite o nome de um filme/série e recomendaremos semelhantes';
 }
 
 function passToLeft() {
@@ -78,8 +80,17 @@ async function recommendSimilar() {
         if (response.ok) {
             let responseJson = await response.json();
             console.log(responseJson);
-            let moviesList = modifyImgUrl(responseJson.results);
-            registerMovies(moviesList);
+            
+            if (responseJson.results.length === 0) {
+                console.log('ok');
+                gallery.style.display = 'flex';
+                resultsList.innerHTML = 
+                    '<p id="feedback">Desculpe, não encontramos resultados para a sua busca!</p>';
+            } else {
+                let moviesList = modifyImgUrl(responseJson.results);
+                registerMovies(moviesList);
+            }
+
         }
     } catch (error) {
         console.log(toastr.error(error.message));
