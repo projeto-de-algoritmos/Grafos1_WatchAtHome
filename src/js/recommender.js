@@ -1,14 +1,14 @@
 const apiKey = 'ef18473cad0b168218935d1d9dfe7c17';
 
-let targetButton = document.querySelector('button#button-search-main');
-let buttonSearch2nd = document.getElementById('button-search');
 let searchBox = document.querySelector('input#search-box');
+let targetButton = document.querySelector('button#button-search-main');
 let searchBoxMain = document.getElementById('search-box-main');
+let buttonSearch2nd = document.getElementById('button-search');
 let termSearched;
 
+let moviesResults = document.getElementsByClassName('results')[0];
 let arrowLeftResults = document.querySelector('div.buttons-results').firstElementChild;
 let arrowRightResults = document.querySelector('div.buttons-results').lastElementChild;
-let moviesResults = document.getElementsByClassName('results')[0];
 let marginLeftResults = 0;
 
 let lupa = document.querySelector('img#lupa-icon');
@@ -68,8 +68,6 @@ async function recommendSimilar() {
     termSearched = await (
         searchBoxMain.value === '' ? searchBox.value : searchBoxMain.value);
         localStorage.setItem('termSearched', termSearched);
-        console.log(searchBoxMain.value);
-        
     let movieId = await getMovieId();
     
     let url = `https://api.themoviedb.org/3/movie/${await movieId}/recommendations?api_key=${apiKey}&language=pt-BR&page=1`;
@@ -79,10 +77,8 @@ async function recommendSimilar() {
 
         if (response.ok) {
             let responseJson = await response.json();
-            console.log(responseJson);
             
             if (responseJson.results.length === 0) {
-                console.log('ok');
                 gallery.style.display = 'flex';
                 resultsList.innerHTML = 
                     '<p id="feedback">Desculpe, não encontramos resultados para a sua busca!</p>';
@@ -107,8 +103,15 @@ async function getMovieId() {
         const response = await fetch(`${searchUrl}1`);
         if (response.ok) {
             const responseJson = await response.json();
-            movieId = responseJson.results[0].id;
-            return movieId;
+
+            if (responseJson.results.length === 0) {
+                gallery.style.display = 'flex';
+                resultsList.innerHTML = 
+                    '<p id="feedback">Desculpe, não encontramos resultados para a sua busca!</p>';
+            } else {
+                movieId = responseJson.results[0].id;
+                return movieId;
+            }
         }
     } catch (error) {
         console.log(toastr.error(error.message));
