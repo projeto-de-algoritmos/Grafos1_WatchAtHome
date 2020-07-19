@@ -634,6 +634,12 @@ div.movie-info iframe {
     margin: 3vw 0;
 }
 
+li.movie-item:hover {
+    transform: scale(1.05);
+    border: 2px double rgba(233, 225, 225, 0.2);
+    transition: all 0.2s;
+}
+
 @media only screen and (max-width: 950px) {
     div.user-profile {
         top: 11.6vw;

@@ -82,17 +82,23 @@ async function recommendSimilar() {
             if (responseJson.results.length === 0) {
                 gallery.style.display = 'flex';
                 arrowButtons.style.display = 'none';
-
+                
                 resultsList.innerHTML = 
                     '<p id="feedback">Desculpe, não encontramos resultados para a sua busca!</p>';
+                searchBox.value = '';
+                searchBoxMain.value = '';
             } else {
                 let moviesList = modifyImgUrl(responseJson.results);
                 registerMovies(moviesList);
+                searchBox.value = '';
+                searchBoxMain.value = '';
             }
 
         }
     } catch (error) {
         console.log(toastr.error(error.message));
+        searchBox.value = '';
+        searchBoxMain.value = '';
     }
 }
 
@@ -120,7 +126,8 @@ async function getMovieId() {
         }
     } catch (error) {
         console.log(toastr.error(error.message));
-        //I should fix the problem of not found results here
+        searchBox.value = '';
+        searchBoxMain.value = '';
     }
 }
 

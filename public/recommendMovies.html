@@ -20,7 +20,7 @@
     <script src="./recommendMovies.bundle.js" defer></script>
     <script type="text/x-handlebars-template" id="source">
     {{#each list}}
-            <li onclick="getMovieInfo({{json this}})">
+            <li onclick="getMovieInfo({{json this}})" class="movie-item">
                 <figure>
                     <img src={{this.poster_path}}>
                     <figcaption>
