@@ -422,6 +422,7 @@ div#container-search {
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-bottom: 2vw;
 }
 
 div#container-search button {

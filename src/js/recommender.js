@@ -6,6 +6,7 @@ let searchBoxMain = document.getElementById('search-box-main');
 let buttonSearch2nd = document.getElementById('button-search');
 let termSearched;
 
+let arrowButtons = document.querySelector('div.buttons-results');
 let moviesResults = document.getElementsByClassName('results')[0];
 let arrowLeftResults = document.querySelector('div.buttons-results').firstElementChild;
 let arrowRightResults = document.querySelector('div.buttons-results').lastElementChild;
@@ -80,6 +81,8 @@ async function recommendSimilar() {
             
             if (responseJson.results.length === 0) {
                 gallery.style.display = 'flex';
+                arrowButtons.style.display = 'none';
+
                 resultsList.innerHTML = 
                     '<p id="feedback">Desculpe, não encontramos resultados para a sua busca!</p>';
             } else {
@@ -106,6 +109,8 @@ async function getMovieId() {
 
             if (responseJson.results.length === 0) {
                 gallery.style.display = 'flex';
+                arrowButtons.style.display = 'none';
+
                 resultsList.innerHTML = 
                     '<p id="feedback">Desculpe, não encontramos resultados para a sua busca!</p>';
             } else {

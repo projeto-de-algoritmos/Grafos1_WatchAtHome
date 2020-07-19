@@ -4,6 +4,8 @@ import * as elementHandler from './elementsHandler.js';
 let gallery = document.querySelector('div.movies-gallery');
 let resultsList = document.querySelector('div.movies-list');
 
+let arrowButtons = document.querySelector('div.buttons-results');
+
 async function makeSearch() {
     let movieName = localStorage.getItem('termSearched');
     let searchUrl = `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&language=pt-BR&page=1&include_adult=false&query=${movieName}`;
@@ -18,6 +20,8 @@ async function makeSearch() {
             if (responseJson.results.length === 0) {
                 console.log('ok');
                 gallery.style.display = 'flex';
+                arrowButtons.style.display = 'none';
+
                 resultsList.innerHTML = 
                     '<p id="feedback">Desculpe, não encontramos resultados para a sua busca!</p>';
             } else {
