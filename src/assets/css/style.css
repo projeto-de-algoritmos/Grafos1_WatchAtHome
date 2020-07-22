@@ -640,6 +640,30 @@ li.movie-item:hover {
     transition: all 0.2s;
 }
 
+ul#number-pages {
+    display: flex;
+    justify-content: center;
+}
+
+ul#number-pages li {
+    display: inline-block;
+}
+
+ul#number-pages button:hover {
+    cursor: pointer;
+    color: #4287f5;
+}
+
+ul#number-pages li button {
+    color: #fff;
+    font-size: 1.2rem;
+    font-weight: bold;
+    border: none;
+    margin-left: 1vw;
+    background-color: transparent;
+    border-bottom: 1px solid;
+}
+
 @media only screen and (max-width: 950px) {
     div.user-profile {
         top: 11.6vw;

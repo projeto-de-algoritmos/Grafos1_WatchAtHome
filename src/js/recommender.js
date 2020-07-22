@@ -30,6 +30,7 @@ function init() {
     gallery.style.display = 'none';
     searchBoxMain.placeholder = 'Digite o nome de um filme/série e recomendaremos semelhantes';
     searchBox.placeholder = 'Digite o nome de um filme/série e recomendaremos semelhantes';
+    
 }
 
 function passToLeft() {
@@ -64,14 +65,21 @@ function closeSearchBox(event) {
     }
 }
 
-async function recommendSimilar() {
+async function recommendSimilar(page = 1) {
+    
+    if (page.target)
+        page = 1;
     
     termSearched = await (
-        searchBoxMain.value === '' ? searchBox.value : searchBoxMain.value);
-        localStorage.setItem('termSearched', termSearched);
+        searchBoxMain.value === '' ? (searchBox.value === '' 
+            ? localStorage.getItem('termSearched') : searchBox.value) 
+                : searchBoxMain.value
+    );
+
+    localStorage.setItem('termSearched', termSearched);
     let movieId = await getMovieId();
-    
-    let url = `https://api.themoviedb.org/3/movie/${await movieId}/recommendations?api_key=${apiKey}&language=pt-BR&page=1`;
+
+    let url = `https://api.themoviedb.org/3/movie/${await movieId}/recommendations?api_key=${apiKey}&language=pt-BR&page=${page}`;
 
     try {
         const response = await fetch(url, { method: 'GET' });
@@ -88,10 +96,29 @@ async function recommendSimilar() {
                 searchBox.value = '';
                 searchBoxMain.value = '';
             } else {
+                let total_pages = responseJson.total_pages;
                 let moviesList = modifyImgUrl(responseJson.results);
+                moviesList.list.total_pages = total_pages;
+
                 registerMovies(moviesList);
                 searchBox.value = '';
                 searchBoxMain.value = '';
+
+                let containerButtons = document.getElementById('number-pages');
+                containerButtons.innerHTML = '';
+
+                for (let i = 1; i <= moviesList.list.total_pages; i++) {
+                    let element = document.createElement('li');
+                    
+                    if (i === page)
+                        element.innerHTML += 
+                            `<button onclick="changePage(${i})" disabled>${i}</button>`;
+                    else
+                        element.innerHTML += 
+                            `<button onclick="changePage(${i})">${i}</button>`;
+
+                    containerButtons.appendChild(element);
+                }
             }
 
         }
@@ -103,7 +130,7 @@ async function recommendSimilar() {
 }
 
 async function getMovieId() {
-    let movieName = localStorage.getItem('termSearched');
+    let movieName = await localStorage.getItem('termSearched');
     let searchUrl = `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&language=pt-BR&include_adult=false&query=${movieName}&page=`;
 
     let movieId;
@@ -181,6 +208,10 @@ function getMovieInfo(movieInfo) {
     }).catch(onrejected => console.log(onrejected));
 }
 
+function changePage(page = 1) {
+    recommendSimilar(page);
+}
+
 Handlebars.registerHelper('json', function (context) {
     return JSON.stringify(context);
 });
@@ -188,3 +219,4 @@ Handlebars.registerHelper('json', function (context) {
 init();
 
 window.getMovieInfo = getMovieInfo;
+window.changePage = changePage;
