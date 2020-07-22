@@ -6,12 +6,14 @@ let resultsList = document.querySelector('div.movies-list');
 
 let arrowButtons = document.querySelector('div.buttons-results');
 
-async function makeSearch() {
-    let movieName = localStorage.getItem('termSearched');
-    let searchUrl = `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&language=pt-BR&page=1&include_adult=false&query=${movieName}`;
+async function makeSearch(page = 1) {
 
-    let moviesList;
-        
+    if (page.target)
+        page = 1;
+
+    let movieName = localStorage.getItem('termSearched');
+    let searchUrl = `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&language=pt-BR&page=${page}&include_adult=false&query=${movieName}`;
+
     try {
         const response = await fetch(searchUrl);
         if (response.ok) {
@@ -25,8 +27,27 @@ async function makeSearch() {
                 resultsList.innerHTML = 
                     '<p id="feedback">Desculpe, não encontramos resultados para a sua busca!</p>';
             } else {
+                let total_pages = responseJson.total_pages;
+
                 let moviesList = modifyImgUrl(responseJson.results);
+                moviesList.list.total_pages = total_pages;
                 registerMovies(moviesList, 'list-results');
+
+                let containerButtons = document.getElementById('number-pages');
+                containerButtons.innerHTML = '';
+
+                for (let i = 1; i <= moviesList.list.total_pages; i++) {
+                    let element = document.createElement('li');
+                    
+                    if (i === page)
+                        element.innerHTML += 
+                            `<button onclick="changePage(${i})" disabled>${i}</button>`;
+                    else
+                        element.innerHTML += 
+                            `<button onclick="changePage(${i})">${i}</button>`;
+
+                    containerButtons.appendChild(element);
+                }
             }
         }
     } catch (error) {
@@ -34,6 +55,12 @@ async function makeSearch() {
         //I should fix the problem of not found results here
     }
 }
+
+function changePage(page = 1) {
+    makeSearch(page);
+}
+
+window.changePage = changePage;
 
 
 makeSearch();
