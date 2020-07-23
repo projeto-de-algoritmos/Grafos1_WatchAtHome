@@ -4,6 +4,9 @@ import * as elementHandler from './elementsHandler.js';
 let gallery = document.querySelector('div.movies-gallery');
 let resultsList = document.querySelector('div.movies-list');
 
+let searchBoxMain = document.getElementById('search-box-main');
+let searchBox = document.querySelector('input#search-box');
+
 let arrowButtons = document.querySelector('div.buttons-results');
 
 async function makeSearch(page = 1) {
@@ -20,18 +23,21 @@ async function makeSearch(page = 1) {
             const responseJson = await response.json();
 
             if (responseJson.results.length === 0) {
-                console.log('ok');
                 gallery.style.display = 'flex';
                 arrowButtons.style.display = 'none';
 
                 resultsList.innerHTML = 
                     '<p id="feedback">Desculpe, não encontramos resultados para a sua busca!</p>';
+                    searchBox.value = '';
+                    searchBoxMain.value = '';
             } else {
                 let total_pages = responseJson.total_pages;
 
                 let moviesList = modifyImgUrl(responseJson.results);
                 moviesList.list.total_pages = total_pages;
                 registerMovies(moviesList, 'list-results');
+                searchBox.value = '';
+                searchBoxMain.value = '';
 
                 let containerButtons = document.getElementById('number-pages');
                 containerButtons.innerHTML = '';

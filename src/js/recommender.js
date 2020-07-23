@@ -85,7 +85,7 @@ async function recommendSimilar(page = 1) {
         const response = await fetch(url, { method: 'GET' });
 
         if (response.ok) {
-            let responseJson = await response.json();
+            const responseJson = await response.json();
             
             if (responseJson.results.length === 0) {
                 gallery.style.display = 'flex';
@@ -190,7 +190,9 @@ const requestMovieInfo = (movieInfo) => {
             const response = await fetch(movieTrailerUrl, {method: 'GET'});
             if (response.ok) {
                 let trailers = await response.json();
-                movieInfo.trailer_url = await trailers.results[0].key;
+
+                if (trailers.results.length !== 0)
+                    movieInfo.trailer_url = await trailers.results[0].key;
                 resolve(movieInfo);
             }
         } catch (error) {

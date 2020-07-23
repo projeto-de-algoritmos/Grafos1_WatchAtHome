@@ -287,7 +287,6 @@ async function catchTermRedirPage() {
     termSearched = await (
         searchBoxMain.value === '' ? searchBox.value : searchBoxMain.value);
     localStorage.setItem('termSearched', termSearched);
-    console.log(searchBoxMain.value);
     window.location = './moviesResult.html';
 }
 
@@ -330,8 +329,6 @@ function manageProfileOptions() {
 
 async function openProfileInfo() {
     let user = await JSON.parse(localStorage.getItem('user'));
-
-    console.log(user);
 
     let username = document.createElement('h4');
     let email = document.createElement('span');
@@ -522,7 +519,6 @@ function closeNav() {
 }
 
 function getMovieInfo(movieInfo) {
-
     requestMovieInfo(movieInfo).then(onfulfilled => {
         localStorage.setItem('movieInfo', JSON.stringify(onfulfilled));
         window.location = './movieInfo.html';

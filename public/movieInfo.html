@@ -35,16 +35,22 @@
                             <img src="./../src/assets/images/imdb_icon.png" id="imdb-icon">
                             <span>{{this.vote_average}}</span>
                         </div>
-                        <p id="description">{{this.overview}}</p>
+                        {{#if this.overview}}
+                            <p id="description">{{this.overview}}</p>
+                        {{else}}
+                            <p id="description">Sem informações para esse título!</p>
+                        {{/if}}
                     </div>
                 </div>
             </div>
-            <iframe 
-                src={{this.trailer_url}}
-                allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" 
-                allowfullscreen
-            >
-            </iframe>
+            {{#if this.trailer_url}}
+                <iframe 
+                    src={{this.trailer_url}}
+                    allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" 
+                    allowfullscreen
+                >
+                </iframe>
+            {{/if}}
         {{/each}}
     </script>
     <title>Watch Home - Movie Info</title>
