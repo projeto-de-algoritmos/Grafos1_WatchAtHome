@@ -1,3 +1,5 @@
+import {ManagerUsers} from './managerUser';
+
 const apiKey = 'ef18473cad0b168218935d1d9dfe7c17';
 
 let searchBox = document.querySelector('input#search-box');
@@ -18,6 +20,8 @@ let gallery = document.querySelector('div.movies-gallery');
 let resultsList = document.querySelector('div.movies-list');
 
 let movieTrailerUrl = `https://api.themoviedb.org/3/movie/`;
+
+let isLogged;
 
 function init() {
     lupa.addEventListener("click", openSearchBox);
@@ -127,6 +131,13 @@ async function recommendSimilar(page = 1) {
         searchBox.value = '';
         searchBoxMain.value = '';
     }
+
+    let user = new ManagerUsers();
+    isLogged = JSON.parse(localStorage.getItem('isLogged'));
+    if (isLogged)
+        user.addToHistory(termSearched).then(onfulfilled => {}).catch(onrejected => {
+            console.log(onrejected);
+        });
 }
 
 async function getMovieId() {

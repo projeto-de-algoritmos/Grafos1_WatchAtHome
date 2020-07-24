@@ -98,14 +98,6 @@ export class ManagerUsers {
         return this._sex;
     }
 
-    render() {
-
-    }
-
-    registerHandlers(event) {
-
-    }
-
     async getUserData() {
         let email = document.getElementById('user-email');
         let username = document.getElementById('username');
@@ -129,8 +121,6 @@ export class ManagerUsers {
         return newUser;
     }
 
-    //Capturar dados do form, validá-los e fazer requisição para dar
-    //update com novo usuário no JSON
     async createUser() {
 
         this.validateUser().then(async onfulfilled => {
@@ -220,40 +210,42 @@ export class ManagerUsers {
         }
     }
 
-    async updateUser(user) {
+    async updateUser(user, changeHistory = false) {
         let usersUpdated = [];
         let userUpdated;
         let userEmailRecognized = JSON.parse(localStorage.getItem('user')).email;
 
-        this.readUsers().then(async users => {
-            for (let item of users)
+        return new Promise((resolve, reject) => {
+            this.readUsers().then(async users => {
+                for (let item of await users) {
                     if (item['email'] === userEmailRecognized) {
                         for (let copyKey in user) {
                             item[copyKey] = user[copyKey];
                         }
                         userUpdated = JSON.stringify(item);
                     }
-            usersUpdated = JSON.stringify(users);
-            
-            try {
-                const response = await fetch(`https://api.jsonbin.io/b/${binId}`, {
-                    method: 'PUT', headers: { 
-                        'Content-Type': 'application/json', 
-                        'secret-key': secretKey 
-                    },  
-                    body: usersUpdated
-                });
-                if (response.ok) {
-                    localStorage.setItem('user', userUpdated);
-                    toastr.success('Usuário atualizado com sucesso!');
-                    setTimeout(() => {location.reload()}, 1000);
                 }
-            } catch(errorObj) {
-                toastr.error(errorObj);
-            }
-        }).catch(onrejected => console.log(onrejected));
-
-
+                usersUpdated = JSON.stringify(users);
+                
+                try {
+                    const response = await fetch(`https://api.jsonbin.io/b/${binId}`, {
+                        method: 'PUT', headers: { 
+                            'Content-Type': 'application/json', 
+                            'secret-key': secretKey 
+                        },  
+                        body: usersUpdated
+                    });
+                    if (response.ok && !changeHistory) {
+                        localStorage.setItem('user', userUpdated);
+                        toastr.success('Usuário atualizado com sucesso!');
+                        setTimeout(() => {location.reload()}, 1000);
+                    }
+                } catch(errorObj) {
+                    toastr.error(errorObj);
+                }
+                resolve(user);
+            }).catch(onrejected => reject(onrejected));
+        });
     }
 
     deleteUser() {
@@ -341,6 +333,37 @@ export class ManagerUsers {
                     reject(toastr.error('Sua senha está errada!'));
                 }
             }).catch(onrejected => console.log(onrejected));
+        });
+    }
+
+    async addToHistory(searchedMovie) {
+        return new Promise((resolve, reject) => {
+            let user = JSON.parse(localStorage.getItem('user'));
+
+            let data = new Date();
+
+            let dia  = data.getDate().toString();
+            let diaF = (dia.length == 1) ? '0'+dia : dia;
+
+            let mes  = (data.getMonth()+1).toString();
+            let mesF = (mes.length == 1) ? '0'+mes : mes;
+
+            let anoF = data.getFullYear();
+    
+            if (searchedMovie !== '') {
+                if (user['history']) {
+                    user.history.push(`${searchedMovie} - ${diaF}/${mesF}/${anoF}`);
+                }
+                else
+                    user.history = [`${searchedMovie} - ${diaF}/${mesF}/${anoF}`];
+
+                localStorage.setItem('user', JSON.stringify(user));
+                this.updateUser(user, true).then(onfulfilled => {
+                    resolve(user);
+                }).catch(onrejected => reject('Something went wrong!'));
+
+            }
+
         });
     }
 }

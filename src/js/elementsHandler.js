@@ -114,6 +114,8 @@ let marginLeftPopulars = 0;
 let marginLeftResults = 0;
 let marginLeftSeries = 0;
 
+let isLogged;
+
 function init() {
     let mainFooter = document.getElementById('main-footer');
     let footerInfo = document.createElement('span');
@@ -121,7 +123,7 @@ function init() {
     let today = new Date();
     let year = today.getFullYear();
     let userFullInfo = JSON.parse(localStorage.getItem('user'));
-    let isLogged = JSON.parse(localStorage.getItem('isLogged'));
+    isLogged = JSON.parse(localStorage.getItem('isLogged'));
     
     footerInfo.textContent = `© Copyright todos os direitos reservados - ${year}`;
 
@@ -287,7 +289,14 @@ async function catchTermRedirPage() {
     termSearched = await (
         searchBoxMain.value === '' ? searchBox.value : searchBoxMain.value);
     localStorage.setItem('termSearched', termSearched);
-    window.location = './moviesResult.html';
+
+    let user = new ManagerUsers();
+    if (isLogged)
+        user.addToHistory(termSearched).then(onfulfilled => {
+            window.location = './moviesResult.html';
+        }).catch(onrejected => {
+            console.log(onrejected);
+        });
 }
 
 function signup(event) {
