@@ -1,6 +1,5 @@
 const path = require('path');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const { merge } = require('webpack-merge');
 
 module.exports = {
     entry: {
@@ -12,11 +11,7 @@ module.exports = {
     output: {
         path: path.resolve(__dirname, 'public'),
         filename: '[name].bundle.js',
-    },
-    devServer: {
-        contentBase: path.resolve(__dirname, 'public'),
-    },
-    module: {
+    },module: {
         rules: [{
             test: /\.js$/,
             exclude: /(node_modules)/,
@@ -67,7 +62,4 @@ module.exports = {
             filename: "bundle.css"
         })
     ],
-    mode: 'development'
 };
-
-//Aprender como usar um loader para transpilar arquivos css.
