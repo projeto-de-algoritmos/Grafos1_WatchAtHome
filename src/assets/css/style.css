@@ -687,6 +687,19 @@ ul#number-pages li button[disabled] {
     border: none;
 }
 
+div.description {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+}
+
+div.description p {
+    margin: 1vw 0;
+    text-align: center;
+}
+
 @media only screen and (max-width: 950px) {
     div.user-profile {
         top: 11.6vw;

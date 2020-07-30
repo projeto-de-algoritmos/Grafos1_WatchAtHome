@@ -548,13 +548,11 @@ function setUserHistoryToDOM() {
     let history = user.history;
 
     let target = document.getElementsByClassName('history-list')[0];
-    console.log(history);
 
     history.map(item => {
         let element = document.createElement('li');
         element.textContent = item;
         target.appendChild(element);
-        console.log(target);
     });
 }
 
