@@ -276,7 +276,7 @@ div.modal-form {
 }
 
 div.myaccount-modal, div.editaccount-modal, 
-div.confirmation-modal, div.edit-specific-fields-modal {
+div.confirmation-modal, div.edit-specific-fields-modal, div.history-modal {
     position: fixed;
     left: 0;
     top: 0;
@@ -288,7 +288,7 @@ div.confirmation-modal, div.edit-specific-fields-modal {
     display: none;
 }
 
-div.myaccount-info, div#confirm-message {
+div.myaccount-info, div#confirm-message, div.history-container {
     position: relative;
     background: rgb(24,24,32);
     background: linear-gradient(144deg, rgba(24,24,32,1) 24%, rgba(29,29,36,1) 37%, rgba(51,52,55,0.9150035014005602) 100%, rgba(111,111,125,1) 100%, rgba(203,208,209,1) 100%);
@@ -303,6 +303,22 @@ div.myaccount-info, div#confirm-message {
     justify-content: center;
     align-items: center;
     border-radius: 5px;
+}
+
+div.history-container {
+    align-items: flex-end;
+    margin-top: 0;
+    padding-left: 5vw;
+    height: 30vw;
+}
+
+ol.history-list {
+    overflow-y: scroll;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+    padding-left: 5vw;
 }
 
 form#register-form, form#login-form, form#edit-form, 
@@ -383,7 +399,8 @@ form.edit-specific-field button[type=submit] {
 
 form#register-form button#close-register-form, form#login-form button#close-login-form,
 div.myaccount-info button#close-account-info, form#edit-form button#close-edit-form, 
-div#confirm-message button#close-delete-form, form.edit-specific-field button[type=button] 
+div#confirm-message button#close-delete-form, form.edit-specific-field button[type=button],
+div.history-modal button#close-history-modal 
 {
     background: none;
     border: none;
@@ -396,7 +413,8 @@ div#confirm-message button#close-delete-form, form.edit-specific-field button[ty
 
 button#close-register-form:hover, button#close-login-form:hover, 
 button#close-account-info:hover, button#close-edit-form:hover,
-button#close-delete-form:hover, form.edit-specific-field button[type=button]:hover {
+button#close-delete-form:hover, form.edit-specific-field button[type=button]:hover,
+button#close-history-modal:hover {
     cursor: pointer;
     transform: scale(1.2);
 }

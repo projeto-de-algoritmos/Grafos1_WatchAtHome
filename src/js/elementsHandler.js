@@ -77,6 +77,7 @@ let logoutButtonMob = document.getElementById('user-btn-logout-mobile');
 let myAccountButtonMob = document.getElementById('user-btn-profile-mobile');
 let openEditFormMob = document.getElementById('user-btn-edit-mobile');
 let deleteAccountBtnMob = document.getElementById('user-btn-delete-mobile');
+let openUserHistoryBtnMob = document.getElementById('user-btn-history-mobile');
 
 let editForm = document.getElementsByClassName('editaccount-modal')[0];
 let editEmailField = document.getElementById('new-email');
@@ -86,6 +87,8 @@ let closeEditFormBtn = document.getElementById('close-edit-form');
 let openEditForm = document.getElementById('user-btn-edit');
 let submitEditedUserBtn = document.getElementById('submit-edited-user');
 let deleteAccountBtn = document.getElementById('user-btn-delete');
+let openUserHistoryBtn = document.getElementById('user-btn-history');
+let closeUserHistoryBtn = document.getElementById('close-history-modal');
 
 let deleteModal = document.querySelector('div.confirmation-modal');
 let confirmButton = document.getElementById('btn-confirm');
@@ -93,15 +96,16 @@ let cancelButton = document.getElementById('btn-cancel');
 let closeDeleteModalBtn = document.getElementById('close-delete-form');
 
 let btnEditEmail = document.getElementById('btn-edit-email');
+let historyModal = document.getElementsByClassName('history-modal')[0];
 let btnEditPassword = document.getElementById('btn-edit-password');
 let btnEditUsername = document.getElementById('btn-edit-username');
 let editEmailModal = document.getElementById('edit-email-modal');
 let editPasswordModal = document.getElementById('edit-password-modal');
 let editUsernameModal = document.getElementById('edit-username-modal');
 let btnCloseEditEmail = document.getElementById('close-edit-email');
+let submitEditedEmail = document.getElementById('submit-email-user');
 let btnCloseEditPassword = document.getElementById('close-edit-password');
 let btnCloseEditUsername = document.getElementById('close-edit-username');
-let submitEditedEmail = document.getElementById('submit-email-user');
 let submitEditedUsername = document.getElementById('submit-username-user');
 let submitEditedPassword = document.getElementById('submit-password-user');
 
@@ -175,9 +179,11 @@ function init() {
     submitEditedEmail.addEventListener("click", handleEditemail);
     arrowLeftPopulars.addEventListener("click", passToLeft);
     arrowRightPopulars.addEventListener("click", passToRight);
+    openUserHistoryBtn.addEventListener("click", openUserHistory);
     myAccountButtonMob.addEventListener("click", openProfileInfo);
     closeDeleteModalBtn.addEventListener("click", closeDeleteModal);
     deleteAccountBtnMob.addEventListener("click", openDeleteModal);
+    closeUserHistoryBtn.addEventListener("click", closeUserHistory);
     closeRegisterFormBtn.addEventListener("click", closeRegisterForm);
     btnCloseEditPassword.addEventListener("click", closeEditPassword);
     btnCloseEditUsername.addEventListener("click", closeEditUsername);
@@ -185,6 +191,7 @@ function init() {
     submitEditedUsername.addEventListener("click", handleEditUsername);
     arrowLeftRecommended.addEventListener("click", passToLeft);
     arrowRightRecommended.addEventListener("click", passToRight);
+    openUserHistoryBtnMob.addEventListener("click", openUserHistory);
 
     //Only moviesResult page has the div results, so it's an exception
     if (arrowLeftResults !== undefined ) {
@@ -193,6 +200,8 @@ function init() {
     if (arrowRightResults !== undefined) {
         arrowRightResults.addEventListener("click", passToRight);
     }
+
+    setUserHistoryToDOM();
 }
 
 function openSearchBox() {
@@ -532,6 +541,29 @@ function getMovieInfo(movieInfo) {
         localStorage.setItem('movieInfo', JSON.stringify(onfulfilled));
         window.location = './movieInfo.html';
     }).catch(onrejected => console.log(onrejected));
+}
+
+function setUserHistoryToDOM() {
+    let user = JSON.parse(localStorage.getItem('user'));
+    let history = user.history;
+
+    let target = document.getElementsByClassName('history-list')[0];
+    console.log(history);
+
+    history.map(item => {
+        let element = document.createElement('li');
+        element.textContent = item;
+        target.appendChild(element);
+        console.log(target);
+    });
+}
+
+async function openUserHistory() {
+    historyModal.style.display = "block";
+}
+
+function closeUserHistory() {
+    historyModal.style.display = "none";
 }
 
 //Define a helper to help us to pass a specific object as element argument
