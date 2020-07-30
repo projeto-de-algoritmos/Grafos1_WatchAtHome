@@ -33,7 +33,7 @@
             </li>
         {{/each}}
     </script>
-    <title>Watch Home-Resultados</title>
+    <title>Watch At Home - Resultados</title>
 </head>
 <body>
     <div id="my-sidenav" class="sidenav">
@@ -51,6 +51,7 @@
                 <ul>
                     <li><a href="#" id="user-btn-profile-mobile">Minha conta</a></li>
                     <li><a href="#" id="user-btn-edit-mobile">Editar perfil</a></li>
+                    <li><a href="#" id="user-btn-history-mobile">Histórico de buscas</a></li>
                     <li><a href="#" id="user-btn-delete-mobile">Excluir minha conta</a></li>
                     <li><a href="#" id="user-btn-logout-mobile">Sair</a></li>
                 </ul>
@@ -90,6 +91,7 @@
                     <ul>
                         <li><a href="#" id="user-btn-profile">Minha conta</a></li>
                         <li><a href="#" id="user-btn-edit">Editar perfil</a></li>
+                        <li><a href="#" id="user-btn-history">Histórico de buscas</a></li>
                         <li><a href="#" id="user-btn-delete">Excluir minha conta</a></li>
                         <li><a href="#" id="user-btn-logout">Sair</a></li>
                     </ul>
@@ -251,6 +253,12 @@
                     <button type="submit" id="btn-confirm">SIM</button>
                     <button type="submit" id="btn-cancel">NÃO</button>
                 </form>
+            </div>
+        </div>
+        <div class="history-modal">
+            <button type="button" id="close-history-modal">X</button>
+            <div class="history-container">
+                <ol class="history-list"></ol>
             </div>
         </div>
         <div class="body">
