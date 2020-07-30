@@ -832,6 +832,29 @@ ul#number-pages li button[disabled] {
         max-height: 40vw;
         padding: 10px;
     }
+
+    input#search-box-main, div#container-search img, 
+    div#container-search button, div.header .logo img {
+        display: none;
+    }
+
+    i#btn-open-sidenav {
+        font-size: 7vw;
+    }
+
+    div.header #lupa-icon {
+        min-height: 8vw;
+        min-width: 8vw;
+    }
+
+    div.header {
+        height: 10vw;
+    }
+
+    div.header #search-box {
+        opacity: 0.9;
+        font-size: 4.5vw;
+    }
 }
 
 @media only screen and (max-width: 400px) {
