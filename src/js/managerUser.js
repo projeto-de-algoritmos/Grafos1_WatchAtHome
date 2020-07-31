@@ -15,9 +15,6 @@ export class ManagerUsers {
         this._sex;
     }
 
-    /**
-     * @param {string} username
-     */
     set username(username) {
         if (username !== '' && username !== null)
             this._username = username;
@@ -271,7 +268,6 @@ export class ManagerUsers {
                 });
 
                 if (response.ok) {
-                    console.log(response);
                     localStorage.setItem('isLogged', 'false');
                     localStorage.removeItem('user');
                     toastr.error('Usuário deletado com sucesso!');
@@ -286,11 +282,8 @@ export class ManagerUsers {
 
     async validateUser() {
         let newUser;
-        let users = this.readUsers().then(async onfulfilled => {
-
-            return onfulfilled;
-        }).catch(reject => console.log(reject));
-
+        let users = this.readUsers().then(onfulfilled => (onfulfilled))
+            .catch(reject => console.log(reject));
         
         return new Promise(async (resolve, reject) => {
 
@@ -343,27 +336,25 @@ export class ManagerUsers {
             let data = new Date();
 
             let dia  = data.getDate().toString();
-            let diaF = (dia.length == 1) ? '0'+dia : dia;
+            let diaFormatted = (dia.length == 1) ? '0'+dia : dia;
 
             let mes  = (data.getMonth()+1).toString();
-            let mesF = (mes.length == 1) ? '0'+mes : mes;
+            let mesFormatted = (mes.length == 1) ? '0'+mes : mes;
 
-            let anoF = data.getFullYear();
+            let anoFormatted = data.getFullYear();
     
             if (searchedMovie !== '') {
                 if (user['history']) {
-                    user.history.push(`${searchedMovie} - ${diaF}/${mesF}/${anoF}`);
+                    user.history.push(`${searchedMovie} - ${diaFormatted}/${mesFormatted}/${anoFormatted}`);
                 }
                 else
-                    user.history = [`${searchedMovie} - ${diaF}/${mesF}/${anoF}`];
+                    user.history = [`${searchedMovie} - ${diaFormatted}/${mesFormatted}/${anoFormatted}`];
 
                 localStorage.setItem('user', JSON.stringify(user));
                 this.updateUser(user, true).then(onfulfilled => {
                     resolve(user);
                 }).catch(onrejected => reject('Something went wrong!'));
-
             }
-
         });
     }
 }

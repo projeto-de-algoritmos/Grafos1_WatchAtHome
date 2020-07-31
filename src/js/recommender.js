@@ -70,17 +70,20 @@ function closeSearchBox(event) {
 }
 
 async function recommendSimilar(page = 1) {
-    
+
     if (page.target)
         page = 1;
     
     termSearched = await (
-        searchBoxMain.value === '' ? (searchBox.value === '' 
-            ? localStorage.getItem('termSearched') : searchBox.value) 
-                : searchBoxMain.value
-    );
+        searchBoxMain.value === '' 
+            ? (searchBox.value === '' 
+                ? localStorage.getItem('termSearched') 
+                    : searchBox.value) 
+                        : searchBoxMain.value
+                        );
 
     localStorage.setItem('termSearched', termSearched);
+
     let movieId = await getMovieId();
 
     let url = `https://api.themoviedb.org/3/movie/${await movieId}/recommendations?api_key=${apiKey}&language=pt-BR&page=${page}`;
@@ -97,16 +100,14 @@ async function recommendSimilar(page = 1) {
                 
                 resultsList.innerHTML = 
                     '<p id="feedback">Desculpe, não encontramos resultados para a sua busca!</p>';
-                searchBox.value = '';
-                searchBoxMain.value = '';
+                cleanSearchBox();
             } else {
                 let total_pages = responseJson.total_pages;
                 let moviesList = modifyImgUrl(responseJson.results);
                 moviesList.list.total_pages = total_pages;
 
                 registerMovies(moviesList);
-                searchBox.value = '';
-                searchBoxMain.value = '';
+                cleanSearchBox();
 
                 let containerButtons = document.getElementById('number-pages');
                 containerButtons.innerHTML = '';
@@ -124,27 +125,23 @@ async function recommendSimilar(page = 1) {
                     containerButtons.appendChild(element);
                 }
             }
-
         }
     } catch (error) {
         console.log(toastr.error(error.message));
-        searchBox.value = '';
-        searchBoxMain.value = '';
+        cleanSearchBox();
     }
 
     let user = new ManagerUsers();
     isLogged = JSON.parse(localStorage.getItem('isLogged'));
     if (isLogged)
-        user.addToHistory(termSearched).then(onfulfilled => {}).catch(onrejected => {
-            console.log(onrejected);
+        user.addToHistory(termSearched).then(onfulfilled).catch(onrejected => {
+            toastr.error(onrejected);
         });
 }
 
 async function getMovieId() {
     let movieName = await localStorage.getItem('termSearched');
     let searchUrl = `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&language=pt-BR&include_adult=false&query=${movieName}&page=`;
-
-    let movieId;
         
     try {
         const response = await fetch(`${searchUrl}1`);
@@ -158,14 +155,13 @@ async function getMovieId() {
                 resultsList.innerHTML = 
                     '<p id="feedback">Desculpe, não encontramos resultados para a sua busca!</p>';
             } else {
-                movieId = responseJson.results[0].id;
+                let movieId = responseJson.results[0].id;
                 return movieId;
             }
         }
     } catch (error) {
         console.log(toastr.error(error.message));
-        searchBox.value = '';
-        searchBoxMain.value = '';
+        cleanSearchBox();
     }
 }
 
@@ -214,7 +210,6 @@ const requestMovieInfo = (movieInfo) => {
 }
 
 function getMovieInfo(movieInfo) {
-
     requestMovieInfo(movieInfo).then(onfulfilled => {
         localStorage.setItem('movieInfo', JSON.stringify(onfulfilled));
         window.location = './movieInfo.html';
@@ -223,6 +218,11 @@ function getMovieInfo(movieInfo) {
 
 function changePage(page = 1) {
     recommendSimilar(page);
+}
+
+function cleanSearchBox() {
+    searchBox.value = '';
+    searchBoxMain.value = '';
 }
 
 Handlebars.registerHelper('json', function (context) {

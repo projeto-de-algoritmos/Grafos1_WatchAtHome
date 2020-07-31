@@ -1,9 +1,7 @@
 import './../assets/css/style.css';
-
 import lupaImg from './../assets/images/lupa.png';
 import logoImg from './../assets/images/logo.png';
 import imdbIcon from './../assets/images/imdb_icon.png';
-
 import renderMovies, { requestMovieInfo } from './renderMovies';
 import { ManagerUsers } from './managerUser.js';
 
@@ -134,6 +132,8 @@ function init() {
     mainFooter.appendChild(footerInfo);
 
     if (isLogged) {
+        setUserHistoryToDOM();
+
         accountInfo.getElementsByTagName('p')[0].append(`Hello ${userFullInfo.username}`);
         accountInfoMobile.getElementsByTagName('p')[0].append(`Hello ${userFullInfo.username}`);
         signUpLoginBtns.setAttribute('class', 'disable-container');
@@ -145,7 +145,19 @@ function init() {
         if (screen.width <= 800) 
             signUpLoginBtns.setAttribute('class', 'disable-container');
     }
+
+    setListeners();
     
+    //Only moviesResult page has the div results, so it's an exception
+    if (arrowLeftResults !== undefined ) {
+        arrowLeftResults.addEventListener("click", passToLeft);
+    }
+    if (arrowRightResults !== undefined) {
+        arrowRightResults.addEventListener("click", passToRight);
+    }
+}
+
+function setListeners() {
     lupa.addEventListener("click", openSearchBox);
     document.addEventListener("click", closeSearchBox);
     userPhoto.addEventListener("click", manageProfileOptions);
@@ -192,16 +204,6 @@ function init() {
     arrowLeftRecommended.addEventListener("click", passToLeft);
     arrowRightRecommended.addEventListener("click", passToRight);
     openUserHistoryBtnMob.addEventListener("click", openUserHistory);
-
-    //Only moviesResult page has the div results, so it's an exception
-    if (arrowLeftResults !== undefined ) {
-        arrowLeftResults.addEventListener("click", passToLeft);
-    }
-    if (arrowRightResults !== undefined) {
-        arrowRightResults.addEventListener("click", passToRight);
-    }
-
-    setUserHistoryToDOM();
 }
 
 function openSearchBox() {
@@ -316,7 +318,6 @@ function signup(event) {
     let user = new ManagerUsers();
     
     user.createUser();
-
 }
 
 async function signin(event) {
@@ -340,7 +341,7 @@ function logout() {
 }
 
 function manageProfileOptions() {
-    if (userProfileOptions.style.display == 'block') {
+    if (userProfileOptions.style.display === 'block') {
         userProfileOptions.style.display = 'none';
     } else {
         userProfileOptions.style.display = 'block';
@@ -551,11 +552,18 @@ function setUserHistoryToDOM() {
 
     let target = document.getElementsByClassName('history-list')[0];
 
-    history.map(item => {
-        let element = document.createElement('li');
-        element.textContent = item;
+    if (user['history'])
+        history.map(item => {
+            let element = document.createElement('li');
+            element.textContent = item;
+            target.appendChild(element);
+        });
+    else {
+        let element = document.createElement('strong');
+        element.textContent = 'Sem histórico de buscas';
         target.appendChild(element);
-    });
+    }
+        
 }
 
 async function openUserHistory() {
@@ -566,7 +574,7 @@ function closeUserHistory() {
     historyModal.style.display = "none";
 }
 
-//Define a helper to help us to pass a specific object as element argument
+//Define a helper to help us to pass a specific object as an element argument
 Handlebars.registerHelper('json', function (context) {
     return JSON.stringify(context);
 });

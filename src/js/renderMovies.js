@@ -9,7 +9,7 @@ const renderRecommend = () => {
 
         xhr.responseType = 'json';
         //Since your browser support native promises we can skip all
-        //onreadystatechange tomfoolery(patetices) and use onload instead
+        //onreadystatechange tomfoolery and use onload instead
         xhr.onload = () => {
             if (xhr.status === 200) {
                 resolve(xhr.response);
@@ -55,20 +55,17 @@ const renderSeries = () => {
 }
 
 renderRecommend().then(onfulfilled => {
-    let moviesList;
-    moviesList = modifyImgUrl(onfulfilled.results);
+    let moviesList = modifyImgUrl(onfulfilled.results);
     registerMovies(moviesList, 'list');
 }).catch(onrejected => console.log(toastr.error(onrejected)));
 
 renderPopular().then(onfulfilled => {
-    let moviesList;
-    moviesList = modifyImgUrl(onfulfilled.results);
+    let moviesList = modifyImgUrl(onfulfilled.results);
     registerMovies(moviesList, 'list-popular');
 }).catch(onrejected => console.log(toastr.error(onrejected)));
 
 renderSeries().then(onfulfilled => {
-    let moviesList;
-    moviesList = modifyImgUrl(onfulfilled.results);
+    let moviesList = modifyImgUrl(onfulfilled.results);
     registerMovies(moviesList, 'list-series');
 }).catch(onrejected => console.log(onrejected));
 
@@ -113,7 +110,6 @@ const requestMovieInfo = (movieInfo) => {
             reject(error);
         }
     })
-
 }
 
 export { apiKey, modifyImgUrl, registerMovies, requestMovieInfo };

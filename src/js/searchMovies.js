@@ -58,7 +58,6 @@ async function makeSearch(page = 1) {
         }
     } catch (error) {
         console.log(error.message);
-        //I should fix the problem of not found results here
     }
 }
 
@@ -66,7 +65,7 @@ function changePage(page = 1) {
     makeSearch(page);
 }
 
+//Adds function to the global scope
 window.changePage = changePage;
-
 
 makeSearch();

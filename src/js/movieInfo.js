@@ -1,4 +1,3 @@
-
 async function renderMovieInfo() {
     let movie = await JSON.parse(localStorage.getItem('movieInfo'));
 
