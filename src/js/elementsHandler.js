@@ -306,6 +306,8 @@ async function catchTermRedirPage() {
         }).catch(onrejected => {
             console.log(onrejected);
         });
+    else
+        window.location = './moviesResult.html';
 }
 
 function signup(event) {
