@@ -1,0 +1,20 @@
+{
+    "short_name": "WATCH AT HOME",
+    "name": "WATCH AT HOME",
+    "icons": [
+      {
+        "src": "../src/assets/images/favicon.png",
+        "sizes": "64x64",
+        "type": "image/png"
+      },
+      {
+        "src": "../src/assets/images/logo256x256.png",
+        "type": "image/png",
+        "sizes": "256x256"
+      }
+    ],
+    "start_url": "../",
+    "display": "standalone",
+    "theme_color": "#27ae60",
+    "background_color": "#fff"
+  }
