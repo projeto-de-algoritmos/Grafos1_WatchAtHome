@@ -119,6 +119,17 @@ let marginLeftSeries = 0;
 let isLogged;
 
 function init() {
+
+    if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+            navigator.serviceWorker.register('/service-worker.js').then(registration => {
+                console.log('SW registered: ', registration);
+            }).catch(registrationError => {
+                console.log('SW registration failed: ', registrationError);
+            });
+        });
+    }
+
     let mainFooter = document.getElementById('main-footer');
     let footerInfo = document.createElement('span');
 
@@ -130,6 +141,7 @@ function init() {
     footerInfo.textContent = `© Copyright todos os direitos reservados - ${year}`;
 
     mainFooter.appendChild(footerInfo);
+    
 
     if (isLogged) {
         setUserHistoryToDOM();
