@@ -595,3 +595,5 @@ Handlebars.registerHelper('json', function (context) {
 window.getMovieInfo = getMovieInfo;
 
 init();
+
+export { getMovieInfo };

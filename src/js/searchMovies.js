@@ -1,5 +1,5 @@
 import { apiKey, modifyImgUrl, registerMovies } from './renderMovies.js';
-import * as elementHandler from './elementsHandler.js';
+import { getMovieInfo } from './elementsHandler.js';
 
 let gallery = document.querySelector('div.movies-gallery');
 let resultsList = document.querySelector('div.movies-list');
@@ -8,6 +8,31 @@ let searchBoxMain = document.getElementById('search-box-main');
 let searchBox = document.querySelector('input#search-box');
 
 let arrowButtons = document.querySelector('div.buttons-results');
+let moviesResults = document.getElementsByClassName('results')[0];
+let arrowLeftResults = document.querySelector('div.buttons-results').firstElementChild;
+let arrowRightResults = document.querySelector('div.buttons-results').lastElementChild;
+let marginLeftResults = 0;
+
+function init() {
+    makeSearch();
+
+    arrowLeftResults.addEventListener("click", passToLeft);
+    arrowRightResults.addEventListener("click", passToRight);
+}
+
+function passToLeft() {
+    if (marginLeftResults < 0) {
+        marginLeftResults += 170;
+        moviesResults.style.marginLeft = marginLeftResults + "px";
+    }
+}
+
+function passToRight() {
+    if (marginLeftResults > -2210) {
+        marginLeftResults -= 170;
+        moviesResults.style.marginLeft = marginLeftResults + "px";
+    }
+}
 
 async function makeSearch(page = 1) {
 
@@ -65,7 +90,13 @@ function changePage(page = 1) {
     makeSearch(page);
 }
 
+
+Handlebars.registerHelper('json', function (context) {
+    return JSON.stringify(context);
+});
+
 //Adds function to the global scope
 window.changePage = changePage;
+window.getMovieInfo = getMovieInfo;
 
-makeSearch();
+init();
