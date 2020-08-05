@@ -1,6 +1,6 @@
 <p align="center">
   <a href="https://github.com/MaiconMares/WATCH_AT_HOME">
-    <img src="./public/src/assets/images/logo256x256.png">
+    <img src="./public/src/assets/images/banner.png">
   </a>
 </p>
 
