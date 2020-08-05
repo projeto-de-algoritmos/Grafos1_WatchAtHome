@@ -24,7 +24,11 @@
         {{#each list}}
             <li onclick="getMovieInfo({{json this}})" class="movie-item">
                 <figure>
-                    <img src={{this.poster_path}}>
+                    {{#if this.poster_path}}
+                        <img src={{this.poster_path}}>
+                    {{else}}
+                        <img src="./src/assets/images/image_not_found.png">
+                    {{/if}}
                     <figcaption>
                         {{#if this.title}}
                             <h4>{{this.title}}</h4>

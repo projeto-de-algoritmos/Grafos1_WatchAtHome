@@ -85,7 +85,9 @@ const modifyImgUrl = (moviesResults) => {
 
     //moviesResults should be an array of objects
     moviesResults.map(movie => {
-        let newUrl = "https://image.tmdb.org/t/p/w500" + movie.poster_path;
+        let newUrl = ( movie['poster_path'] 
+                ? "https://image.tmdb.org/t/p/w500" + movie.poster_path : false 
+        );
         let modifiedMovie = { ...movie, poster_path: newUrl }
         moviesList.list.push(modifiedMovie);
     })
