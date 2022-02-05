@@ -137,11 +137,11 @@ function init() {
     let year = today.getFullYear();
     let userFullInfo = JSON.parse(localStorage.getItem('user'));
     isLogged = JSON.parse(localStorage.getItem('isLogged'));
-    
+
     footerInfo.textContent = `© Copyright todos os direitos reservados - ${year}`;
 
     mainFooter.appendChild(footerInfo);
-    
+
 
     if (isLogged) {
         setUserHistoryToDOM();
@@ -154,12 +154,12 @@ function init() {
     } else {
         accountInfo.setAttribute('class', 'disable-container');
         accountInfoMobile.setAttribute('class', 'disable-container');
-        if (screen.width <= 800) 
+        if (screen.width <= 800)
             signUpLoginBtns.setAttribute('class', 'disable-container');
     }
 
     setListeners();
-    
+
     //Only moviesResult page has the div results, so it's an exception
     if (arrowLeftResults !== undefined ) {
         arrowLeftResults.addEventListener("click", passToLeft);
@@ -328,7 +328,7 @@ function signup(event) {
     event.preventDefault();
 
     let user = new ManagerUsers();
-    
+
     user.createUser();
 }
 
@@ -382,10 +382,10 @@ function closeProfileInfo() {
 
 function openEditUser() {
     let currentUser = JSON.parse(localStorage.getItem('user'));
-    
+
     document.getElementById('user-email-edit').value = currentUser.email;
     document.getElementById('username-edit').value = currentUser.username;
-    
+
     editForm.style.display = 'block';
 }
 
@@ -398,7 +398,7 @@ async function handleEditPassword(event) {
 
     let user = new ManagerUsers();
     let currentUser = JSON.parse(localStorage.getItem('user'));
-    
+
     let data = {
         password: editPasswordField.value,
     };
@@ -433,7 +433,7 @@ async function handleEditPassword(event) {
     } catch(errorObj) {
         console.log(toastr.warning(`${errorObj.name}! ${errorObj.message}`));
     }
-    
+
 }
 
 async function handleEditUsername(event) {
@@ -463,13 +463,13 @@ async function handleEditUsername(event) {
     } catch(errorObj) {
         console.log(toastr.warning(`${errorObj.name}! ${errorObj.message}`));
     }
-    
+
 }
 
 async function handleEditemail(event) {
     event.preventDefault();
     let user = new ManagerUsers();
-    
+
     let data = {
         email: editEmailField.value,
     };
@@ -489,11 +489,11 @@ async function handleEditemail(event) {
 
         user.email = data.email;
         user.updateUser(data);
-    
+
     } catch(errorObj) {
         console.log(toastr.warning(`${errorObj.name}! ${errorObj.message}`));
     }
-    
+
 }
 
 function openDeleteModal() {
@@ -502,7 +502,7 @@ function openDeleteModal() {
 
 function closeDeleteModal(event) {
     event.preventDefault();
-    
+
     deleteModal.style.display = 'none';
 }
 
@@ -512,7 +512,7 @@ function handleDeleteUser(event) {
     let user = new ManagerUsers();
 
     user.deleteUser();
-    
+
 }
 
 function openEditEmail() {
@@ -575,7 +575,7 @@ function setUserHistoryToDOM() {
         element.textContent = 'Sem histórico de buscas';
         target.appendChild(element);
     }
-        
+
 }
 
 async function openUserHistory() {

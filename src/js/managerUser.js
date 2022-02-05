@@ -18,7 +18,7 @@ export class ManagerUsers {
     set username(username) {
         if (username !== '' && username !== null)
             this._username = username;
-        else 
+        else
             throw {
                 name: 'Campo em branco',
                 message: 'o nome do usuário não pode ficar em branco.'
@@ -44,15 +44,15 @@ export class ManagerUsers {
                 name: 'Formato de email inválido',
                 message: 'digite um formato válido'
             }
-        else 
+        else
             this._email = email;
-            
+
     }
 
     set password(password) {
         let passwordFormat = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/;
         toastr.options.timeOut = 7000;
-        
+
         if (password === '' || password === null)
             throw {
                 name: 'Campo em branco',
@@ -61,18 +61,18 @@ export class ManagerUsers {
         else if (!password.match(passwordFormat))
             throw {
                 name: 'Formato inválido',
-                message: 
+                message:
                 'a senha deve ter de 6 a 20 caracteres, ter no mínimo uma letra maiúscula, uma minúscula e um número.'
             }
         else
             this._password = password;
-            
+
     }
 
     set sex(sex) {
         if (sex !== '' && sex !== null)
             this._sex = sex;
-        else 
+        else
             throw {
                 name: 'Campo em branco',
                 message: 'o campo sexo não pode ficar em branco.'
@@ -107,7 +107,7 @@ export class ManagerUsers {
         newUser.username = username.value;
         newUser.password = password.value;
         newUser.email = email.value;
-        newUser.sex = (sexFemale.checked ? sexFemale.value : 
+        newUser.sex = (sexFemale.checked ? sexFemale.value :
             (sexMale.checked ? sexMale.value : null));
         if (confirmPassword.value !== password.value)
             throw {
@@ -140,7 +140,7 @@ export class ManagerUsers {
 
             try {
                 const response = await fetch(`https://api.jsonbin.io/b/${binId}`, {
-                    method: 'PUT', headers: { 
+                    method: 'PUT', headers: {
                         'secret-key': secretKey,
                         'Content-Type': 'application/json'
                     }, body: data
@@ -168,14 +168,14 @@ export class ManagerUsers {
                 xhr.onload = () => {
                     if (xhr.status === 200)
                         resolve(xhr.response);
-                    else 
+                    else
                         reject(toastr.error('Erro interno, tente novamente mais tarde!'));
                 }
 
                 xhr.open('GET', url);
                 xhr.setRequestHeader('secret-key', secretKey);
                 xhr.send();
-            }) 
+            })
         }
 
         return requestUsers();
@@ -187,16 +187,17 @@ export class ManagerUsers {
         };
 
         let users = this.readUsers().then(onfulfilled => onfulfilled)
-            .catch(onrejected => console.error(onrejected));
+            .catch(onrejected => onrejected);
 
         try {
+            toastr.info('Espere um momento, estamos checando seus dados...');
             for (let item of await users)
                 for (let key in item) {
                     if (item[key] === searchedUser.email) {
                         return item;
                     }
                 }
-            
+
             throw {
                 name: 'Usuário desconhecido',
                 message: 'esse usuário não existe'
@@ -223,13 +224,13 @@ export class ManagerUsers {
                     }
                 }
                 usersUpdated = JSON.stringify(users);
-                
+
                 try {
                     const response = await fetch(`https://api.jsonbin.io/b/${binId}`, {
-                        method: 'PUT', headers: { 
-                            'Content-Type': 'application/json', 
-                            'secret-key': secretKey 
-                        },  
+                        method: 'PUT', headers: {
+                            'Content-Type': 'application/json',
+                            'secret-key': secretKey
+                        },
                         body: usersUpdated
                     });
                     if (response.ok && !changeHistory) {
@@ -284,7 +285,7 @@ export class ManagerUsers {
         let newUser;
         let users = this.readUsers().then(onfulfilled => (onfulfilled))
             .catch(reject => console.log(reject));
-        
+
         return new Promise(async (resolve, reject) => {
 
             try {
@@ -313,12 +314,12 @@ export class ManagerUsers {
 
     async signin() {
         return new Promise((resolve, reject) => {
-            
+
             this.readUser().then(user => {
                 if (user.password === this.password) {
                     this.username = user.username;
                     this.sex = user.sex;
-    
+
                     localStorage.setItem('user', JSON.stringify(user));
                     localStorage.setItem('isLogged', 'true');
                     resolve(toastr.success('Você está logado agora!'));
@@ -342,7 +343,7 @@ export class ManagerUsers {
             let mesFormatted = (mes.length == 1) ? '0'+mes : mes;
 
             let anoFormatted = data.getFullYear();
-    
+
             if (searchedMovie !== '') {
                 if (user['history']) {
                     user.history.push(`${searchedMovie} - ${diaFormatted}/${mesFormatted}/${anoFormatted}`);
