@@ -1,7 +1,5 @@
 import Queue from "./queue.js";
-
-
-class Graph {
+export default class Graph {
     constructor(numNodes){
         this.numNodes = numNodes;
         this.AdjList =  new Map();
@@ -27,10 +25,10 @@ class Graph {
             var getQueueElement = q.dequeue();
             console.log(getQueueElement);
             var getList = this.AdjList.get(getQueueElement);
-    
+
             for (var i in getList) {
                 var n = getList[i];
-    
+
                 if (!visited[n]) {
                     visited[n] = true;
                     q.enqueue(n);
@@ -44,7 +42,7 @@ class Graph {
 
         for (var i of get_keys){
             var get_values = this.AdjList.get(i);
-            var conc = "";     
+            var conc = "";
 
             for (var j of get_values){
                 conc += j + " ";

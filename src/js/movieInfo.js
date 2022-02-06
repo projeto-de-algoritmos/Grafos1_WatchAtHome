@@ -1,3 +1,5 @@
+import RenderGraph from "./renderGraph";
+
 let movieInfo = {};
 
 async function renderMovieInfo() {
@@ -29,14 +31,28 @@ function favoriteBtnHandler() {
     favBtn.addEventListener('click', addMovieToGraph);
 }
 
-function addMovieToGraph(event) {
+async function addMovieToGraph(event) {
     event.preventDefault();
 
     //Adicionar implementação da adição do nó ao grafo
     //Criar lista com os filmes já adicionados ao grafo e armazenar isso como objeto
     //Verificar se, antes de adicionar, o filme já não está no grafo
-    let {movie: [{title}]} = movieInfo;
-    
+    let {movie: [{title}]} = await movieInfo;
+
+
+    const renderGraph = new RenderGraph();
+
+    renderGraph.readGraph().then(async jsonGraph => {
+        let username = JSON.parse(localStorage.getItem('user')).username;
+        if (!Object.keys(jsonGraph).includes(title)) {
+            jsonGraph[title] = [username];
+            renderGraph.updateGraph(JSON.stringify(jsonGraph));
+        } else if (Object.keys(jsonGraph).includes(title) && !jsonGraph[title].includes(username)) {
+            jsonGraph[title].push(username);
+            renderGraph.updateGraph(JSON.stringify(jsonGraph));
+        }
+    }).catch(onrejected => onrejected);
+
 }
 
 renderMovieInfo();
