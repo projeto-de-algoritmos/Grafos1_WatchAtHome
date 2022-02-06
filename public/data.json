@@ -1,0 +1,119 @@
+    {
+    "comment": "User and Movies",
+    "nodes": [
+        {
+            "id": 0,
+            "caption": "Silicon valley",
+            "node_type": "movie"
+        },
+        {
+            "id": 1,
+            "caption": "Jogos Vorazes",
+            "node_type": "movie"
+        },
+        {
+            "id": 2,
+            "caption": "Gravidade",
+            "node_type": "movie"
+        },
+        {
+            "id": 3,
+            "caption": "Apollo 14",
+            "node_type": "movie"
+        },
+        {
+            "id": 4,
+            "caption": "Duro de matar",
+            "node_type": "movie"
+        },
+        {
+            "id": 5,
+            "caption": "o regresso",
+            "node_type": "movie"
+        },
+        {
+            "id": 6,
+            "caption": "user1",
+            "node_type": "user"
+        },
+        {
+            "id": 7,
+            "caption": "user2",
+            "node_type": "user"
+        },
+        {
+            "id": 8,
+            "caption": "user3",
+            "node_type": "user"
+        },
+        {
+            "id": 9,
+            "caption": "user4",
+            "node_type": "user"
+        },
+        {
+            "id": 10,
+            "caption": "user5",
+            "node_type": "user"
+        },        
+        {
+            "id": 11,
+            "caption": "user6",
+            "node_type": "user"
+        }
+    ],
+    "edges": [
+        {
+            "source": 9,
+            "target": 0,
+            "caption": "favoritou"
+        },
+        {
+            "source": 6,
+            "target": 0,
+            "caption": "favoritou"
+
+        },
+        {
+            "source": 7,
+            "target": 1,
+            "caption": "favoritou"
+        },
+        {
+            "source": 11,
+            "target": 2,
+            "caption": "favoritou"
+        },
+        {
+            "source": 11,
+            "target": 3,
+            "caption": "favoritou"
+        },
+        {
+            "source": 10,
+            "target": 4,
+            "caption": "favoritou"
+        },
+        {
+            "source": 8,
+            "target": 4,
+            "caption": "favoritou"
+        },
+        {
+            "source": 8,
+            "target": 5,
+            "caption": "favoritou"
+        },
+        {
+            "source": 10,
+            "target": 5,
+            "caption": "favoritou"
+        },
+        {
+            "source": 10,
+            "target": 2,
+            "caption": "favoritou"
+        }
+    ]
+}
+       
