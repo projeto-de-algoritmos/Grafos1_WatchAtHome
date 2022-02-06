@@ -616,6 +616,16 @@ div.movie-info div {
     display: flex;
 }
 
+div.movie-info div#favorite-btn i {
+    margin-top: 0.2em;
+    color: #fcba03;
+    font-size: 1.6em;
+}
+div.movie-info div#favorite-btn i:hover {
+    cursor: pointer;
+    transform: scale(1.1, 1.1);
+}
+
 div#detailed-info {
     display: flex;
     flex-direction: column;
