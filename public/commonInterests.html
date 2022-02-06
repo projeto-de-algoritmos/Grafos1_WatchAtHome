@@ -29,15 +29,14 @@
     <script type="text/javascript" defer>
         var config = {
             dataSource: './graph.json',
+            directedEdges: true,
+            backgroundColor: "#db4dff",
             forceLocked: false,
             graphHeight: function(){ return 400; },
             graphWidth: function(){ return 400; },
             linkDistance: function(){ return 40; },
             nodeTypes: {"node_type":[ "Maintainer",
-                                        "Contributor"]},
-            nodeCaption: function(node){
-                return node.caption + " " + node.fun_fact;
-            }
+                                        "Contributor"]}
       };
 
         let alchemy = new Alchemy(config)
