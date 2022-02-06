@@ -12,4 +12,12 @@ export default class Queue{
             return //tratar fila vazia
         return this.items.shift();
     }
+
+    getSize(){
+        return this.items.length;
+    }
+
+    isEmpty(){
+        return this.getSize() === 0;
+    }
 }

@@ -13,7 +13,7 @@ class Graph {
 
 
     addEdge(v, u){
-        this.AdjList.get(v).push(w);
+        this.AdjList.get(v).push(u);
     }
 
     BFS(initialNode){
@@ -41,11 +41,12 @@ class Graph {
 
     printGraph() {
         var get_keys = this.AdjList.keys();
+
         for (var i of get_keys){
             var get_values = this.AdjList.get(i);
             var conc = "";     
 
-            for (var j in get_values){
+            for (var j of get_values){
                 conc += j + " ";
             }
             console.log(i + " -> " + conc);
@@ -54,28 +55,4 @@ class Graph {
     }
 
 }
-
-//// exemplos teste
-
-var g = new Graph(12);
-
-var nodes = [ 'silicon valley', 'jogos vorazes', 'gravidade', 'apollo 14', 'duro de matar', 'o regresso', 'user1', 'user2', 'user3', 'user4', 'user5', 'user6' ];
-
-for (var i = 0; i < nodes.length; i++) {
-    g.addNode(nodes[i]);
-}
-
-g.addEdge('silicon valley', 'user4');
-g.addEdge('silicon valley', 'user1');
-g.addEdge('jogos vorazes', 'user2');
-g.addEdge('gravidade', 'user6');
-g.addEdge('gravidade', 'user5');
-g.addEdge('apollo 14', 'user6');
-g.addEdge('duro de matar', 'user5');
-g.addEdge('duro de matar', 'user3');
-g.addEdge('o regresso', 'user5');
-g.addEdge('o regresso', 'user3');
-
-
-g.printGraph();
 
