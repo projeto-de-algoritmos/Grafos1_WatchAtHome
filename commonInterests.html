@@ -18,46 +18,29 @@
     <script src='https://kit.fontawesome.com/a076d05399.js' defer></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.6/handlebars.min.js" integrity="sha256-usTqAE1ywvdMtksWzdeWzD75MsfJN0h0U7y2NtZL3N0=" crossorigin="anonymous" defer></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
-    <script src="./movieInfo.bundle.js" defer></script>
-    <script type="text/x-handlebars-template" id="source">
-        {{#each movie}}
-            <div>
-                <div>
-                    <img id="poster" src={{this.poster_path}}>
-                    <div id="detailed-info">
-                        {{#if this.title}}
-                            <h3 id="title">{{this.title}}</h3>
-                            <p id="release-date">Lançamento: {{this.release_date}}</p>
-                        {{else}}
-                            <h3 id="title">{{this.original_name}}</h3>
-                            <p id="release-date">Lançamento: {{this.first_air_date}}</p>
-                        {{/if}}
-                        <div>
-                            <img src="./src/assets/images/imdb_icon.png" id="imdb-icon">
-                            <span>{{this.vote_average}}</span>
-                        </div>
-                        {{#if this.overview}}
-                            <p id="description">{{this.overview}}</p>
-                        {{else}}
-                            <p id="description">Sem informações para esse título!</p>
-                        {{/if}}
-                    </div>
-                </div>
-            </div>
-            <div id="favorite-btn"><i class="far fa-star"></i></div>
-            {{#if this.trailer_url}}
-                <iframe
-                    src={{this.trailer_url}}
-                    allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                    allowfullscreen
-                >
-                </iframe>
-            {{/if}}
-        {{/each}}
-    </script>
-    <title>Watch At Home - Movie Info</title>
+    <link rel="stylesheet" href="http://cdn.graphalchemist.com/alchemy.min.css"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/alchemyjs/0.4.2/scripts/vendor.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/alchemyjs/0.4.2/alchemy.min.js"></script>
+    <script src="./commonInterests.bundle.js" defer></script>
+
+    <title>Watch At Home - Common Interests</title>
 </head>
 <body>
+    <script type="text/javascript" defer>
+        var config = {
+            dataSource: 'graph.json',
+            directedEdges: true,
+            backgroundColor: "#db4dff",
+            forceLocked: false,
+            graphHeight: function(){ return 400; },
+            graphWidth: function(){ return 400; },
+            linkDistance: function(){ return 40; },
+            nodeTypes: {"node_type":[ "Maintainer",
+                                        "Contributor"]}
+      };
+
+        let alchemy = new Alchemy(config)
+    </script>
     <div class="interface">
         <div class="header">
             <img src="./src/assets/images/lupa.png" id="lupa-icon">
@@ -73,11 +56,13 @@
                     <ul>
                         <li><a href="./index.html">INÍCIO</a></li>
                         <li><a href="./recommendMovies.html">ESTOU COM DÚVIDA</a></li>
+                        <li><a href="./commonInterests.html">INTERESSES EM COMUM</a></li>
                     </ul>
                 </nav>
             </header>
         </div>
-        <div class="movie-info">
+        <div class="graph-content">
+            <div class="alchemy" id="alchemy"></div>
         </div>
         <div class="footer">
             <footer id="main-footer">
