@@ -27,10 +27,8 @@
 </head>
 <body>
     <script type="text/javascript" defer>
-        let graph = new Object(JSON.parse(localStorage.getItem('graphConfig')));
-
         var config = {
-            dataSource: graph,
+            dataSource: 'graph.json',
             directedEdges: true,
             backgroundColor: "#db4dff",
             forceLocked: false,

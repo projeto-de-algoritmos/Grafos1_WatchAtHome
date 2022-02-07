@@ -1,4 +1,5 @@
 import RenderGraph from "./renderGraph";
+import { saveAs } from 'file-saver';
 
 async function init() {
     const graphObj = new RenderGraph();
@@ -35,9 +36,12 @@ async function init() {
             }
 
         }
-        graphObj.printGraph();
-        console.log(jsonGraphConfig);
         localStorage.setItem('graphConfig', JSON.stringify(jsonGraphConfig));
+
+        let blob = new Blob([localStorage.getItem('graphConfig')],
+        { type: 'text/plain; charset=utf-8' });
+        saveAs(blob, 'graph.json');
+
     }).catch(onrejected => onrejected);
 }
 
