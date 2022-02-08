@@ -1,6 +1,6 @@
 # Watch At Home
 
-**Número da Lista**: 19<br>
+**Número da Lista**: 1<br>
 **Conteúdo da Disciplina**: Grafos 1<br>
 
 ## Alunos
@@ -13,7 +13,15 @@
 O Watch At Home é uma aplicação de recomendação de filmes e séries em que os usuários podem favoritar aqueles que mais gostam. Utilizando grafos, a aplicação mostra aos usuários quais outros perfis têm interesses similares.
 
 ## Screenshots
-Adicione 3 ou mais screenshots do projeto em funcionamento.
+
+![Imagem tela inicial](src/assets/images/inicial.png)
+
+![Imagem tela de busca](src/assets/images/busca.png)
+
+![Imagem tela de favoritar](src/assets/images/favoritar.png)
+
+![Imagem grafo](src/assets/images/grafo.png)
+
 
 ## Instalação 
 **Linguagem**: JavaScript<br>
@@ -41,3 +49,6 @@ Adicione 3 ou mais screenshots do projeto em funcionamento.
   ```
   http://localhost:8080/
   ```
+  ## Uso
+  Ao acessar a aba "Interesses em comum" é necessário realizar o download do arquivo **graph.json** disponibilizado. O arquivo deve ser movido para a pasta "**public**" do projeto, substituindo o arquivo **graph.json** original. 
+
